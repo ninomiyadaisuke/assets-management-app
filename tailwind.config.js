@@ -1,3 +1,5 @@
+const { violet, blackA, mauve, green } = require('@radix-ui/colors');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,12 +9,35 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        'input-error': 'rgba(255,93,84,0.07)',
+        'num-def': '#585858',
+        'num-plus': '#ff5d54',
+        'num-minus': '#267dd4',
+        ...mauve,
+        ...violet,
+        ...green,
+        ...blackA,
+      },
+      keyframes: {
+        overlayShow: {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        contentShow: {
+          from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
+          to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+        },
+      },
+      animation: {
+        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
+      aria: {
+        invalid: 'invalid="true"',
+        variant: 'variant="default"',
       },
     },
   },
   plugins: [],
-}
+};
