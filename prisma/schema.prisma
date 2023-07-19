@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId    String    @id
+  email     String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  accounts  Account[]
+  holdings  Holding[]
+}
+
+model Account {
+  accountId   String    @id @default(uuid())
+  accountType String // 特定口座 or 新NISA
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      String
+  user        User      @relation(fields: [userId], references: [userId])
+  holdings    Holding[]
+
+  @@unique([userId, accountType])
+}
+
+model Stock {
+  stockId           String    @id @default(uuid())
+  stockName         String
+  stockCode         String
+  currentStockPrice Float
+  dividend          Float
+  marketType        String // 日本株 or 外国株
+  industry          String? // 追加した業種フィールド
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  holdings          Holding[]
+}
+
+model Holding {
+  holdingId           String   @id @default(uuid())
+  numberOfSharesHeld  Int
+  acquisitionPrice    Float
+  acquisitionPriceJPY Float?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  userId              String
+  user                User     @relation(fields: [userId], references: [userId])
+  accountId           String
+  account             Account  @relation(fields: [accountId], references: [accountId])
+  stockId             String
+  stock               Stock    @relation(fields: [stockId], references: [stockId])
+}
