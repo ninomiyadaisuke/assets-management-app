@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/testing-library";
 
 import { Switch } from "./index";
 
@@ -10,6 +11,13 @@ const meta = {
 
 export default meta;
 
-type Stroy = StoryObj<typeof Switch>;
+type Story = StoryObj<typeof Switch>;
 
-export const Default: Stroy = {};
+export const Default: Story = {};
+
+export const WithFocusState = {
+  play: async ({ canvasElement }: any) => {
+    const canvas = within(canvasElement);
+    canvas.getByRole("switch").focus();
+  },
+};
