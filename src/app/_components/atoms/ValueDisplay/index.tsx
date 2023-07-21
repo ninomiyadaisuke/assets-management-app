@@ -4,7 +4,7 @@ type Props = React.ComponentPropsWithRef<"span"> & {
   theme?: "plus" | "minus" | "default";
   variant?: "small" | "medium" | "large";
   vold?: "light" | "medium";
-  unit?: "円" | "%" | "株" | "ドル";
+  unit?: "円" | "%" | "株" | "＄";
 };
 
 export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
