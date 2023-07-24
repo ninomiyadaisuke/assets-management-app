@@ -20,7 +20,7 @@ export const SearchButton = forwardRef<HTMLButtonElement, Props>(
         )}
       >
         {disabled ? (
-          <Spinner />
+          <Spinner variant="small" />
         ) : (
           <MagnifyingGlassIcon className="w-6 h-6 text-white" />
         )}
