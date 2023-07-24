@@ -1,19 +1,20 @@
-const { violet, blackA, mauve, green } = require('@radix-ui/colors');
+const { violet, blackA, mauve, green } = require("@radix-ui/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        'input-error': 'rgba(255,93,84,0.07)',
-        'num-def': '#585858',
-        'num-plus': '#ff5d54',
-        'num-minus': '#267dd4',
+        "input-error": "rgba(255,93,84,0.07)",
+        "num-def": "#585858",
+        "num-plus": "#ff5d54",
+        "num-minus": "#267dd4",
+        "button-primary": "#2774cc",
         ...mauve,
         ...violet,
         ...green,
@@ -25,13 +26,13 @@ module.exports = {
           to: { opacity: 1 },
         },
         contentShow: {
-          from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
-          to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+          from: { opacity: 0, transform: "translate(-50%, -48%) scale(0.96)" },
+          to: { opacity: 1, transform: "translate(-50%, -50%) scale(1)" },
         },
       },
       animation: {
-        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
-        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       aria: {
         invalid: 'invalid="true"',
