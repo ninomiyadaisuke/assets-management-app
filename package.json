@@ -8,6 +8,7 @@
     "start": "next start",
     "prepare": "husky install",
     "lint": "next lint",
+    "fix:lint": "next lint --fix",
     "prisma:seed": "npx prisma db push --force-reset && npx prisma migrate reset",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -58,6 +59,7 @@
     "eslint-formatter-table": "^7.32.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^0.6.12",
+    "eslint-plugin-tailwindcss": "^3.13.0",
     "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
@@ -73,7 +75,8 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
-      "eslint --fix -f table"
+      "eslint --fix -f table",
+      "next lint --fix"
     ]
   }
 }
