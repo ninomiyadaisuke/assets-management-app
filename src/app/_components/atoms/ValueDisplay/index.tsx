@@ -25,15 +25,15 @@ export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
           ref={ref}
           {...props}
           className={`
-        data-[theme=default]:text-num-def
-        data-[theme=plus]:text-num-plus
-        data-[theme=minus]:text-num-minus
-          data-[theme=plus]:before:content-['+']
-          data-[variant=small]:text-sm
-          data-[variant=medium]:text-base
-          data-[variant=large]:text-xl
-          data-[vold=medium]:font-medium
+        data-[variant=large]:text-xl
+        data-[variant=medium]:text-base
+        data-[variant=small]:text-sm
           data-[vold=light]:font-light
+          data-[vold=medium]:font-medium
+          data-[theme=default]:text-num-def
+          data-[theme=minus]:text-num-minus
+          data-[theme=plus]:text-num-plus
+          data-[theme=plus]:before:content-['+']
         `}
           data-theme={theme}
           data-variant={variant}
@@ -43,14 +43,14 @@ export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
         </span>
         <p
           className="
-          flex items-center data-[theme=default]:text-num-def
-        data-[theme=plus]:text-num-plus
-        data-[theme=minus]:text-num-minus
-          data-[variant=small]:text-xs
-          data-[variant=medium]:text-sm
-          data-[variant=large]:text-base
+          flex items-center data-[variant=large]:text-base
+        data-[variant=medium]:text-sm
+        data-[variant=small]:text-xs
+          data-[vold=light]:font-light
           data-[vold=medium]:font-medium
-          data-[vold=light]:font-light"
+          data-[theme=default]:text-num-def
+          data-[theme=minus]:text-num-minus
+          data-[theme=plus]:text-num-plus"
           data-theme={theme}
           data-variant={variant}
           data-vold={vold}
