@@ -75,8 +75,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
-      "eslint --fix -f table",
-      "next lint --fix"
+      "eslint --fix -f table"
     ]
   }
 }

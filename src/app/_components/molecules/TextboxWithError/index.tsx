@@ -21,7 +21,7 @@ export const TextboxWithError = forwardRef<HTMLInputElement, Props>(
           aria-errormessage={errorMessageId}
         />
         {error && (
-          <ErrorMessage id={errorMessageId} className="absolute top-10 right-0">
+          <ErrorMessage id={errorMessageId} className="absolute right-0 top-10">
             {error}
           </ErrorMessage>
         )}
