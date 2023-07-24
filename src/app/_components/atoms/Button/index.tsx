@@ -17,8 +17,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function ButtonBase(
       className={cx(
         className,
         `inline-block w-full border text-sm text-white font-semibold py-3.5 duration-200 rounded-[30px] disabled:opacity-50
-        data-[theme=primary]:bg-button-primary 
-        data-[theme=primary]:border-button-primary
+        data-[theme=primary]:bg-primary 
+        data-[theme=primary]:border-primary
         data-[theme=error]:border-red-500
         data-[theme=error]:bg-input-error
         data-[theme=error]:text-red-400
@@ -26,7 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function ButtonBase(
         data-[theme=outline]:text-gray-500
         data-[theme=outline]:border-gray-500
         data-[theme=light]:bg-blue-100
-        data-[theme=light]:text-button-primary
+        data-[theme=light]:text-primary
         data-[theme=light]:border-blue-100
           data-[theme=light]:font-light
         `

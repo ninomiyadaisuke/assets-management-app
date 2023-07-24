@@ -14,7 +14,7 @@ module.exports = {
         "num-def": "#585858",
         "num-plus": "#ff5d54",
         "num-minus": "#267dd4",
-        "button-primary": "#2774cc",
+        "primary": "#2774cc",
         ...mauve,
         ...violet,
         ...green,
