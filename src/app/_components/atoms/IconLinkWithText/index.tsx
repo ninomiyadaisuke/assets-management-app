@@ -32,7 +32,7 @@ export const IconLinkWithText = forwardRef<HTMLAnchorElement, Props>(
           ref={ref}
           {...props}
           href={href}
-          className="flex flex-col aria-[current]:text-primary"
+          className="flex flex-col text-gray-600 aria-[current]:text-primary"
         >
           {componentTheme}
           <span className="text-xs">{text}</span>
