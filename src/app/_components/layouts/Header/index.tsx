@@ -5,7 +5,7 @@ import { Nav } from "./Nav";
 
 export const Header: FC = () => {
   return (
-    <header className="flex h-[50px] w-full items-center justify-between bg-primary px-4">
+    <header className="fixed flex h-[50px] w-full items-center justify-between bg-primary px-4 md:w-[768px]">
       <Heading />
       <Nav />
     </header>

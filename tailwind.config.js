@@ -8,13 +8,17 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: "0px",
+      md: "800px",
+    },
     extend: {
       colors: {
         "input-error": "rgba(255,93,84,0.07)",
         "num-def": "#585858",
         "num-plus": "#ff5d54",
         "num-minus": "#267dd4",
-        "primary": "#2774cc",
+        primary: "#2774cc",
         ...mauve,
         ...violet,
         ...green,

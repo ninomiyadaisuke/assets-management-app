@@ -16,13 +16,13 @@ const linkData = [
   { text: "日本株", link: "/" },
   { text: "外国株", link: "/foreign-stocks" },
   { text: "¥グラフ", link: "/yen-graph" },
-  { text: "＄グラフ", link: "/dollar-grap" },
+  { text: "＄グラフ", link: "/dollar-graph" },
 ];
 
 export const Footer: FC = () => {
   const pathname = usePathname();
   return (
-    <footer className="flex h-[50px] w-full border-y border-solid border-gray-300 bg-[#f8f9fb]">
+    <footer className="flex h-[50px] w-full border-y border-solid border-gray-300 bg-[#f8f9fb] sm:absolute sm:bottom-0 md:top-[750px] md:w-[768px]">
       <ul className="flex w-full justify-between px-4 py-2">
         {linkData.map((data) => (
           <li key={data.text}>
