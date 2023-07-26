@@ -13,11 +13,11 @@ export const IconButton = forwardRef<HTMLButtonElement, Props>(
     const componentTheme = (() => {
       switch (theme) {
         case "logout":
-          return <ArrowRightOnRectangleIcon className="h-5" />;
+          return <ArrowRightOnRectangleIcon className="h-6" />;
         case "update":
           return (
             <div className="rotate-[-90deg]">
-              <ArrowPathIcon className="h-5" />
+              <ArrowPathIcon className="h-6" />
             </div>
           );
       }
