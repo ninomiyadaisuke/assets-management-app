@@ -1,15 +1,11 @@
 "use client";
-import cx from "classnames";
-import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { Footer } from "@/app/_components/layouts/Footer";
 import { Header } from "@/app/_components/layouts/Header";
 
 import { FloatingButton } from "../atoms/FloatingButton";
-
-const inter = Inter({ subsets: ["latin"] });
 
 type Props = {
   children: React.ReactNode;
