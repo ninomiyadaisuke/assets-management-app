@@ -16,6 +16,7 @@ module.exports = {
       colors: {
         "input-error": "rgba(255,93,84,0.07)",
         "card":'rgba(255,255,255,0.9)',
+        "card-link":"#37679c",
         "num-def": "#585858",
         "num-plus": "#ff5d54",
         "num-minus": "#267dd4",
