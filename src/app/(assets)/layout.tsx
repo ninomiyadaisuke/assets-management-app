@@ -23,7 +23,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Layout>{children}</Layout>
+      <body
+        className={cx(
+          inter.className,
+          "flex justify-center h-full w-full m-0 p-0 bg-[#d6d6d6]"
+        )}
+      >
+        <Layout>{children}</Layout>
+      </body>
     </html>
   );
 }
