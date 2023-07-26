@@ -17,7 +17,7 @@ export const Layout: FC<Props> = ({ children }) => {
   return (
     <div className="overflow-auto bg-[#f5f5f5] sm:h-screen sm:w-screen md:h-auto md:max-h-[800px] md:min-h-[800px] md:w-[768px]">
       <Header />
-      <main className="relative mt-[50px] h-[3000px]">{children}</main>
+      <main className="relative mt-[50px]">{children}</main>
       {(pathname === "/" || pathname === "/foreign-stocks") && (
         <FloatingButton
           href="/"

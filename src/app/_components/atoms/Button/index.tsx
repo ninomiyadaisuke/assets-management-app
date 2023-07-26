@@ -16,7 +16,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function ButtonBase(
       {...props}
       className={cx(
         className,
-        `inline-block w-full border text-sm text-white font-semibold py-3.5 duration-200 rounded-[30px] disabled:opacity-50
+        `inline-block w-full border text-sm text-white font-semibold py-2.5 duration-200 rounded-[30px] disabled:opacity-50
         data-[theme=primary]:bg-primary 
         data-[theme=primary]:border-primary
         data-[theme=error]:border-red-500
