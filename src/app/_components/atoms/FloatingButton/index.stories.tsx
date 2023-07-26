@@ -10,8 +10,8 @@ const meta = {
 
 export default meta;
 
-type Story = StoryObj<typeof FloatingButton>;
+type Stroy = StoryObj<typeof FloatingButton>;
 
-export const Default: Story = {
+export const Default: Stroy = {
   args: { href: "/" },
 };
