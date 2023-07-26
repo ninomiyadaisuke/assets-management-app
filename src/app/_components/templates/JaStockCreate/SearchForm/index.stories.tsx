@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { SearchForm } from "./index";
 
 const meta = {
-  title: "Template/SearchForm",
+  title: "Template/JaStockCreate/SearchForm",
   component: SearchForm,
   args: {
     title: "Search",
