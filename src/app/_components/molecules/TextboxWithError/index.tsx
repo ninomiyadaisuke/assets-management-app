@@ -13,7 +13,7 @@ export const TextboxWithError = forwardRef<HTMLInputElement, Props>(
   function TextboxWithErrorBase({ error, ...props }, ref) {
     const errorMessageId = useId();
     return (
-      <div className="relative">
+      <div className="relative grow">
         <Textbox
           {...props}
           ref={ref}
