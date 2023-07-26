@@ -1,5 +1,3 @@
-import { ToUpdateLink } from "../_components/atoms/ToUpdateLink";
-
 export default function Home() {
   return (
     <>
