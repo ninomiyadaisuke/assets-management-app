@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 type Props = React.ComponentPropsWithRef<"span"> & {
   theme?: "plus" | "minus" | "default";
-  variant?: "small" | "medium" | "large";
+  variant?: "small" | "medium" | "large" | "extraLarge";
   vold?: "light" | "medium";
   unit?: "円" | "%" | "株" | "＄";
 };
@@ -20,14 +20,15 @@ export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
     ref
   ) {
     return (
-      <div className="flex gap-1">
+      <div className="flex">
         <span
           ref={ref}
           {...props}
           className={`
-        data-[variant=large]:text-xl
-        data-[variant=medium]:text-base
-        data-[variant=small]:text-sm
+          data-[variant=extraLarge]:text-2xl
+          data-[variant=large]:text-xl
+          data-[variant=medium]:text-base
+          data-[variant=small]:text-sm
           data-[vold=light]:font-light
           data-[vold=medium]:font-medium
           data-[theme=default]:text-num-def
@@ -39,13 +40,13 @@ export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
           data-variant={variant}
           data-vold={vold}
         >
-          {children}
+          {children?.toLocaleString()}
         </span>
         <p
           className="
-          flex items-center data-[variant=large]:text-base
-        data-[variant=medium]:text-sm
-        data-[variant=small]:text-xs
+          flex items-center data-[variant=large]:text-lg
+          data-[variant=medium]:text-sm
+          data-[variant=small]:text-xs
           data-[vold=light]:font-light
           data-[vold=medium]:font-medium
           data-[theme=default]:text-num-def

@@ -6,6 +6,8 @@ type Props = {
 
 export const CardWrapper: FC<Props> = ({ children }) => {
   return (
-    <div className="h-auto w-full rounded-lg bg-card shadow ">{children}</div>
+    <div className="h-auto w-full overflow-hidden rounded-lg bg-card shadow">
+      {children}
+    </div>
   );
 };
