@@ -1,8 +1,6 @@
 import { forwardRef } from "react";
 
-type Props = Omit<React.ComponentPropsWithRef<"input">, "className"> & {
-  type?: "text" | "password" | "tel";
-};
+type Props = Omit<React.ComponentPropsWithRef<"input">, "className">;
 
 export const Textbox = forwardRef<HTMLInputElement, Props>(function TextboxBase(
   { type = "text", ...props },
