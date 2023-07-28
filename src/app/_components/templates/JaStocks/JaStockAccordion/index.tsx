@@ -1,8 +1,5 @@
-"use client";
-
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import cx from "classnames";
 import { FC, useId } from "react";
 
 import { CardWrapper } from "@/app/_components/atoms/CardWrapper";
