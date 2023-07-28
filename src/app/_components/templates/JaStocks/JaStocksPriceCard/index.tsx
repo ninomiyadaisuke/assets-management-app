@@ -4,7 +4,7 @@ import { CardWrapper } from "@/app/_components/atoms/CardWrapper";
 import { TotalProfitAndLoss } from "@/app/_components/atoms/TotalProfitAndLoss";
 import { TotalStocks } from "@/app/_components/atoms/TotalStocks";
 
-const JaStocksPriceCard: FC = async () => {
+export const JaStocksPriceCard: FC = async () => {
   return (
     <CardWrapper>
       <TotalStocks total={300000000} />
@@ -12,5 +12,3 @@ const JaStocksPriceCard: FC = async () => {
     </CardWrapper>
   );
 };
-
-export default JaStocksPriceCard;

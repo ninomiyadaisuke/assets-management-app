@@ -1,3 +1,4 @@
+"use client";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { FC, useId } from "react";

@@ -21,7 +21,7 @@ export const Layout: FC<Props> = ({ children }) => {
       {(pathname === "/" || pathname === "/foreign-stocks") && (
         <FloatingButton
           href="/"
-          className="fixed sm:bottom-[80px] sm:right-[24px] md:right-[calc((100%_-_768px)/2_+_24px)] md:top-[650px]"
+          className="fixed sm:bottom-[80px] sm:right-[16px] md:right-[calc((100%_-_768px)/2_+_24px)] md:top-[650px]"
         />
       )}
       <Footer />
