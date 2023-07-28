@@ -4,8 +4,6 @@ import { TotalHoldingCount } from "@/app/_components/atoms/TotalHoldingCount";
 import { JaStockAccordion } from "@/app/_components/templates/JaStocks/JaStockAccordion";
 import { JaStocksPriceCard } from "@/app/_components/templates/JaStocks/JaStocksPriceCard";
 
-import { ExchangeRateWithSwitch } from "../../molecules/ExchangeRateWithSwitch";
-
 const data = [
   "",
   "",
