@@ -11,6 +11,14 @@ const meta = {
     evaluationAmount: 30000,
     profitLossAmount: 10000,
   },
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: "/",
+      },
+    },
+  },
   tags: ["autodocs"],
 } satisfies Meta<typeof StockBasicInfo>;
 
