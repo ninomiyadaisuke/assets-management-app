@@ -15,7 +15,7 @@ export const Layout: FC<Props> = ({ children }) => {
   const pathname = usePathname();
 
   return (
-    <div className="overflow-auto bg-[#f5f5f5] sm:h-screen sm:w-screen md:h-auto md:max-h-[800px] md:min-h-[800px] md:w-[768px]">
+    <div className="overflow-auto bg-[#f5f5f5] shadow-lg sm:h-screen sm:w-screen md:h-auto md:max-h-[800px] md:min-h-[800px] md:w-[768px]">
       <Header />
       <main className="relative mt-[50px]">{children}</main>
       {(pathname === "/" || pathname === "/foreign-stocks") && (

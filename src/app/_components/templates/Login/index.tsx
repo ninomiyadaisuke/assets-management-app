@@ -6,7 +6,7 @@ import { TextboxWithError } from "../../molecules/TextboxWithError";
 
 export const Login: FC = () => {
   return (
-    <form className="relative top-16 m-auto w-4/5 rounded bg-card px-4 pb-8 pt-16 shadow before:absolute before:right-0 before:top-0 before:block before:h-[5px] before:w-full before:rounded-t before:bg-primary before:content-['']">
+    <form className="relative top-32 m-auto w-4/5 rounded bg-card px-4 pb-8 pt-16 shadow before:absolute before:right-0 before:top-0 before:block before:h-[5px] before:w-full before:rounded-t before:bg-primary before:content-['']">
       <Image
         src={"/lock.svg"}
         alt=""
