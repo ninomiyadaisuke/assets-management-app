@@ -35,7 +35,6 @@ export const JaStocks: FC = async () => {
       </section>
       <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
         <TotalHoldingCount />
-        <ExchangeRateWithSwitch />
       </section>
       <section className="m-auto mb-20  mt-[-20px] flex w-[90%] flex-col gap-2">
         {data.map((data, i) => (
