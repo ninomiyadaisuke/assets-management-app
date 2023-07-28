@@ -7,3 +7,7 @@ export function validate<T extends ZodSchema>(
 ): asserts target is z.infer<T> {
   schema.parse(target);
 }
+
+export const returnThemePlusOrMinus = (number: number) => {
+  return Math.sign(number) === 1 ? "plus" : "minus";
+};
