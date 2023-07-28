@@ -1,12 +1,7 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
-type Props = {
-  children: ReactNode;
-};
-const TotalHoldingCount: FC<Props> = async () => {
+export const TotalHoldingCount: FC = async () => {
   return (
     <span className="text-sm font-semibold text-gray-500">{`全${55}件`}</span>
   );
 };
-
-export default TotalHoldingCount;
