@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { JaStockAccordion } from "./index";
 
 const meta = {
-  title: "Template/JaStock/JaStockAccordion",
+  title: "Template/JaStocks/JaStockAccordion",
   component: JaStockAccordion,
   tags: ["autodocs"],
 } satisfies Meta<typeof JaStockAccordion>;
