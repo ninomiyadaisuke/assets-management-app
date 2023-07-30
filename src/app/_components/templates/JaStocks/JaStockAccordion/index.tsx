@@ -50,16 +50,20 @@ export const JaStockAccordion: FC = () => {
           />
         </Accordion.Item>
         <Accordion.Item value={`item-${id}`}>
-          <Accordion.Content className="px-3 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
-            {fetchData.map((data) => (
-              <StockInfo
-                key={data.title}
-                className=""
-                title={data.title}
-                value={data.value}
-                unit={data.unit as "円" | "%" | "株" | "＄"}
-              />
-            ))}
+          <Accordion.Content asChild>
+            <table className="flex w-full px-3 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+              <tbody className="w-full">
+                {fetchData.map((data) => (
+                  <StockInfo
+                    key={data.title}
+                    className=""
+                    title={data.title}
+                    value={data.value}
+                    unit={data.unit as "円" | "%" | "株" | "＄"}
+                  />
+                ))}
+              </tbody>
+            </table>
           </Accordion.Content>
           <Accordion.Trigger className="group flex h-8 w-full items-center justify-center border-t border-gray-300">
             <ChevronDownIcon
