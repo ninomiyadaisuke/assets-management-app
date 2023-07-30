@@ -35,4 +35,4 @@ export const colors = [
 ] as const;
 
 export type Colors = typeof colors;
-export type Color = (typeof colors)[number];
+export type Color = Colors[number];

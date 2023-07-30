@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { Color } from "@/libs/data";
+import { Color } from "@/libs/colors";
 
 type Props = React.ComponentPropsWithRef<"span"> & {
   color: Color;
