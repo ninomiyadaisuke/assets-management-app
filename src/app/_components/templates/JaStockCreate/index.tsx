@@ -7,7 +7,7 @@ import { SearchForm } from "./SearchForm";
 
 export const JaStockCreate: FC = () => {
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex grow flex-col gap-9">
       <SearchForm />
       <RadioGroup />
       <JaStockCreateForm />
