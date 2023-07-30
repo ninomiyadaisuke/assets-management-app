@@ -5,9 +5,6 @@ import { SearchForm } from "./index";
 const meta = {
   title: "Template/JaStockCreate/SearchForm",
   component: SearchForm,
-  args: {
-    title: "Search",
-  },
   tags: ["autodocs"],
 } satisfies Meta<typeof SearchForm>;
 

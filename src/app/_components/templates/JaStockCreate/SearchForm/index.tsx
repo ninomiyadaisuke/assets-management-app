@@ -13,14 +13,13 @@ import { SearchInputSchema } from "@/libs/schema/searchStock";
 type Schema = z.infer<typeof SearchInputSchema>;
 
 type Props = {
-  title: string;
-  onValid: SubmitHandler<Schema>;
+  // onValid: SubmitHandler<Schema>;
   onInvalid?: SubmitErrorHandler<Schema>;
   className?: string;
 };
 
 export const SearchForm: FC<Props> = (props) => {
-  const { title, onValid, onInvalid, className } = props;
+  const { className } = props;
   const {
     register,
     handleSubmit,
@@ -31,8 +30,8 @@ export const SearchForm: FC<Props> = (props) => {
 
   return (
     <form
-      aria-label={title}
-      onSubmit={handleSubmit(onValid, onInvalid)}
+      aria-label="新規日本株作成"
+      // onSubmit={handleSubmit(onValid, onInvalid)}
       className={cx(className, "flex")}
     >
       <TextboxWithError
