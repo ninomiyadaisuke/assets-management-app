@@ -1,5 +1,9 @@
 import DialogWrapper from "@/app/_components/molecules/DaialogWrapper";
-import { JaStocks } from "@/app/_components/templates/JaStocks";
+import { JaStockCreate } from "@/app/_components/templates/JaStockCreate";
 export default function Home() {
-  return <DialogWrapper></DialogWrapper>;
+  return (
+    <DialogWrapper>
+      <JaStockCreate />
+    </DialogWrapper>
+  );
 }
