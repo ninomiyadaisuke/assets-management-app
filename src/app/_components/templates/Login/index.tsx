@@ -12,6 +12,8 @@ import { ErrorMessage } from "@/app/_components/atoms/ErrorMessage";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import type { Database } from "@/libs/database.types";
 
+import { Spinner } from "../../atoms/Spinner";
+
 const schema = z.object({
   email: z.string().email({ message: "メールアドレスの形式ではありません。" }),
   password: z.string().min(6, { message: "6文字以上入力する必要があります。" }),
@@ -99,7 +101,9 @@ export const Login: FC = () => {
           />
         </div>
         <div className="m-auto flex w-[90%]">
-          <Button disabled={isSubmitting}>ログイン</Button>
+          <Button disabled={isSubmitting}>
+            {isSubmitting ? <Spinner variant="default" /> : "ログイン"}
+          </Button>
         </div>
         {message && (
           <ErrorMessage className="text-center">{message}</ErrorMessage>
