@@ -32,9 +32,7 @@ export const Login: FC = () => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
-    // 初期値
     defaultValues: { email: "", password: "" },
-    // 入力値の検証
     resolver: zodResolver(schema),
   });
 
