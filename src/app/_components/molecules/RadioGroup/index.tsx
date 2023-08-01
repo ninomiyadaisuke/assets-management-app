@@ -1,7 +1,9 @@
 "use client";
-
 import * as RadixRadioGroup from "@radix-ui/react-radio-group";
 import React, { FC } from "react";
+
+import { useAssetType } from "@/hooks/useAssetType";
+import { useStockStatus } from "@/hooks/useStockStatus";
 
 import Radio from "../../atoms/Radio";
 
@@ -12,6 +14,9 @@ const radioData = [
 ];
 
 export const RadioGroup: FC = () => {
+  const { stockCode } = useStockStatus();
+  const { handleClick } = useAssetType();
+
   return (
     <fieldset>
       <legend className="mb-3 text-gray-600">どの口座で登録しますか？</legend>
@@ -21,7 +26,12 @@ export const RadioGroup: FC = () => {
         aria-label="View density"
       >
         {radioData.map((data) => (
-          <Radio key={data.value} value={data.value} label={data.label} />
+          <Radio
+            key={data.value}
+            value={data.value}
+            label={data.label}
+            onClick={handleClick}
+          />
         ))}
       </RadixRadioGroup.Root>
     </fieldset>
