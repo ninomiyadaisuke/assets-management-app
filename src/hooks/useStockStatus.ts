@@ -8,6 +8,7 @@ export const useStockStatus = () => {
   return {
     stockName,
     stockDetailsArray: [{ ...stockDetails }],
+    ...stockDetails,
     setStockStatus,
   };
 };
