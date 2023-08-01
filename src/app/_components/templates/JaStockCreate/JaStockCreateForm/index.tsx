@@ -1,9 +1,17 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 import { Button } from "@/app/_components/atoms/Button";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
+import { useAssetType } from "@/hooks/useAssetType";
+import { useStockStatus } from "@/hooks/useStockStatus";
 
 export const JaStockCreateForm: FC = () => {
+  const router = useRouter();
+  const { stockCode, stockName, industry, dividend, latestStockPrice } =
+    useStockStatus();
+  const { assetType } = useAssetType();
   return (
     <form className="flex flex-col gap-7">
       <div className="flex flex-col gap-5">
