@@ -1,5 +1,3 @@
-import { google } from "googleapis";
-
 import { SearchedStockType } from "@/contexts/stocksInfoContext";
 import { GoogleApiError, handleGoogleSheetsError } from "@/libs/error";
 
@@ -9,6 +7,7 @@ import { handlePrismaError, prisma } from "../index";
 export const searchStock = async (
   code: string
 ): Promise<SearchedStockType | { message: string } | { code: string }> => {
+  const { google } = await import("googleapis"); //容量削減のため動的にimport
   const uid = await authValidateAndReturnUid();
   try {
     const holding = await prisma.holding.findFirst({
