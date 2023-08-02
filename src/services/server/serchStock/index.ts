@@ -7,7 +7,7 @@ import { handlePrismaError, prisma } from "../index";
 export const searchStock = async (
   code: string
 ): Promise<SearchedStockType | { message: string } | { code: string }> => {
-  const { google } = await import("googleapis"); //容量削減のため動的にimport
+  const { google } = await import("googleapis"); //
   const uid = await authValidateAndReturnUid();
   try {
     const holding = await prisma.holding.findFirst({
