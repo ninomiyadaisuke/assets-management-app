@@ -2,12 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import cx from "classnames";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SearchButton } from "@/app/_components/atoms/SearchButton";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { useLoading } from "@/hooks/useLoading";
+import { useStockStatus } from "@/hooks/useStockStatus";
 import {
   SearchInputSchema,
   searchInputSchema,
@@ -19,7 +20,8 @@ type Props = {
 };
 
 export const SearchForm: FC<Props> = ({ className }) => {
-  const { setIsLoading } = useLoading();
+  const { setIsLoading, isLoading } = useLoading();
+  const { setStockStatus } = useStockStatus();
   const {
     register,
     handleSubmit,
@@ -31,13 +33,33 @@ export const SearchForm: FC<Props> = ({ className }) => {
     resolver: zodResolver(searchInputSchema),
   });
 
-  const onSubmit: SubmitHandler<SearchInputSchema> = async (input) => {
+  const onSubmit: SubmitHandler<SearchInputSchema> = async (code) => {
     setIsLoading(true);
     try {
-      await searchStockData(input);
+      const stockData = await searchStockData(code);
+      if ("message" in stockData) {
+        setError("code", {
+          type: "manual",
+          message: "この株式はすでに保有しています。",
+        });
+        setIsLoading(false);
+        return;
+      }
+      clearErrors("code");
+      if ("stockCode" in stockData) setStockStatus(stockData);
       setIsLoading(false);
-    } catch (error) {}
+      reset();
+    } catch (error) {
+      throw new Error("失敗しました。");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (!isLoading) return;
+    setIsLoading(isLoading);
+  }, [isLoading, setIsLoading]);
 
   return (
     <form
