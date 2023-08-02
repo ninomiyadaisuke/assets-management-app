@@ -1,11 +1,16 @@
 "use client";
 import * as RadixAlertDialog from "@radix-ui/react-alert-dialog";
-import { FC, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 
+import type { ButtonType } from "@/app/_components/atoms/Button";
 import { Button } from "@/app/_components/atoms/Button";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
 
-export const AlertDialog: FC = () => {
+type Props = {
+  buttonComponent: (label: string) => ReactElement<ButtonType>;
+};
+
+export const AlertDialog: FC<Props> = ({ buttonComponent }) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const {
     hideAlertDialog,
@@ -32,11 +37,7 @@ export const AlertDialog: FC = () => {
                   </Button>
                 </div>
               </RadixAlertDialog.Cancel>
-              <div className="w-32">
-                <Button type="submit" theme="error">
-                  {okButtonLabel}
-                </Button>
-              </div>
+              <div className="w-32">{buttonComponent(okButtonLabel)}</div>
             </div>
           </RadixAlertDialog.Content>
         </RadixAlertDialog.Portal>

@@ -16,6 +16,7 @@ const DialogWrapper: FC<Props> = ({ children }) => {
       defaultOpen={true}
       onOpenChange={() => {
         router.back();
+        router.refresh();
       }}
     >
       <Dialog.Portal>

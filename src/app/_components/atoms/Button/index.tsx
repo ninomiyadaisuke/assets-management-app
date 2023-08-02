@@ -6,6 +6,8 @@ type Props = {
   theme?: "primary" | "error" | "outline" | "light";
 } & React.ComponentPropsWithoutRef<"button">;
 
+export type ButtonType = typeof Button;
+
 export const Button = forwardRef<HTMLButtonElement, Props>(function ButtonBase(
   { className, theme = "primary", ...props },
   ref

@@ -96,7 +96,13 @@ export const JaStockCreateForm: FC<Props> = (props) => {
       <Button type="button" onClick={onClickSave}>
         送信
       </Button>
-      <AlertDialog />
+      <AlertDialog
+        buttonComponent={(label) => (
+          <Button type="submit" theme="error">
+            {label}
+          </Button>
+        )}
+      />
     </form>
   );
 };
