@@ -12,6 +12,7 @@ import {
   SearchInputSchema,
   searchInputSchema,
 } from "@/libs/schema/searchStock";
+import { searchStockData } from "@/services/client/serchStock";
 
 type Props = {
   className?: string;
@@ -30,8 +31,12 @@ export const SearchForm: FC<Props> = ({ className }) => {
     resolver: zodResolver(searchInputSchema),
   });
 
-  const onSubmit: SubmitHandler<SearchInputSchema> = (input) => {
+  const onSubmit: SubmitHandler<SearchInputSchema> = async (input) => {
     setIsLoading(true);
+    try {
+      await searchStockData(input);
+      setIsLoading(false);
+    } catch (error) {}
   };
 
   return (

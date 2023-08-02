@@ -55,3 +55,33 @@ export class InternalServerError extends HttpError {
     super(500);
   }
 }
+
+export type GoogleApiError = {
+  response?: {
+    status?: number;
+    data?: {
+      error?: {
+        message?: string;
+      };
+    };
+  };
+};
+
+export const handleGoogleSheetsError = (error: GoogleApiError) => {
+  // Google Sheets APIからのエラーは通常HTTPステータスコードとエラーメッセージを含む
+  const status = error?.response?.status;
+
+  // ステータスコードに応じて適切なエラーをスロー
+  switch (status) {
+    case 400:
+      throw new BadRequestError();
+    case 401:
+      throw new UnauthorizedError();
+    case 404:
+      throw new NotFoundError();
+    case 405:
+      throw new MethodNotAllowedError();
+    default:
+      throw new InternalServerError();
+  }
+};

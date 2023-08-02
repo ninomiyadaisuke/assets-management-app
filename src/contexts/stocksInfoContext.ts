@@ -1,6 +1,7 @@
 import { atom } from "jotai";
 
 export type SearchedStockType = {
+  irBankCode: string;
   industry: string;
   stockCode: string;
   stockName: string;
@@ -10,6 +11,7 @@ export type SearchedStockType = {
 };
 
 export const searchedStockInitialState = {
+  irBankCode: "",
   stockCode: "",
   industry: "",
   stockName: "",
