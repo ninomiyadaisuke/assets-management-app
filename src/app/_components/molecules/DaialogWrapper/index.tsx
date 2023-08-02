@@ -4,19 +4,22 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import { FC, ReactNode } from "react";
 
+import { useStockStatus } from "@/hooks/useStockStatus";
+
 type Props = {
   children: ReactNode;
 };
 
 const DialogWrapper: FC<Props> = ({ children }) => {
   const router = useRouter();
+  const { resetStockStatus } = useStockStatus();
 
   return (
     <Dialog.Root
       defaultOpen={true}
       onOpenChange={() => {
+        resetStockStatus();
         router.back();
-        router.refresh();
       }}
     >
       <Dialog.Portal>

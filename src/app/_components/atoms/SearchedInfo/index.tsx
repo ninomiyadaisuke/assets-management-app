@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 type Props = {
-  value: string | number;
+  value: number;
   unit?: "円" | "＄" | "%";
   title: string;
 };

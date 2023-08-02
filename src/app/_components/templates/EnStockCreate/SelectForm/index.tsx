@@ -8,16 +8,15 @@ import { z } from "zod";
 
 import { SearchButton } from "@/app/_components/atoms/SearchButton";
 import { ComboboxWithError } from "@/app/_components/molecules/ComboboxWithError";
-import { SearchInputSchema } from "@/libs/schema/searchStock";
+import type { SearchInputSchema } from "@/libs/schema/searchStock";
+import { searchInputSchema } from "@/libs/schema/searchStock";
 
 const options = ["VYM", "HDV", "SPYD", "AGG", "ARCC"];
 
-type Schema = z.infer<typeof SearchInputSchema>;
-
 type Props = {
   title: string;
-  onValid: SubmitHandler<Schema>;
-  onInvalid?: SubmitErrorHandler<Schema>;
+  onValid: SubmitHandler<SearchInputSchema>;
+  onInvalid?: SubmitErrorHandler<SearchInputSchema>;
   className?: string;
 };
 
@@ -27,8 +26,8 @@ export const SelectForm: FC<Props> = (props) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<Schema>({
-    resolver: zodResolver(SearchInputSchema),
+  } = useForm<SearchInputSchema>({
+    resolver: zodResolver(searchInputSchema),
   });
 
   return (
