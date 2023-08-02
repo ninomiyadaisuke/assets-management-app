@@ -23,6 +23,7 @@ export const SearchedInfoTable: FC<Props> = ({ unit }) => {
       <tbody className="w-full">
         {data.map((data, i) => (
           <SearchedInfo
+            key={i}
             title={data}
             value={array[i]}
             unit={data !== "配当利回り" ? unit : "%"}
