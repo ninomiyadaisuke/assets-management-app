@@ -14,7 +14,6 @@ const radioData = [
 ];
 
 export const RadioGroup: FC = () => {
-  const { stockCode } = useStockStatus();
   const { handleClick } = useAssetType();
 
   return (

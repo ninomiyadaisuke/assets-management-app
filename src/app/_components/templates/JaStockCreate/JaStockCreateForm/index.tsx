@@ -1,14 +1,18 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { FC } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 
 import { Button } from "@/app/_components/atoms/Button";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
+import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
 import { useAssetType } from "@/hooks/useAssetType";
 import { useResetStockFrom } from "@/hooks/useResetStockFrom";
-import { useStockStatus } from "@/hooks/useStockStatus";
 import { createStockSchema, CreateStockType } from "@/libs/schema/createStock";
 
 const defaultValues = {
@@ -16,21 +20,15 @@ const defaultValues = {
   acquisitionPrice: [""],
 };
 
-type ReqType = {
-  assetType: "両方" | "新NISA口座" | "特定口座";
-  stockName: string;
-  stockCode: string;
-  dividend: number;
-  latestStockPrice: number;
-  industry: string;
-  numberOfSharesHeld: number[];
-  acquisitionPrice: number[];
+type Props<T extends FieldValues = CreateStockType> = {
+  title: string;
+  onClickSave: () => void;
+  onValid: SubmitHandler<T>;
+  onInvalid?: SubmitErrorHandler<T>;
 };
 
-export const JaStockCreateForm: FC = () => {
-  const router = useRouter();
-  const { stockCode, stockName, industry, dividend, latestStockPrice } =
-    useStockStatus();
+export const JaStockCreateForm: FC<Props> = (props) => {
+  const { title, onValid, onInvalid, onClickSave } = props;
   const { getAccountTypes } = useAssetType();
   const {
     register,
@@ -44,12 +42,12 @@ export const JaStockCreateForm: FC = () => {
 
   useResetStockFrom(defaultValues, reset);
 
-  const onSubmit: SubmitHandler<CreateStockType> = async (values) => {
-    const test = values;
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
+    <form
+      onSubmit={handleSubmit(onValid, onInvalid)}
+      aria-label={title}
+      className="flex flex-col gap-7"
+    >
       <div className="flex flex-col gap-5">
         {getAccountTypes().map((account, i) => {
           return (
@@ -95,7 +93,27 @@ export const JaStockCreateForm: FC = () => {
           );
         })}
       </div>
-      <Button>送信</Button>
+      <Button type="button" onClick={onClickSave}>
+        送信
+      </Button>
+      <AlertDialog
+        buttonComponent={(label) => (
+          <Button type="submit" theme="error">
+            {label}
+          </Button>
+        )}
+      />
     </form>
   );
 };
+
+// type ReqType = {
+//   assetType: "両方" | "新NISA口座" | "特定口座";
+//   stockName: string;
+//   stockCode: string;
+//   dividend: number;
+//   latestStockPrice: number;
+//   industry: string;
+//   numberOfSharesHeld: number[];
+//   acquisitionPrice: number[];
+// };
