@@ -8,7 +8,7 @@ export const useResetStockFrom = (
   defaultValues: CreateStockType,
   reset: UseFormReset<CreateStockType>
 ) => {
-  const { assetType } = useAssetType();
+  const { assetType, setAssetType } = useAssetType();
   useEffect(() => {
     if (assetType !== "両方") return;
     reset({
