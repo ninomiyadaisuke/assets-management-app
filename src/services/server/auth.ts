@@ -5,11 +5,12 @@ import { cache } from "react";
 import { Database } from "@/libs/database.types";
 import { InternalServerError, UnauthorizedError } from "@/libs/error";
 
+const createRouteHandlerClientCache = cache(() => {
+  const cookieStore = cookies();
+  return createRouteHandlerClient<Database>({ cookies: () => cookieStore });
+});
+
 export const authValidateAndReturnUid = async (): Promise<string> => {
-  const createRouteHandlerClientCache = cache(() => {
-    const cookieStore = cookies();
-    return createRouteHandlerClient<Database>({ cookies: () => cookieStore });
-  });
   try {
     const supabase = createRouteHandlerClientCache();
     const {
