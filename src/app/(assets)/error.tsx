@@ -1,5 +1,5 @@
 "use client";
 
-export function Error({}) {
+export default function Error({}) {
   return <p>error</p>;
 }
