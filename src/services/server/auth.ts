@@ -24,5 +24,5 @@ export const authValidateAndReturnUid = async (): Promise<string> => {
       throw error;
     }
   }
-  // throw new InternalServerError();
+  throw new InternalServerError();
 };
