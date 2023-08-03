@@ -12,7 +12,7 @@ export const createRouteHandlerClientCache = cache(() => {
 
 export const authValidateAndReturnUid = async (): Promise<string> => {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = createRouteHandlerClientCache();
     const {
       data: { session },
     } = await supabase.auth.getSession();
