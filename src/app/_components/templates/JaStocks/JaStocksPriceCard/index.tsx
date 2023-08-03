@@ -6,9 +6,12 @@ import { TotalStocks } from "@/app/_components/atoms/TotalStocks";
 import { getJaStocksTotal } from "@/services/client/jaStockTotal";
 
 const test = async () => {
-  const res = await fetch("http://localhost:3000/api/stocks/ja/total", {
-    method: "GET",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/stocks/ja/total`,
+    {
+      method: "GET",
+    }
+  );
   const data = await res.json();
   return data;
 };
