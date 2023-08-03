@@ -6,18 +6,6 @@ import { typedFetch } from "@/libs/fetchUtils";
 import { authValidateAndReturnUid } from "../auth";
 import { handlePrismaError, prisma } from "../index";
 
-export const getJaStocksTotal = async () => {
-  return typedFetch<JaStockTotalReturn>(
-    `${process.env.API_URL}/api/stocks/ja/total`,
-    {
-      headers: {
-        cookie: headers().get("cookie") as string,
-      },
-      cache: "no-store",
-    }
-  );
-};
-
 export const jaStockTotal = async () => {
   const userId = await authValidateAndReturnUid();
   try {
