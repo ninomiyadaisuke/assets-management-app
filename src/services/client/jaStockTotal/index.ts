@@ -5,7 +5,7 @@ import type { JaStockTotalReturn } from "@/services/server/jaStockTotal";
 
 export const getJaStocksTotal = async () => {
   return typedFetch<JaStockTotalReturn>(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/stocks/ja/total`,
+    `https://assets-management-app.vercel.app/api/stocks/ja/total`,
     {
       headers: {
         cookie: headers().get("cookie") as string,
