@@ -6,12 +6,9 @@ import { TotalStocks } from "@/app/_components/atoms/TotalStocks";
 import { getJaStocksTotal } from "@/services/client/jaStockTotal";
 
 const test = async () => {
-  const res = await fetch(
-    `https://assets-management-app.vercel.app/api/stocks/ja/total`,
-    {
-      method: "GET",
-    }
-  );
+  const res = await fetch(`${process.env.API_URL}/api/stocks/ja/total`, {
+    method: "GET",
+  });
   const data = await res.json();
   return data;
 };
