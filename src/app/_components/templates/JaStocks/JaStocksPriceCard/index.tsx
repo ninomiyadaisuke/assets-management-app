@@ -10,7 +10,7 @@ import { JaStockTotalReturn } from "@/services/server/jaStockTotal";
 
 const getJaStocksTotal = async () => {
   return typedFetch<JaStockTotalReturn>(
-    `${process.env.API_URL}/api/stocks/ja/total`,
+    `${process.env.DB_HOST}/api/stocks/ja/total`,
     {
       headers: {
         cookie: headers().get("cookie") as string,
