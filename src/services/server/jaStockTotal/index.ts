@@ -1,7 +1,4 @@
-import { headers } from "next/headers";
-
 import { NotFoundError } from "@/libs/error";
-import { typedFetch } from "@/libs/fetchUtils";
 
 import { authValidateAndReturnUid } from "../auth";
 import { handlePrismaError, prisma } from "../index";
