@@ -1,13 +1,13 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { cache } from "react";
 
 import { Database } from "@/libs/database.types";
 import { InternalServerError, UnauthorizedError } from "@/libs/error";
 
-const createRouteHandlerClientCache = cache(() => {
+export const createRouteHandlerClientCache = cache(() => {
   const cookieStore = cookies();
-  return createRouteHandlerClient<Database>({ cookies: () => cookieStore });
+  return createServerComponentClient<Database>({ cookies: () => cookieStore });
 });
 
 export const authValidateAndReturnUid = async (): Promise<string> => {

@@ -5,7 +5,11 @@ import {
   PrismaClientUnknownRequestError,
   PrismaClientValidationError,
 } from "@prisma/client/runtime";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { cache } from "react";
 
+import { Database } from "@/libs/database.types";
 import { BadRequestError, InternalServerError } from "@/libs/error";
 
 export const prisma = new PrismaClient();
@@ -29,3 +33,8 @@ export const handlePrismaError = (err: unknown) => {
   }
   throw err;
 };
+
+export const createRouteHandlerClientCache = cache(() => {
+  const cookieStore = cookies();
+  return createServerComponentClient<Database>({ cookies: () => cookieStore });
+});

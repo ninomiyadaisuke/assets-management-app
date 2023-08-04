@@ -1,21 +1,6 @@
-import { headers } from "next/headers";
-
 import { NotFoundError } from "@/libs/error";
-import { typedFetch } from "@/libs/fetchUtils";
 
-import { authValidateAndReturnUid } from "../auth";
 import { handlePrismaError, prisma } from "../index";
-
-const url = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
-
-export const getJaStocksTotal = async () => {
-  return typedFetch<JaStockTotalReturn>(`${url}/api/stocks/ja/total`, {
-    headers: {
-      cookie: headers().get("cookie") as string,
-    },
-    cache: "no-store",
-  });
-};
 
 export const jaStockTotal = async (userId: string) => {
   try {
