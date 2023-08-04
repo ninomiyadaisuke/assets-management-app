@@ -8,7 +8,7 @@ import { handlePrismaError, prisma } from "../index";
 
 export const getJaStocksTotal = async () => {
   return typedFetch<JaStockTotalReturn>(
-    `${process.env.API_URL}/api/stocks/ja/total`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/stocks/ja/total`,
     {
       headers: {
         cookie: headers().get("cookie") as string,
