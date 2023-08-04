@@ -1,30 +1,10 @@
 import { FC, Suspense } from "react";
 
+import { Spinner } from "@/app/_components/atoms/Spinner";
 import { TotalHoldingCount } from "@/app/_components/atoms/TotalHoldingCount";
 import { JaStockAccordion } from "@/app/_components/templates/JaStocks/JaStockAccordion";
+import { JaStockListWrapper } from "@/app/_components/templates/JaStocks/JaStockListWrapper";
 import { JaStocksPriceCard } from "@/app/_components/templates/JaStocks/JaStocksPriceCard";
-
-import { Spinner } from "../../atoms/Spinner";
-
-const data = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
 
 export const JaStocks: FC = async () => {
   return (
@@ -39,9 +19,19 @@ export const JaStocks: FC = async () => {
         <TotalHoldingCount />
       </section>
       <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2">
-        {data.map((data, i) => (
-          <JaStockAccordion key={i} />
-        ))}
+        <Suspense fallback={<Spinner />}>
+          <JaStockListWrapper
+            children={(item, array) => {
+              return (
+                <JaStockAccordion
+                  key={item.stockId}
+                  item={item}
+                  accordionInfo={array}
+                />
+              );
+            }}
+          />
+        </Suspense>
       </section>
     </>
   );
