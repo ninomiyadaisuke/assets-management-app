@@ -3,23 +3,24 @@ import { headers } from "next/headers";
 import { NotFoundError } from "@/libs/error";
 import { typedFetch } from "@/libs/fetchUtils";
 
-// import { authValidateAndReturnUid } from "../auth";
+import { authValidateAndReturnUid } from "../auth";
 import { handlePrismaError, prisma } from "../index";
 
+const URL =
+  process.env.NODE_ENV === "development"
+    ? process.env.NEXT_PUBLIC_API_URL
+    : `https://${process.env.API_URL}.vercel.app`;
+
 export const getJaStocksTotal = async () => {
-  return typedFetch<JaStockTotalReturn>(
-    `${process.env.API_URL}/api/stocks/ja/total`,
-    {
-      headers: {
-        cookie: headers().get("cookie") as string,
-      },
-      cache: "no-store",
-    }
-  );
+  return typedFetch<JaStockTotalReturn>(`${URL}/api/stocks/ja/total`, {
+    headers: {
+      cookie: headers().get("cookie") as string,
+    },
+    cache: "no-store",
+  });
 };
 
-export const jaStockTotal = async () => {
-  // const userId = await authValidateAndReturnUid();
+export const jaStockTotal = async (userId: string) => {
   try {
     const holdings = await prisma.holding.findMany({
       select: {
@@ -35,7 +36,7 @@ export const jaStockTotal = async () => {
         },
       },
       where: {
-        userId: process.env.UID,
+        userId,
       },
     });
     const foreignHoldings = holdings.filter(
