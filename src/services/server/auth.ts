@@ -12,12 +12,12 @@ const createRouteHandlerClientCache = cache(() => {
 
 export const authValidateAndReturnUid = async (): Promise<string> => {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = createRouteHandlerClientCache();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (!session) throw new UnauthorizedError();
-    const uid = session.user.id;
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) throw new UnauthorizedError();
+    const uid = user.id;
     return uid;
   } catch (error) {
     if (error instanceof UnauthorizedError) {
