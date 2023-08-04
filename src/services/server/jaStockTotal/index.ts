@@ -9,7 +9,7 @@ import { handlePrismaError, prisma } from "../index";
 const URL =
   process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_API_URL
-    : `https://${process.env.VERCEL_URL}.vercel.app`;
+    : `https://${process.env.API_URL}.vercel.app`;
 
 export const getJaStocksTotal = async () => {
   return typedFetch<JaStockTotalReturn>(`${URL}/api/stocks/ja/total`, {
@@ -21,7 +21,6 @@ export const getJaStocksTotal = async () => {
 };
 
 export const jaStockTotal = async (userId: string) => {
-  // const userId = await authValidateAndReturnUid();
   try {
     const holdings = await prisma.holding.findMany({
       select: {

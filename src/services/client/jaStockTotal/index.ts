@@ -6,7 +6,7 @@ import type { JaStockTotalReturn } from "@/services/server/jaStockTotal";
 const URL =
   process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_API_URL
-    : `https://${process.env.VERCEL_URL}.vercel.app`;
+    : `https://${process.env.API_URL}.vercel.app`;
 
 export const getJaStocksTotal = async () => {
   return typedFetch<JaStockTotalReturn>(`${URL}/api/stocks/ja/total`, {

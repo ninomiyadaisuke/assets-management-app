@@ -1,4 +1,3 @@
-import {} from "@supabase/auth-helpers-nextjs";
 import { FC } from "react";
 
 import { CardWrapper } from "@/app/_components/atoms/CardWrapper";
