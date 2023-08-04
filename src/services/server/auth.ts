@@ -5,14 +5,14 @@ import { cache } from "react";
 import { Database } from "@/libs/database.types";
 import { InternalServerError, UnauthorizedError } from "@/libs/error";
 
-export const createServerComponentClientCache = cache(() => {
+export const createRouteHandlerClientCache = cache(() => {
   const cookieStore = cookies();
   return createServerComponentClient<Database>({ cookies: () => cookieStore });
 });
 
 export const authValidateAndReturnUid = async (): Promise<string> => {
   try {
-    const supabase = createServerComponentClientCache();
+    const supabase = createRouteHandlerClientCache();
     const {
       data: { user },
     } = await supabase.auth.getUser();
