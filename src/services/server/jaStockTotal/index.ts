@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { NotFoundError } from "@/libs/error";
 import { typedFetch } from "@/libs/fetchUtils";
 
-// import { authValidateAndReturnUid } from "../auth";
+import { authValidateAndReturnUid } from "../auth";
 import { handlePrismaError, prisma } from "../index";
 
 const URL =
@@ -21,7 +21,7 @@ export const getJaStocksTotal = async () => {
 };
 
 export const jaStockTotal = async () => {
-  // const userId = await authValidateAndReturnUid();
+  const userId = await authValidateAndReturnUid();
   try {
     const holdings = await prisma.holding.findMany({
       select: {
