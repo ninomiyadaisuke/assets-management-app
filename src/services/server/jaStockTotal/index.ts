@@ -20,8 +20,8 @@ export const getJaStocksTotal = async () => {
   });
 };
 
-export const jaStockTotal = async () => {
-  const userId = await authValidateAndReturnUid();
+export const jaStockTotal = async (userId: string) => {
+  // const userId = await authValidateAndReturnUid();
   try {
     const holdings = await prisma.holding.findMany({
       select: {
@@ -37,7 +37,7 @@ export const jaStockTotal = async () => {
         },
       },
       where: {
-        userId: process.env.UID,
+        userId,
       },
     });
     const foreignHoldings = holdings.filter(
