@@ -6,59 +6,55 @@ import { FC, useId } from "react";
 import { CardWrapper } from "@/app/_components/atoms/CardWrapper";
 import { StockBasicInfo } from "@/app/_components/atoms/StockBasicInfo";
 import { StockInfo } from "@/app/_components/atoms/StockInfo";
+import { BasicInfo } from "@/services/server/jaStockList";
 
 const fetchData = [
   {
-    title: "現在価格",
-    value: 40000,
-    unit: "円",
-  },
-  {
     title: "保有数了",
-    value: 100,
     unit: "株",
   },
   {
     title: "評価損益率",
-    value: 30,
     unit: "%",
   },
   {
     title: "平均取得単価",
-    value: 40000,
     unit: "円",
   },
   {
     title: "配当金",
-    value: 100,
     unit: "円",
   },
 ];
 
-export const JaStockAccordion: FC = () => {
+type Props = {
+  item: BasicInfo;
+  accordionInfo: number[];
+};
+
+export const JaStockAccordion: FC<Props> = ({ item, accordionInfo }) => {
   const id = useId();
   return (
     <Accordion.Root type="multiple" asChild>
       <CardWrapper>
         <Accordion.Item value={`item-${id}`} asChild>
           <StockBasicInfo
-            id="testid"
-            stockCode="1301"
-            stockName="極洋"
-            evaluationAmount={3000}
-            profitLossAmount={1000}
+            id={item.stockId}
+            stockCode={item.stockCode}
+            stockName={item.stockName}
+            evaluationAmount={item.evaluationAmount}
+            profitLossAmount={item.profitLossAmount}
           />
         </Accordion.Item>
         <Accordion.Item value={`item-${id}`}>
           <Accordion.Content asChild>
             <table className="flex w-full px-3 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
               <tbody className="w-full">
-                {fetchData.map((data) => (
+                {fetchData.map((data, i) => (
                   <StockInfo
                     key={data.title}
-                    className=""
                     title={data.title}
-                    value={data.value}
+                    value={accordionInfo[i]}
                     unit={data.unit as "円" | "%" | "株" | "＄"}
                   />
                 ))}

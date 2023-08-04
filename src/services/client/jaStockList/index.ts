@@ -2,10 +2,10 @@ import { headers } from "next/headers";
 
 import { typedFetch } from "@/libs/fetchUtils";
 import { url } from "@/services/client/url";
-import type { JaStockTotalReturn } from "@/services/server/jaStockTotal";
+import type { JaStockListReturn } from "@/services/server/jaStockList";
 
-export const fetchJaStocksTotal = async () => {
-  return typedFetch<JaStockTotalReturn>(`${url}/api/stocks/ja/total`, {
+export const fetchStockList = async () => {
+  return typedFetch<JaStockListReturn>(`${url}/api/stocks/ja/list`, {
     headers: {
       cookie: headers().get("cookie") as string,
     },

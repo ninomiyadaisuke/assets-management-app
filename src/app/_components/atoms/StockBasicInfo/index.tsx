@@ -25,7 +25,7 @@ export const StockBasicInfo = forwardRef<HTMLDivElement, Props>(
         <ToUpdateLink href={`/edit/ja/${id}`}>{stockName}</ToUpdateLink>
         <div className="flex justify-between">
           <p className="text-base">評価額</p>
-          <ValueDisplay theme="plus" unit={unit}>
+          <ValueDisplay theme="default" unit={unit}>
             {evaluationAmount}
           </ValueDisplay>
         </div>
