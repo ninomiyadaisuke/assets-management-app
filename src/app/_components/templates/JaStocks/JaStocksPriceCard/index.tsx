@@ -1,3 +1,4 @@
+import {} from "@supabase/auth-helpers-nextjs";
 import { FC } from "react";
 
 import { CardWrapper } from "@/app/_components/atoms/CardWrapper";
@@ -8,7 +9,6 @@ import { getJaStocksTotal } from "@/services/server/jaStockTotal";
 export const JaStocksPriceCard: FC = async () => {
   const { currentStockPriceSum, profitLossAmount, evaluationProfitLossRate } =
     await getJaStocksTotal();
-
   return (
     <CardWrapper>
       <TotalStocks total={currentStockPriceSum} />
