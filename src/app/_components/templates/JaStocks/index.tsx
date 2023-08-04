@@ -29,12 +29,12 @@ const data = [
 export const JaStocks: FC = async () => {
   return (
     <>
-      <Suspense fallback={<Spinner />}>
-        <div className="flex h-[100px] w-full items-center justify-center bg-primary" />
-        <section className="m-auto mb-8 mt-[-64px] w-[90%]">
+      <div className="flex h-[100px] w-full items-center justify-center bg-primary" />
+      <section className="m-auto mb-8 mt-[-64px] w-[90%]">
+        <Suspense fallback={<Spinner />}>
           <JaStocksPriceCard />
-        </section>
-      </Suspense>
+        </Suspense>
+      </section>
       <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
         <TotalHoldingCount />
       </section>
