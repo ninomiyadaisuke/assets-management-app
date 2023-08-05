@@ -14,8 +14,6 @@ export type CreateInputType = CreateStockType &
   };
 
 export const createStock = async (input: CreateInputType, userId: string) => {
-  // console.log(input);
-
   const assetTypes = ["特定口座", "新NISA口座"];
   const accountsToCreate =
     input.assetType === "両方" ? assetTypes : [input.assetType];
