@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import cx from "classnames";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SearchButton } from "@/app/_components/atoms/SearchButton";
@@ -20,7 +20,7 @@ type Props = {
 };
 
 export const SearchForm: FC<Props> = ({ className }) => {
-  const { setIsLoading, isLoading } = useLoading();
+  const { setIsLoading } = useLoading();
   const { setStockStatus } = useStockStatus();
   const {
     register,
@@ -56,11 +56,6 @@ export const SearchForm: FC<Props> = ({ className }) => {
     }
   };
 
-  useEffect(() => {
-    if (!isLoading) return;
-    setIsLoading(isLoading);
-  }, [isLoading, setIsLoading]);
-
   return (
     <form
       aria-label="新規日本株作成"
@@ -69,6 +64,7 @@ export const SearchForm: FC<Props> = ({ className }) => {
     >
       <TextboxWithError
         {...register("code")}
+        placeholder="株式コードを入力してください。"
         error={errors.code?.message}
         disabled={isSubmitting}
       />

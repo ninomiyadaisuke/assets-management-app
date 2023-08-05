@@ -1,5 +1,6 @@
 import { SearchedStockType } from "@/contexts/stocksInfoContext";
 import { GoogleApiError, handleGoogleSheetsError } from "@/libs/error";
+import { convertToNumber } from "@/libs/utils";
 
 import { authValidateAndReturnUid } from "../auth";
 import { handlePrismaError, prisma } from "../index";
@@ -75,16 +76,16 @@ export const searchStock = async (
           dividend,
           dividendYield,
         ] = targetRow;
-
-        return {
+        const data = {
           stockCode: code,
           irBankCode,
           stockName: companyName,
-          latestStockPrice,
+          latestStockPrice: convertToNumber(latestStockPrice),
           industry,
-          dividend,
+          dividend: convertToNumber(dividend),
           dividendYield,
         } as SearchedStockType;
+        return data;
       }
     }
   } catch (error) {

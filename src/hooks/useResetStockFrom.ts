@@ -8,12 +8,12 @@ export const useResetStockFrom = (
   defaultValues: CreateStockType,
   reset: UseFormReset<CreateStockType>
 ) => {
-  const { assetType, setAssetType } = useAssetType();
+  const { assetType } = useAssetType();
   useEffect(() => {
     if (assetType !== "両方") return;
     reset({
-      numberOfSharesHeld: [...defaultValues.numberOfSharesHeld, ""],
-      acquisitionPrice: [...defaultValues.acquisitionPrice, ""],
+      numberOfSharesHeld: [...defaultValues.numberOfSharesHeld, 0],
+      acquisitionPrice: [...defaultValues.acquisitionPrice, 0],
     });
   }, [assetType]);
 };
