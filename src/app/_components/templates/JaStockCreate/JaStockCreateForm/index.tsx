@@ -12,12 +12,13 @@ import { Button } from "@/app/_components/atoms/Button";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
 import { useAssetType } from "@/hooks/useAssetType";
+import { useLoading } from "@/hooks/useLoading";
 import { useResetStockFrom } from "@/hooks/useResetStockFrom";
 import { createStockSchema, CreateStockType } from "@/libs/schema/createStock";
 
 const defaultValues = {
-  numberOfSharesHeld: [""],
-  acquisitionPrice: [""],
+  numberOfSharesHeld: [0],
+  acquisitionPrice: [0],
 };
 
 type Props<T extends FieldValues = CreateStockType> = {
@@ -30,11 +31,12 @@ type Props<T extends FieldValues = CreateStockType> = {
 export const JaStockCreateForm: FC<Props> = (props) => {
   const { title, onValid, onInvalid, onClickSave } = props;
   const { getAccountTypes } = useAssetType();
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<CreateStockType>({
     defaultValues,
     resolver: zodResolver(createStockSchema),
@@ -63,9 +65,12 @@ export const JaStockCreateForm: FC<Props> = (props) => {
                   保有株数
                 </label>
                 <TextboxWithError
+                  disabled={isSubmitting}
                   id={`保有株数-${i}`}
                   type="tel"
-                  {...register(`numberOfSharesHeld.${i}`)}
+                  {...register(`numberOfSharesHeld.${i}`, {
+                    valueAsNumber: true,
+                  })}
                   error={
                     errors.numberOfSharesHeld &&
                     errors.numberOfSharesHeld[i]?.message
@@ -80,9 +85,12 @@ export const JaStockCreateForm: FC<Props> = (props) => {
                   取得単価
                 </label>
                 <TextboxWithError
+                  disabled={isSubmitting}
                   id={`取得単価-${i}`}
                   type="tel"
-                  {...register(`acquisitionPrice.${i}`)}
+                  {...register(`acquisitionPrice.${i}`, {
+                    valueAsNumber: true,
+                  })}
                   error={
                     errors.acquisitionPrice &&
                     errors.acquisitionPrice[i]?.message
@@ -93,12 +101,12 @@ export const JaStockCreateForm: FC<Props> = (props) => {
           );
         })}
       </div>
-      <Button type="button" onClick={onClickSave}>
+      <Button disabled={isSubmitting} type="button" onClick={onClickSave}>
         送信
       </Button>
       <AlertDialog
         buttonComponent={(label) => (
-          <Button type="submit" theme="error">
+          <Button disabled={isSubmitting} type="submit">
             {label}
           </Button>
         )}
@@ -106,14 +114,3 @@ export const JaStockCreateForm: FC<Props> = (props) => {
     </form>
   );
 };
-
-// type ReqType = {
-//   assetType: "両方" | "新NISA口座" | "特定口座";
-//   stockName: string;
-//   stockCode: string;
-//   dividend: number;
-//   latestStockPrice: number;
-//   industry: string;
-//   numberOfSharesHeld: number[];
-//   acquisitionPrice: number[];
-// };

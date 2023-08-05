@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-const numberOfSharesHeldSchema = z.string().min(1);
-const acquisitionPriceSchema = z.string().min(1);
+const numberOfSharesHeldSchema = z.number().int().min(1);
+const acquisitionPriceSchema = z.number().min(1);
 
 export const createStockSchema = z.object({
   numberOfSharesHeld: z.array(numberOfSharesHeldSchema),
