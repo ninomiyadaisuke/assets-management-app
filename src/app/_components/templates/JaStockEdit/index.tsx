@@ -3,7 +3,7 @@ import { FC, Suspense } from "react";
 import { Checkbox } from "@/app/_components/atoms/Checkbox";
 import { Spinner } from "@/app/_components/atoms/Spinner";
 import { JaStockEditForm } from "@/app/_components/templates/JaStockEdit/JaStockEditForm";
-import { fetchStockData } from "@/services/client/JaStockEdit";
+import { fetchJaStocksClient } from "@/services/client/JaStockEdit";
 import { JaStockReturn } from "@/services/server/JaStockEdit";
 
 type Props = {
@@ -21,7 +21,7 @@ const accountType = (data: JaStockReturn) => {
 };
 
 export const JaStockEdit: FC<Props> = async ({ id }) => {
-  const data = await fetchStockData(id);
+  const data = await fetchJaStocksClient(id);
 
   data.holdingIdAndAccountTypes.length;
   return (
@@ -30,7 +30,7 @@ export const JaStockEdit: FC<Props> = async ({ id }) => {
         <Checkbox label={`${accountType(data)}を追加しますか？`} />
       )}
       <Suspense fallback={<Spinner />}>
-        <JaStockEditForm fetchStock={fetchStockData(id)} id={id} />
+        <JaStockEditForm fetchStock={fetchJaStocksClient(id)} id={id} />
       </Suspense>
     </div>
   );

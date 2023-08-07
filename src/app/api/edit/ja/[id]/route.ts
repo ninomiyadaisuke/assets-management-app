@@ -4,9 +4,9 @@ import { UpdateJaStockInput } from "@/app/_components/templates/JaStockEdit/JaSt
 import { UnauthorizedError } from "@/libs/error";
 import { createRouteHandlerClientCache } from "@/services/server";
 import {
-  jaCreateStocks,
-  jaFetchStock,
-  jaUpdateStocks,
+  createJaStocksServer,
+  fetchJaStocksServer,
+  updateJaStocksServer,
 } from "@/services/server/JaStockEdit";
 
 export async function POST(
@@ -21,7 +21,7 @@ export async function POST(
   const uid = user.id;
   const stockId = params.id;
   const input: UpdateJaStockInput[] = await request.json();
-  const data = await jaCreateStocks(input, stockId, uid);
+  const data = await createJaStocksServer(input, stockId, uid);
   return NextResponse.json({ data });
 }
 
@@ -32,7 +32,7 @@ export async function PATCH(request: Request) {
   } = await supabase.auth.getUser();
   if (!user) throw new UnauthorizedError();
   const input: UpdateJaStockInput[] = await request.json();
-  const data = await jaUpdateStocks(input);
+  const data = await updateJaStocksServer(input);
   return NextResponse.json(data);
 }
 
@@ -47,7 +47,7 @@ export async function GET(
   } = await supabase.auth.getUser();
   if (!user) throw new UnauthorizedError();
   const uid = user.id;
-  const data = await jaFetchStock(uid, stockId);
+  const data = await fetchJaStocksServer(uid, stockId);
 
   return NextResponse.json(data);
 }

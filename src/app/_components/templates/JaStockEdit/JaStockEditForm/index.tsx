@@ -11,8 +11,10 @@ import { useAlertDialog } from "@/hooks/useAlertDialog";
 import { useCheck } from "@/hooks/useCheck";
 import { useManageJaAccountTypes } from "@/hooks/useManageJaAccountTypes";
 import { createStockSchema, UpdateStockType } from "@/libs/schema/createStock";
-import { updateStockData } from "@/services/client/JaStockEdit";
-import { createStockData } from "@/services/client/JaStockEdit";
+import {
+  createJaStocksClient,
+  updateJaStocksClient,
+} from "@/services/client/JaStockEdit";
 import { JaStockReturn } from "@/services/server/JaStockEdit";
 
 type Props = {
@@ -103,14 +105,14 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
     if (dataArray.length === 0) return;
     const isCreate = dataArray.some((data) => data.holdingId === "");
     if (isCreate) {
-      await createStockData(dataArray, id).then(() => {
+      await createJaStocksClient(dataArray, id).then(() => {
         router.refresh();
         setIsChecked(false);
         hideAlertDialog();
         router.back();
       });
     } else {
-      await updateStockData(dataArray, id).then(() => {
+      await updateJaStocksClient(dataArray, id).then(() => {
         hideAlertDialog();
         router.refresh();
         router.back();
