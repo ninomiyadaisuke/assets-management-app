@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { UseFormReset } from "react-hook-form";
 
 import { useAssetType } from "@/hooks/useAssetType";
-import { CreateStockType } from "@/libs/schema/createStock";
+import { CreateStockType } from "@/libs/schema/updateStock";
 
 export const useResetStockFrom = (
   defaultValues: CreateStockType,
