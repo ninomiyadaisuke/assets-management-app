@@ -1,4 +1,4 @@
-import { Holding, Stock } from "@prisma/client";
+import { UpdateJaStockInput } from "@/app/_components/templates/JaStockEdit/JaStockEditForm";
 
 import { handlePrismaError, prisma } from "../index";
 
@@ -68,3 +68,95 @@ export const jaFetchStock = async (userId: string, stockId: string) => {
 };
 
 export type JaStockReturn = Awaited<ReturnType<typeof jaFetchStock>>;
+
+export const jaCreateStocks = async (
+  input: UpdateJaStockInput[],
+  stockId: string,
+  userId: string
+) => {
+  try {
+    const createData = input.find((data) => data.holdingId === "");
+    const updateData = input.find((data) => data.holdingId !== "");
+    let account = await prisma.account.findUnique({
+      where: {
+        userId_accountType: {
+          userId,
+          accountType: createData!.accountType,
+        },
+      },
+    });
+
+    if (!account) {
+      account = await prisma.account.create({
+        data: {
+          userId,
+          accountType: createData!.accountType,
+        },
+      });
+    }
+
+    const createHoldingOperation = prisma.holding.create({
+      data: {
+        numberOfSharesHeld: createData!.numberOfSharesHeld!,
+        acquisitionPrice: createData!.acquisitionPrice!,
+        userId,
+        accountId: account.accountId,
+        stockId,
+      },
+    });
+
+    const operations = [createHoldingOperation];
+
+    if (updateData) {
+      const updatePayload: Partial<{
+        acquisitionPrice: number;
+        numberOfSharesHeld: number;
+      }> = {};
+
+      if (updateData.acquisitionPrice !== undefined) {
+        updatePayload.acquisitionPrice = updateData.acquisitionPrice;
+      }
+      if (updateData.numberOfSharesHeld !== undefined) {
+        updatePayload.numberOfSharesHeld = updateData.numberOfSharesHeld;
+      }
+
+      const updateHoldingOperation = prisma.holding.update({
+        where: {
+          holdingId: updateData.holdingId,
+        },
+        data: updatePayload,
+      });
+
+      operations.push(updateHoldingOperation);
+    }
+
+    const result = await prisma.$transaction(operations);
+
+    return result;
+  } catch (error) {
+    handlePrismaError(error);
+    throw error;
+  }
+};
+
+export const jaUpdateStocks = async (input: UpdateJaStockInput[]) => {
+  try {
+    const holdings = input.map((data) => {
+      return prisma.holding.update({
+        where: {
+          holdingId: data.holdingId,
+        },
+        data: {
+          acquisitionPrice: data.acquisitionPrice,
+          numberOfSharesHeld: data.numberOfSharesHeld,
+        },
+      });
+    });
+
+    const result = await prisma.$transaction(holdings);
+    return result;
+  } catch (error) {
+    handlePrismaError(error);
+    throw error;
+  }
+};

@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 
+import { UpdateJaStockInput } from "@/app/_components/templates/JaStockEdit/JaStockEditForm";
 import { UnauthorizedError } from "@/libs/error";
 import { createRouteHandlerClientCache } from "@/services/server";
-import { CreateInputType, createStock } from "@/services/server/jaStockCreate";
-import { jaFetchStock } from "@/services/server/JaStockEdit";
+import {
+  jaCreateStocks,
+  jaFetchStock,
+  jaUpdateStocks,
+} from "@/services/server/JaStockEdit";
 
 export async function POST(
   request: Request,
@@ -15,22 +19,21 @@ export async function POST(
   } = await supabase.auth.getUser();
   if (!user) throw new UnauthorizedError();
   const uid = user.id;
-  const input = await request.json();
-  return NextResponse.json({});
+  const stockId = params.id;
+  const input: UpdateJaStockInput[] = await request.json();
+  const data = await jaCreateStocks(input, stockId, uid);
+  return NextResponse.json({ data });
 }
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(request: Request) {
   const supabase = createRouteHandlerClientCache();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) throw new UnauthorizedError();
-  const uid = user.id;
-  const input = await request.json();
-  return NextResponse.json({});
+  const input: UpdateJaStockInput[] = await request.json();
+  const data = await jaUpdateStocks(input);
+  return NextResponse.json(data);
 }
 
 export async function GET(
@@ -45,7 +48,6 @@ export async function GET(
   if (!user) throw new UnauthorizedError();
   const uid = user.id;
   const data = await jaFetchStock(uid, stockId);
-  // console.log('==================================>>>>>>>',data);
 
   return NextResponse.json(data);
 }
