@@ -2,7 +2,7 @@ import { Account } from "@prisma/client";
 
 import { AssetType } from "@/contexts/assetTypeContext";
 import { SearchedStockType } from "@/contexts/stocksInfoContext";
-import { UpdateStockType } from "@/libs/schema/updateStock";
+import { UpdateStockType } from "@/libs/schema/createStock";
 
 import { handlePrismaError, prisma } from "../index";
 
