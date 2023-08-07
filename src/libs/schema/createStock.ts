@@ -9,3 +9,5 @@ export const createStockSchema = z.object({
 });
 
 export type CreateStockType = z.infer<typeof createStockSchema>;
+
+export type UpdateStockType = CreateStockType;

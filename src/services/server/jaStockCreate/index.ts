@@ -2,13 +2,13 @@ import { Account } from "@prisma/client";
 
 import { AssetType } from "@/contexts/assetTypeContext";
 import { SearchedStockType } from "@/contexts/stocksInfoContext";
-import { CreateStockType } from "@/libs/schema/createStock";
+import { UpdateStockType } from "@/libs/schema/createStock";
 
 import { handlePrismaError, prisma } from "../index";
 
 type OmitSearchedStockType = Omit<SearchedStockType, "dividendYield">;
 
-export type CreateInputType = CreateStockType &
+export type CreateInputType = UpdateStockType &
   OmitSearchedStockType & {
     assetType: AssetType;
   };
