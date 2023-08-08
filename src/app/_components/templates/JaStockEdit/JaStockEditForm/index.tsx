@@ -1,7 +1,7 @@
 "use client";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, Fragment, use, useState } from "react";
+import { FC, Fragment, use } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/app/_components/atoms/Button";
