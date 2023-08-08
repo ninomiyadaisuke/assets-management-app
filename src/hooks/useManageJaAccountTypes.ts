@@ -19,7 +19,7 @@ export const useManageJaAccountTypes = (
   const router = useRouter();
   const { isChecked, setIsChecked } = useCheck();
   const [accountTypes, setAccountTypes] = useState(defaultTypes);
-  const { showDeleteAlertDialog } = useAlertDialog();
+  const { showDeleteAlertDialog, hideAlertDialog } = useAlertDialog();
   const specialAccount = "特定口座";
 
   useEffect(() => {
@@ -63,6 +63,7 @@ export const useManageJaAccountTypes = (
 
   const handleDeleteDb = async (holdingId: string) => {
     await deleteJaStockClient(holdingId).then(() => {
+      hideAlertDialog();
       router.refresh();
       router.back();
     });
