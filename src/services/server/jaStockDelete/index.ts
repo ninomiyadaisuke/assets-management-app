@@ -3,7 +3,7 @@ import { prisma } from "@/services/server/index";
 
 import { handlePrismaError } from "..";
 
-export const fetchJaStocksServer = async (holdingId: string) => {
+export const deleteJaStockServer = async (holdingId: string) => {
   try {
     const holding = await prisma.holding.findFirst({
       where: { holdingId },
@@ -25,8 +25,9 @@ export const fetchJaStocksServer = async (holdingId: string) => {
       // if there is more than one holding, delete only the holding
       await prisma.holding.delete({ where: { holdingId } });
     }
+    return { message: "success" };
   } catch (error) {
     handlePrismaError(error);
+    return { message: "failure" };
   }
-  return;
 };
