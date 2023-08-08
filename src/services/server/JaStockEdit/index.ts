@@ -2,7 +2,7 @@ import { UpdateJaStockInput } from "@/app/_components/templates/JaStockEdit/JaSt
 
 import { handlePrismaError, prisma } from "../index";
 
-export const jaFetchStock = async (userId: string, stockId: string) => {
+export const fetchJaStocksServer = async (userId: string, stockId: string) => {
   try {
     // 特定口座のデータを取得
     const holdingsSpecific = await prisma.holding.findMany({
@@ -67,9 +67,9 @@ export const jaFetchStock = async (userId: string, stockId: string) => {
   }
 };
 
-export type JaStockReturn = Awaited<ReturnType<typeof jaFetchStock>>;
+export type JaStockReturn = Awaited<ReturnType<typeof fetchJaStocksServer>>;
 
-export const jaCreateStocks = async (
+export const createJaStocksServer = async (
   input: UpdateJaStockInput[],
   stockId: string,
   userId: string
@@ -139,7 +139,7 @@ export const jaCreateStocks = async (
   }
 };
 
-export const jaUpdateStocks = async (input: UpdateJaStockInput[]) => {
+export const updateJaStocksServer = async (input: UpdateJaStockInput[]) => {
   try {
     const holdings = input.map((data) => {
       return prisma.holding.update({

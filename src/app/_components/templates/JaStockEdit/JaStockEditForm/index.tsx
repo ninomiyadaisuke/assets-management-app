@@ -1,6 +1,5 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { FC, Fragment, use } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -8,11 +7,9 @@ import { Button } from "@/app/_components/atoms/Button";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
-import { useCheck } from "@/hooks/useCheck";
+import { useHandleStockSubmission } from "@/hooks/useHandleStockSubmission";
 import { useManageJaAccountTypes } from "@/hooks/useManageJaAccountTypes";
 import { createStockSchema, UpdateStockType } from "@/libs/schema/createStock";
-import { updateStockData } from "@/services/client/JaStockEdit";
-import { createStockData } from "@/services/client/JaStockEdit";
 import { JaStockReturn } from "@/services/server/JaStockEdit";
 
 type Props = {
@@ -27,11 +24,15 @@ export type UpdateJaStockInput = {
   accountType: string;
 };
 
+export type Values = {
+  numberOfSharesHeld: number[];
+  acquisitionPrice: number[];
+};
+
 export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
   const data = use(fetchStock);
   const { stockCode, stockName, holdingIdAndAccountTypes, defaultValues } =
     data;
-  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -46,75 +47,27 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
     reset,
     defaultValues
   );
-  const { setIsChecked } = useCheck();
-  const { showAlertDialog, hideAlertDialog } = useAlertDialog();
+  const { showAlertDialog } = useAlertDialog();
+
+  const handleSubmission = useHandleStockSubmission(
+    accountTypeAndHoldingIds,
+    defaultValues,
+    id
+  );
+
   const onSubmit: SubmitHandler<UpdateStockType> = async (values) => {
-    const dataArray: UpdateJaStockInput[] = [];
-
-    accountTypeAndHoldingIds.forEach(({ holdingId, accountType }, i) => {
-      const data: UpdateJaStockInput = {
-        holdingId,
-        accountType,
-      };
-
-      const isUpdateOnly = accountTypeAndHoldingIds.every(
-        (data) => data.holdingId !== ""
-      );
-      const handleDataChange = (
-        valueIndex: number,
-        defaultValueIndex: number,
-        fieldName: keyof UpdateStockType,
-        value: {
-          numberOfSharesHeld: number[];
-          acquisitionPrice: number[];
-        },
-        isHoldingId = true
-      ) => {
-        if (
-          values[fieldName][valueIndex] !==
-            value[fieldName][defaultValueIndex] &&
-          isHoldingId
-        ) {
-          data[fieldName] = values[fieldName][valueIndex];
-        }
-        if (!isHoldingId) {
-          data[fieldName] = values[fieldName][valueIndex];
-        }
-      };
-      if (isUpdateOnly) {
-        handleDataChange(i, i, "acquisitionPrice", defaultValues);
-        handleDataChange(i, i, "numberOfSharesHeld", defaultValues);
-      } else {
-        handleDataChange(
-          i,
-          0,
-          "numberOfSharesHeld",
-          defaultValues,
-          !!holdingId
-        );
-        handleDataChange(i, 0, "acquisitionPrice", defaultValues, !!holdingId);
-      }
-
-      if (Object.keys(data).length > 2) {
-        dataArray.push(data);
-      }
-    });
+    const {
+      dataArray,
+      isCreate,
+      handleCreateStockSubmission,
+      handleUpdateStockSubmission,
+    } = handleSubmission(values);
 
     if (dataArray.length === 0) return;
-    const isCreate = dataArray.some((data) => data.holdingId === "");
     if (isCreate) {
-      await createStockData(dataArray, id).then(() => {
-        router.refresh();
-        setIsChecked(false);
-        hideAlertDialog();
-        router.back();
-      });
+      await handleCreateStockSubmission();
     } else {
-      await updateStockData(dataArray, id).then(() => {
-        hideAlertDialog();
-        router.refresh();
-        router.back();
-      });
+      await handleUpdateStockSubmission();
     }
   };
   return (
