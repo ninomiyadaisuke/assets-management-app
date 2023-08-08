@@ -3,8 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, Fragment, use } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { ErrorMessage } from "@/app/_components/atoms/ErrorMessage";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
+import { useAlertDialog } from "@/hooks/useAlertDialog";
 import { useHandleStockSubmission } from "@/hooks/useHandleStockSubmission";
 import { useManageJaAccountTypes } from "@/hooks/useManageJaAccountTypes";
 import { createStockSchema, UpdateStockType } from "@/libs/schema/createStock";
@@ -46,11 +48,23 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
     defaultValues
   );
 
-  const handleSubmission = useHandleStockSubmission(
-    accountTypeAndHoldingIds,
-    defaultValues,
-    id
-  );
+  const { handleSubmission, setErrorMessage, errorMessage } =
+    useHandleStockSubmission(accountTypeAndHoldingIds, defaultValues, id);
+
+  const { hideAlertDialog } = useAlertDialog();
+
+  const fields = [
+    {
+      label: "保有株数",
+      registerName: "numberOfSharesHeld" as const,
+      error: errors.numberOfSharesHeld,
+    },
+    {
+      label: "取得単価",
+      registerName: "acquisitionPrice" as const,
+      error: errors.acquisitionPrice,
+    },
+  ];
 
   const onSubmit: SubmitHandler<UpdateStockType> = async (values) => {
     const {
@@ -60,7 +74,12 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
       handleUpdateStockSubmission,
     } = handleSubmission(values);
 
-    if (dataArray.length === 0) return;
+    if (dataArray.length === 0) {
+      hideAlertDialog();
+      setErrorMessage("変更箇所がないので更新できません。");
+      return;
+    }
+
     if (isCreate) {
       await handleCreateStockSubmission();
     } else {
@@ -69,6 +88,7 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
   };
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <fieldset>
         <legend>{`${stockCode}:${stockName}`}</legend>
         <div className="flex flex-col gap-5">
@@ -76,32 +96,19 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
             const holdingId = accountTypeAndHoldingId.holdingId;
             return (
               <Fragment key={i}>
-                <div>
-                  <label htmlFor={`保有株数-${i}`}>保有株数</label>
-                  <TextboxWithError
-                    id={`保有株数-${i}`}
-                    {...register(`numberOfSharesHeld.${i}`, {
-                      valueAsNumber: true,
-                    })}
-                    error={
-                      errors.numberOfSharesHeld &&
-                      errors.numberOfSharesHeld[i]?.message
-                    }
-                  />
-                </div>
-                <div>
-                  <label htmlFor={`取得単価-${i}`}>取得単価</label>
-                  <TextboxWithError
-                    id={`取得単価-${i}`}
-                    {...register(`acquisitionPrice.${i}`, {
-                      valueAsNumber: true,
-                    })}
-                    error={
-                      errors.acquisitionPrice &&
-                      errors.acquisitionPrice[i]?.message
-                    }
-                  />
-                </div>
+                {fields.map((field, idx) => (
+                  <div key={idx}>
+                    <label htmlFor={`${field.label}-${i}`}>{field.label}</label>
+                    <TextboxWithError
+                      id={`${field.label}-${i}`}
+                      {...register(`${field.registerName}.${i}`, {
+                        valueAsNumber: true,
+                      })}
+                      error={field.error && field.error[i]?.message}
+                      onChange={() => setErrorMessage(null)}
+                    />
+                  </div>
+                ))}
               </Fragment>
             );
           })}

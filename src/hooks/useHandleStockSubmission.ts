@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import {
   UpdateJaStockInput,
@@ -23,6 +24,7 @@ export const useHandleStockSubmission = (
   const router = useRouter();
   const { setIsChecked } = useCheck();
   const { hideAlertDialog } = useAlertDialog();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmissionLogic = (values: UpdateStockType) => {
     const dataArray: UpdateJaStockInput[] = [];
@@ -106,5 +108,9 @@ export const useHandleStockSubmission = (
     };
   };
 
-  return handleSubmissionLogic;
+  return {
+    handleSubmission: handleSubmissionLogic,
+    setErrorMessage,
+    errorMessage,
+  };
 };
