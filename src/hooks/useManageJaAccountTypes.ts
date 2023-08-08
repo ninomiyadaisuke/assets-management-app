@@ -63,3 +63,8 @@ export const useManageJaAccountTypes = (
     setIsChecked,
   };
 };
+
+type UseManageJaAccountType = ReturnType<typeof useManageJaAccountTypes>;
+
+export type AccountTypeAndHoldingIds =
+  UseManageJaAccountType["accountTypeAndHoldingIds"];
