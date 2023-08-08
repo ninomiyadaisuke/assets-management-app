@@ -3,10 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, Fragment, use } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Button } from "@/app/_components/atoms/Button";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
-import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
-import { useAlertDialog } from "@/hooks/useAlertDialog";
+import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
 import { useHandleStockSubmission } from "@/hooks/useHandleStockSubmission";
 import { useManageJaAccountTypes } from "@/hooks/useManageJaAccountTypes";
 import { createStockSchema, UpdateStockType } from "@/libs/schema/createStock";
@@ -47,7 +45,6 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
     reset,
     defaultValues
   );
-  const { showAlertDialog } = useAlertDialog();
 
   const handleSubmission = useHandleStockSubmission(
     accountTypeAndHoldingIds,
@@ -110,19 +107,9 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
           })}
         </div>
       </fieldset>
-      <Button
-        disabled={isSubmitting}
-        type="button"
-        onClick={() => showAlertDialog({ message: "登録内容を更新しますか？" })}
-      >
-        送信
-      </Button>
-      <AlertDialog
-        buttonComponent={(label) => (
-          <Button disabled={isSubmitting} type="submit">
-            {label}
-          </Button>
-        )}
+      <ConfirmSubmitButton
+        isSubmitting={isSubmitting}
+        alertDialogState={{ message: "登録内容を更新しますか？" }}
       />
     </form>
   );
