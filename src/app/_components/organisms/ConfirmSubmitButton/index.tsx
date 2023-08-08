@@ -15,7 +15,7 @@ export const ConfirmSubmitButton: FC<Props> = ({
   isSubmitting,
   alertDialogState,
 }) => {
-  const { showAlertDialog } = useAlertDialog();
+  const { showAlertDialog, isDelete } = useAlertDialog();
   return (
     <>
       <Button
@@ -25,13 +25,15 @@ export const ConfirmSubmitButton: FC<Props> = ({
       >
         送信
       </Button>
-      <AlertDialog
-        buttonComponent={(label) => (
-          <Button disabled={isSubmitting} type="submit">
-            {label}
-          </Button>
-        )}
-      />
+      {!isDelete && (
+        <AlertDialog
+          buttonComponent={(label) => (
+            <Button disabled={isSubmitting} type="submit">
+              {label}
+            </Button>
+          )}
+        />
+      )}
     </>
   );
 };

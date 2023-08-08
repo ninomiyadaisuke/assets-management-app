@@ -14,13 +14,25 @@ export const useAlertDialog = () => {
     },
     []
   );
+  const showDeleteAlertDialog = useCallback(
+    (props?: Partial<Omit<AlertDialogState, "isDelete">>) => {
+      setState((prev) => ({
+        ...prev,
+        ...props,
+        isDelete: true,
+        isShown: true,
+      }));
+    },
+    []
+  );
   const hideAlertDialog = useCallback(() => {
-    setState((prev) => ({ ...prev, isShown: false }));
+    setState((prev) => ({ ...prev, isShown: false, isDelete: false }));
   }, []);
 
   return {
     ...state,
     showAlertDialog,
     hideAlertDialog,
+    showDeleteAlertDialog,
   };
 };

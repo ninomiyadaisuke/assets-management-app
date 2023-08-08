@@ -1,8 +1,11 @@
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UseFormReset } from "react-hook-form";
 
 import { UpdateStockType } from "@/libs/schema/createStock";
+import { deleteJaStockClient } from "@/services/client/jaStockDelete";
 
+import { useAlertDialog } from "./useAlertDialog";
 import { useCheck } from "./useCheck";
 
 export const useManageJaAccountTypes = (
@@ -13,9 +16,10 @@ export const useManageJaAccountTypes = (
   reset: UseFormReset<UpdateStockType>,
   defaultValues: UpdateStockType
 ) => {
+  const router = useRouter();
   const { isChecked, setIsChecked } = useCheck();
   const [accountTypes, setAccountTypes] = useState(defaultTypes);
-
+  const { showDeleteAlertDialog } = useAlertDialog();
   const specialAccount = "特定口座";
 
   useEffect(() => {
@@ -57,10 +61,31 @@ export const useManageJaAccountTypes = (
     setIsChecked((prev) => !prev);
   };
 
+  const handleDeleteDb = async (holdingId: string) => {
+    await deleteJaStockClient(holdingId).then(() => {
+      router.refresh();
+      router.back();
+    });
+  };
+
+  const handleDelete = async (holdingId: string, index: number) => {
+    if (holdingId) {
+      showDeleteAlertDialog({
+        message: "口座を削除しますか?",
+        cancelButtonLabel: "いいえ",
+        okButtonLabel: "削除",
+      });
+    } else {
+      deleteAccountType(index);
+    }
+  };
+
   return {
     accountTypeAndHoldingIds: accountTypes,
     deleteAccountType,
     setIsChecked,
+    handleDeleteDb,
+    handleDelete,
   };
 };
 

@@ -8,11 +8,9 @@ import {
   useForm,
 } from "react-hook-form";
 
-import { Button } from "@/app/_components/atoms/Button";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
-import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
+import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
 import { useAssetType } from "@/hooks/useAssetType";
-import { useLoading } from "@/hooks/useLoading";
 import { useResetStockFrom } from "@/hooks/useResetStockFrom";
 import { createStockSchema, CreateStockType } from "@/libs/schema/createStock";
 
@@ -101,15 +99,9 @@ export const JaStockCreateForm: FC<Props> = (props) => {
           );
         })}
       </div>
-      <Button disabled={isSubmitting} type="button" onClick={onClickSave}>
-        送信
-      </Button>
-      <AlertDialog
-        buttonComponent={(label) => (
-          <Button disabled={isSubmitting} type="submit">
-            {label}
-          </Button>
-        )}
+      <ConfirmSubmitButton
+        isSubmitting={isSubmitting}
+        alertDialogState={{ message: "登録内容を更新しますか？" }}
       />
     </form>
   );

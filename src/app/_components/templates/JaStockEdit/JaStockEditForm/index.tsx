@@ -1,10 +1,13 @@
 "use client";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, Fragment, use } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { Button } from "@/app/_components/atoms/Button";
 import { ErrorMessage } from "@/app/_components/atoms/ErrorMessage";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
+import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
 import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
 import { useHandleStockSubmission } from "@/hooks/useHandleStockSubmission";
@@ -31,6 +34,7 @@ export type Values = {
 
 export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
   const data = use(fetchStock);
+
   const { stockCode, stockName, holdingIdAndAccountTypes, defaultValues } =
     data;
   const {
@@ -42,11 +46,8 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
     defaultValues,
     resolver: zodResolver(createStockSchema),
   });
-  const { accountTypeAndHoldingIds } = useManageJaAccountTypes(
-    holdingIdAndAccountTypes,
-    reset,
-    defaultValues
-  );
+  const { accountTypeAndHoldingIds, handleDeleteDb, handleDelete } =
+    useManageJaAccountTypes(holdingIdAndAccountTypes, reset, defaultValues);
 
   const { handleSubmission, setErrorMessage, errorMessage } =
     useHandleStockSubmission(accountTypeAndHoldingIds, defaultValues, id);
@@ -96,6 +97,26 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
             const holdingId = accountTypeAndHoldingId.holdingId;
             return (
               <Fragment key={i}>
+                <div className="mt-2 flex gap-2">
+                  <h3>{accountTypeAndHoldingIds[i].accountType}</h3>
+                  <TrashIcon
+                    type="button"
+                    onClick={() => handleDelete(holdingId, i)}
+                    className="h-[24px] w-[24px] cursor-pointer"
+                  />
+                  <AlertDialog
+                    buttonComponent={(label) => (
+                      <Button
+                        type="button"
+                        theme="error"
+                        onClick={() => handleDeleteDb(holdingId)}
+                      >
+                        {label}
+                      </Button>
+                    )}
+                  />
+                </div>
+
                 {fields.map((field, idx) => (
                   <div key={idx}>
                     <label htmlFor={`${field.label}-${i}`}>{field.label}</label>
