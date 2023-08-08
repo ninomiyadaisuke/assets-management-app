@@ -19,6 +19,7 @@ export const AlertDialog: FC<Props> = ({ buttonComponent }) => {
     okButtonLabel,
     cancelButtonLabel,
   } = useAlertDialog();
+
   if (!isShown) return;
   return (
     <div>
