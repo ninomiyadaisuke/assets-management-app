@@ -9,6 +9,7 @@ import { ErrorMessage } from "@/app/_components/atoms/ErrorMessage";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { AlertDialog } from "@/app/_components/organisms/AlertDialog";
 import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
+import { DeleteConfirmationButton } from "@/app/_components/organisms/DeleteConfirmationButton";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
 import { useHandleStockSubmission } from "@/hooks/useHandleStockSubmission";
 import { useManageJaAccountTypes } from "@/hooks/useManageJaAccountTypes";
@@ -99,21 +100,12 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
               <Fragment key={i}>
                 <div className="mt-2 flex gap-2">
                   <h3>{accountTypeAndHoldingIds[i].accountType}</h3>
-                  <TrashIcon
-                    type="button"
-                    onClick={() => handleDelete(holdingId, i)}
-                    className="h-[24px] w-[24px] cursor-pointer"
-                  />
-                  <AlertDialog
-                    buttonComponent={(label) => (
-                      <Button
-                        type="button"
-                        theme="error"
-                        onClick={() => handleDeleteDb(holdingId)}
-                      >
-                        {label}
-                      </Button>
-                    )}
+                  <DeleteConfirmationButton
+                    holdingId={holdingId}
+                    index={i}
+                    isSubmitting={isSubmitting}
+                    handleDelete={handleDelete}
+                    handleDeleteDb={handleDeleteDb}
                   />
                 </div>
 
@@ -121,6 +113,7 @@ export const JaStockEditForm: FC<Props> = ({ id, fetchStock }) => {
                   <div key={idx}>
                     <label htmlFor={`${field.label}-${i}`}>{field.label}</label>
                     <TextboxWithError
+                      type="tel"
                       id={`${field.label}-${i}`}
                       {...register(`${field.registerName}.${i}`, {
                         valueAsNumber: true,
