@@ -15,7 +15,7 @@ export const fetchLatestUsdToJpyRateClient =
       // `https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API}/latest/USD`,
       `${url}/api/exchange-rate`,
       {
-        next: { revalidate: 30000 },
+        // next: { revalidate: 30000 },
       }
     );
   };
