@@ -6,8 +6,6 @@ import { JaStockAccordion } from "@/app/_components/templates/JaStocks/JaStockAc
 import { JaStockListWrapper } from "@/app/_components/templates/JaStocks/JaStockListWrapper";
 import { JaStocksPriceCard } from "@/app/_components/templates/JaStocks/JaStocksPriceCard";
 
-import { ExchangeRateWithSwitch } from "../../molecules/ExchangeRateWithSwitch";
-
 export const JaStocks: FC = async () => {
   return (
     <>
@@ -20,7 +18,6 @@ export const JaStocks: FC = async () => {
       <Suspense fallback={<Spinner />}>
         <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
           <TotalHoldingCount country="ja" />
-          <ExchangeRateWithSwitch />
         </section>
       </Suspense>
       <Suspense fallback={<Spinner />}>
