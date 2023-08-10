@@ -1,31 +1,16 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { cache, FC } from "react";
+import { FC } from "react";
 
-import { Database } from "@/libs/database.types";
-import { InternalServerError, UnauthorizedError } from "@/libs/error";
+import { UnauthorizedError } from "@/libs/error";
 import { fetchJaTotalHoldingCountClient } from "@/services/client/totalHoldingCount";
+import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 type Props = {
   country: "ja" | "foreign";
 };
 
-const createServerComponentClientCache = cache(() => {
-  const cookieStore = cookies();
-  return createServerComponentClient<Database>({ cookies: () => cookieStore });
-});
-const serverComponentAuthValidateAndReturnUid = async (): Promise<string> => {
-  const supabase = createServerComponentClientCache();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) throw new UnauthorizedError();
-  const uid = user.id;
-  return uid;
-};
-
 export const TotalHoldingCount: FC<Props> = async ({ country }) => {
   const uid = await serverComponentAuthValidateAndReturnUid();
+  if (!uid) throw new UnauthorizedError();
   const totalCount = await fetchJaTotalHoldingCountClient(uid, country);
   return (
     <span className="text-sm font-semibold text-gray-500">{`全${totalCount}件`}</span>
