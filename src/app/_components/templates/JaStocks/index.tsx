@@ -9,17 +9,19 @@ import { JaStocksPriceCard } from "@/app/_components/templates/JaStocks/JaStocks
 export const JaStocks: FC = async () => {
   return (
     <>
-      <div className="flex h-[100px] w-full items-center justify-center bg-primary" />
-      <section className="m-auto mb-8 mt-[-64px] w-[90%]">
-        <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Spinner />}>
+        <div className="flex h-[100px] w-full items-center justify-center bg-primary" />
+        <section className="m-auto mb-8 mt-[-64px] w-[90%]">
           <JaStocksPriceCard />
-        </Suspense>
-      </section>
-      <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
-        <TotalHoldingCount />
-      </section>
-      <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2">
-        <Suspense fallback={<Spinner />}>
+        </section>
+      </Suspense>
+      <Suspense fallback={<Spinner />}>
+        <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
+          <TotalHoldingCount country="ja" />
+        </section>
+      </Suspense>
+      <Suspense fallback={<Spinner />}>
+        <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2">
           <JaStockListWrapper
             children={(item, array) => {
               return (
@@ -31,8 +33,8 @@ export const JaStocks: FC = async () => {
               );
             }}
           />
-        </Suspense>
-      </section>
+        </section>
+      </Suspense>
     </>
   );
 };
