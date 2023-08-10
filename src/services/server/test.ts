@@ -12,6 +12,9 @@ export const createServerComponentClientCache = cache(() => {
 
 export const serverComponentAuthValidateAndReturnUid =
   async (): Promise<string> => {
+    const { createServerComponentClientCache } = await import(
+      "@/services/server/test"
+    );
     try {
       const supabase = createServerComponentClientCache();
       const {
