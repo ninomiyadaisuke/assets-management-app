@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { fetchJaTotalHoldingCountClient } from "@/services/client/totalHoldingCount";
-import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
+import { serverComponentAuthValidateAndReturnUid } from "@/services/server/test";
 
 type Props = {
   country: "ja" | "foreign";
