@@ -34,21 +34,3 @@ export const authValidateAndReturnUid = async (): Promise<string> => {
   }
   throw new InternalServerError();
 };
-
-export const serverComponentAuthValidateAndReturnUid =
-  async (): Promise<string> => {
-    try {
-      const supabase = createServerComponentClientCache();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) throw new UnauthorizedError();
-      const uid = user.id;
-      return uid;
-    } catch (error) {
-      if (error instanceof UnauthorizedError) {
-        throw error;
-      }
-    }
-    throw new InternalServerError();
-  };
