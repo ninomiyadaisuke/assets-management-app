@@ -13,7 +13,7 @@ export default meta;
 
 const Template = () => (
   <CardWrapper>
-    <TotalStocks total={300000000} />
+    <TotalStocks unit="円" total={300000000} />
   </CardWrapper>
 );
 
