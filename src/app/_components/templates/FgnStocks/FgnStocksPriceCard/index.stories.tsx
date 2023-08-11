@@ -7,8 +7,12 @@ import { TotalStocks } from "@/app/_components/atoms/TotalStocks";
 const Component = () => {
   return (
     <CardWrapper>
-      <TotalStocks total={300000000} />
-      <TotalProfitAndLoss profitMargin={30.9} profitAndLossAmount={10000} />
+      <TotalStocks unit="円" total={300000000} />
+      <TotalProfitAndLoss
+        unit="円"
+        profitMargin={30.9}
+        profitAndLossAmount={10000}
+      />
     </CardWrapper>
   );
 };
