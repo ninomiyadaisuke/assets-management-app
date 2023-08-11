@@ -6,20 +6,28 @@ import { ExchangeRateWithSwitch } from "@/app/_components/molecules/ExchangeRate
 
 import { FgnStocksPriceCard } from "./FgnStocksPriceCard";
 
-export const FgnStocks: FC = () => {
+type Props = {
+  status: "dollar" | "yen";
+};
+
+export const FgnStocks: FC<Props> = ({ status }) => {
   return (
     <>
-      <div className="flex h-[100px] w-full items-center justify-center bg-primary" />
-      <section className="m-auto mb-8 mt-[-64px] w-[90%]">
-        <FgnStocksPriceCard />
-      </section>
+      <Suspense fallback={<Spinner />}>
+        <div className="flex h-[100px] w-full items-center justify-center bg-primary" />
+        <section className="m-auto mb-8 mt-[-64px] w-[90%]">
+          <FgnStocksPriceCard status={status} />
+        </section>
+      </Suspense>
       <Suspense fallback={<Spinner />}>
         <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
           {/* <TotalHoldingCount country="foreign" /> */}
           <ExchangeRateWithSwitch />
         </section>
       </Suspense>
-      <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2"></section>
+      <Suspense fallback={<Spinner />}>
+        <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2"></section>
+      </Suspense>
     </>
   );
 };

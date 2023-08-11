@@ -10,8 +10,9 @@ export const JaStocksPriceCard: FC = async () => {
     await fetchJaStocksTotal();
   return (
     <CardWrapper>
-      <TotalStocks total={currentStockPriceSum} />
+      <TotalStocks unit="円" total={currentStockPriceSum} />
       <TotalProfitAndLoss
+        unit="円"
         profitMargin={evaluationProfitLossRate}
         profitAndLossAmount={profitLossAmount}
       />

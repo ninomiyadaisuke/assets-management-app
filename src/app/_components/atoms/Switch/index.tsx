@@ -1,9 +1,8 @@
 "use client";
 
 import * as RadixSwitch from "@radix-ui/react-switch";
+import { useRouter } from "next/navigation";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-
-import { useSwitchedUsdJpyRate } from "@/hooks/useSwitchedUsdJpyRate";
 
 type Props = Omit<ComponentPropsWithoutRef<"button">, "className" | "onChange">;
 
@@ -11,7 +10,7 @@ export const Switch = forwardRef<HTMLButtonElement, Props>(function SwitchBase(
   { ...props },
   ref
 ) {
-  const { setSwitchedUsdJpyRate } = useSwitchedUsdJpyRate();
+  const router = useRouter();
 
   return (
     <RadixSwitch.Root
@@ -19,7 +18,7 @@ export const Switch = forwardRef<HTMLButtonElement, Props>(function SwitchBase(
       ref={ref}
       role="switch"
       onCheckedChange={(boolean) => {
-        setSwitchedUsdJpyRate(boolean ? "dollar" : "yen");
+        boolean ? router.push("?status=dollar") : router.push("?status=yen");
       }}
       className="relative h-[20px] w-[58px] cursor-default rounded-full bg-white text-xs text-gray-500 outline-none focus:shadow-[0_0_0_1px] focus:shadow-black"
     >
