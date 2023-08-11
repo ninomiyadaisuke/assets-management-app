@@ -18,13 +18,13 @@ const Component = () => {
 };
 
 const meta = {
-  title: "Template/JaStocks/JaStocksPriceCard",
+  title: "Template/FgnStocks/FgnStocksPriceCard",
   component: Component,
   parameters: {
     nextjs: {
       appDirectory: true,
       navigation: {
-        pathname: "/",
+        pathname: "/foreign-stocks",
       },
     },
   },
