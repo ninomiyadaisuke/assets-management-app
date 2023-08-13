@@ -4,6 +4,8 @@ import { Spinner } from "@/app/_components/atoms/Spinner";
 import { TotalHoldingCount } from "@/app/_components/atoms/TotalHoldingCount";
 import { ExchangeRateWithSwitch } from "@/app/_components/molecules/ExchangeRateWithSwitch";
 
+import { FgnStockAccordion } from "./FgnStockAccordion";
+import { FgnStockListWrapper } from "./FgnStockListWrapper";
 import { FgnStocksPriceCard } from "./FgnStocksPriceCard";
 
 type Props = {
@@ -26,7 +28,20 @@ export const FgnStocks: FC<Props> = async ({ status }) => {
         </section>
       </Suspense>
       <Suspense fallback={<Spinner />}>
-        <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2"></section>
+        <section className="m-auto mt-[-20px] flex w-[90%] flex-col gap-2">
+          <FgnStockListWrapper
+            status={status}
+            children={(item, array) => {
+              return (
+                <FgnStockAccordion
+                  key={item.stockId}
+                  item={item}
+                  accordionInfo={array}
+                />
+              );
+            }}
+          />
+        </section>
       </Suspense>
     </>
   );

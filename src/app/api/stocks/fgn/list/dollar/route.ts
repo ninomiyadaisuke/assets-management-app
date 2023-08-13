@@ -15,5 +15,5 @@ export async function GET(
 
   const data = await fetchDollarFgnListServer(uid);
 
-  return NextResponse.json({});
+  return NextResponse.json(data);
 }

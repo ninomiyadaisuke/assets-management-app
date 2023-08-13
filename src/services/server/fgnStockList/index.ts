@@ -30,6 +30,7 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
           (profitLossAmount / evaluationAmount) * 100;
 
         return {
+          stockId: holding.stockId,
           holdingId: holding.holdingId, //id
           dividend: holding.stock.dividend * JPY, //配当金
           evaluationAmount: evaluationAmount, // 評価額
@@ -42,7 +43,7 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
         };
       });
 
-    return { enStocks };
+    return enStocks;
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -50,6 +51,17 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
 
 export type FgnStockListReturn = Awaited<
   ReturnType<typeof fetchYenFgnListServer>
+>;
+
+export type FgnStockItem = FgnStockListReturn[number];
+
+export type BasicInfo = Pick<
+  FgnStockItem,
+  | "stockId"
+  | "evaluationAmount"
+  | "profitLossAmount"
+  | "stockCode"
+  | "stockName"
 >;
 
 export const fetchDollarFgnListServer = async (userId: string | null) => {
@@ -77,6 +89,7 @@ export const fetchDollarFgnListServer = async (userId: string | null) => {
           100;
 
         return {
+          stockId: holding.stockId,
           holdingId: holding.holdingId, //id
           dividend: holding.stock.dividend, //配当金
           evaluationAmount: evaluationAmount, // 評価額
@@ -88,7 +101,7 @@ export const fetchDollarFgnListServer = async (userId: string | null) => {
           stockName: holding.stock.stockName, // 会社名
         };
       });
-    return { enStocks };
+    return enStocks;
   } catch (error) {
     return handlePrismaError(error);
   }
