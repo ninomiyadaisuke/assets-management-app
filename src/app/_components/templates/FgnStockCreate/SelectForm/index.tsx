@@ -3,8 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import cx from "classnames";
 import { FC } from "react";
-import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SearchButton } from "@/app/_components/atoms/SearchButton";
 import { ComboboxWithError } from "@/app/_components/molecules/ComboboxWithError";
@@ -15,13 +14,11 @@ const options = ["VYM", "HDV", "SPYD", "AGG", "ARCC"];
 
 type Props = {
   title: string;
-  onValid: SubmitHandler<SearchInputSchema>;
-  onInvalid?: SubmitErrorHandler<SearchInputSchema>;
   className?: string;
 };
 
 export const SelectForm: FC<Props> = (props) => {
-  const { title, onValid, onInvalid, className } = props;
+  const { title, className } = props;
   const {
     register,
     handleSubmit,
@@ -30,10 +27,14 @@ export const SelectForm: FC<Props> = (props) => {
     resolver: zodResolver(searchInputSchema),
   });
 
+  const onSubmit: SubmitHandler<SearchInputSchema> = (code) => {
+    const test = code;
+  };
+
   return (
     <form
       aria-label={title}
-      onSubmit={handleSubmit(onValid, onInvalid)}
+      onSubmit={handleSubmit(onSubmit)}
       className={cx(className, "flex")}
     >
       <ComboboxWithError
