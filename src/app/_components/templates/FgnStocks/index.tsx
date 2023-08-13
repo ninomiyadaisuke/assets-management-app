@@ -10,7 +10,7 @@ type Props = {
   status: "dollar" | "yen";
 };
 
-export const FgnStocks: FC<Props> = ({ status }) => {
+export const FgnStocks: FC<Props> = async ({ status }) => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
