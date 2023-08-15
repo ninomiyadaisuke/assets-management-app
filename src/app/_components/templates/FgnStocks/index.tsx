@@ -34,6 +34,7 @@ export const FgnStocks: FC<Props> = async ({ status }) => {
             children={(item, array) => {
               return (
                 <FgnStockAccordion
+                  unit={status === "yen" ? "円" : "＄"}
                   key={item.stockId}
                   item={item}
                   accordionInfo={array}

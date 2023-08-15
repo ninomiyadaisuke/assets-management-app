@@ -8,37 +8,38 @@ import { StockBasicInfo } from "@/app/_components/atoms/StockBasicInfo";
 import { StockInfo } from "@/app/_components/atoms/StockInfo";
 import { BasicInfo } from "@/services/server/jaStockList";
 
-const fetchData = [
-  {
-    title: "保有数了",
-    unit: "株",
-  },
-  {
-    title: "評価損益率",
-    unit: "%",
-  },
-  {
-    title: "平均取得単価",
-    unit: "円",
-  },
-  {
-    title: "配当金",
-    unit: "円",
-  },
-];
-
 type Props = {
   item: BasicInfo;
   accordionInfo: number[];
+  unit: "円" | "＄";
 };
 
-export const FgnStockAccordion: FC<Props> = ({ item, accordionInfo }) => {
+export const FgnStockAccordion: FC<Props> = ({ item, accordionInfo, unit }) => {
   const id = useId();
+  const fetchData = [
+    {
+      title: "保有数了",
+      unit: "株",
+    },
+    {
+      title: "評価損益率",
+      unit: "%",
+    },
+    {
+      title: "平均取得単価",
+      unit,
+    },
+    {
+      title: "配当金",
+      unit,
+    },
+  ];
   return (
     <Accordion.Root type="multiple" asChild>
       <CardWrapper>
         <Accordion.Item value={`item-${id}`} asChild>
           <StockBasicInfo
+            unit={unit}
             id={item.stockId}
             stockCode={item.stockCode}
             stockName={item.stockName}
