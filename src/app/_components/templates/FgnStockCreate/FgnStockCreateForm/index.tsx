@@ -8,6 +8,7 @@ import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
 import { useAssetType } from "@/hooks/useAssetType";
+import { useResetFgnStockFrom } from "@/hooks/useResetStockFrom";
 import { useStockStatus } from "@/hooks/useStockStatus";
 import {
   createFgnStockSchema,
@@ -48,14 +49,7 @@ export const FgnStockCreateForm: FC<Props> = ({ uid }) => {
   } = useStockStatus();
   const { hideAlertDialog } = useAlertDialog();
 
-  useEffect(() => {
-    if (assetType !== "両方") return;
-    reset({
-      numberOfSharesHeld: [...defaultValues.numberOfSharesHeld, 0],
-      acquisitionPrice: [...defaultValues.acquisitionPrice, 0],
-      acquisitionPriceJPY: [...defaultValues.acquisitionPriceJPY, 0],
-    });
-  }, [assetType]);
+  useResetFgnStockFrom(defaultValues, reset);
 
   if (!stockCode) return null;
   const onSubmit: SubmitHandler<CreateFgnStockType> = async (values) => {
