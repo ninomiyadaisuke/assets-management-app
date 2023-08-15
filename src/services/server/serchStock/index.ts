@@ -95,3 +95,92 @@ export const searchStock = async (
 };
 
 export type SearchReturn = Awaited<ReturnType<typeof searchStock>>;
+
+export const searchFgnStock = async (
+  code: string
+): Promise<SearchedStockType | { message: string } | { code: string }> => {
+  const { google } = await import("googleapis"); //
+  const uid = await authValidateAndReturnUid();
+  try {
+    const holding = await prisma.holding.findFirst({
+      where: {
+        AND: [
+          {
+            user: {
+              userId: uid,
+            },
+          },
+          {
+            stock: {
+              stockCode: code,
+            },
+          },
+        ],
+      },
+      select: {
+        user: {
+          select: {
+            userId: true,
+          },
+        },
+        stock: {
+          select: {
+            stockCode: true,
+          },
+        },
+      },
+    });
+    if (holding) return { message: "この株式はすでに保有しています。" };
+  } catch (error) {
+    handlePrismaError(error);
+  }
+  try {
+    const spreadsheetId = process.env.GOOGLE_SHEET_ID; // ここにスプレッドシートのIDを入力
+    const sheetName = "外国株"; // ここにシートの名前を入力
+    const auth = new google.auth.GoogleAuth({
+      credentials: {
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      },
+      scopes: [
+        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/spreadsheets",
+      ],
+    });
+    const sheets = google.sheets({ version: "v4", auth });
+
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `${sheetName}!A:F`,
+    });
+    const rows = response.data.values;
+    if (rows) {
+      const targetRow = rows.find((row) => row[0] === code);
+      if (targetRow) {
+        const [
+          code,
+          companyName,
+          latestStockPrice,
+          industry,
+          dividend,
+          dividendYield,
+        ] = targetRow;
+        const data = {
+          stockCode: code,
+          stockName: companyName,
+          latestStockPrice: convertToNumber(latestStockPrice),
+          industry,
+          dividend: convertToNumber(dividend),
+          dividendYield: convertToNumber(dividendYield),
+        } as SearchedStockType;
+        return data;
+      }
+    }
+  } catch (error) {
+    handleGoogleSheetsError(error as GoogleApiError);
+  }
+  return { code };
+};
+
+export type FgnSearchReturn = Awaited<ReturnType<typeof searchFgnStock>>;

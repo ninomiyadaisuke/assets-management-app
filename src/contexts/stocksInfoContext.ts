@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
 export type SearchedStockType = {
-  irBankCode: string;
+  irBankCode?: string;
   industry: string;
   stockCode: string;
   stockName: string;

@@ -22,7 +22,7 @@ export const Layout: FC<Props> = ({ children }) => {
       </main>
       {(pathname === "/" || pathname === "/foreign-stocks") && (
         <FloatingButton
-          href={pathname === "/" ? "/create/ja" : "/create/en"}
+          href={pathname === "/" ? "/create/ja" : "/create/fgn"}
           className="fixed sm:bottom-[80px] sm:right-[16px] md:right-[calc((100%_-_768px)/2_+_24px)] md:top-[650px]"
         />
       )}

@@ -15,7 +15,9 @@ const radioData = [
 
 export const RadioGroup: FC = () => {
   const { handleClick } = useAssetType();
+  const { stockName } = useStockStatus();
 
+  if (!stockName) return null;
   return (
     <fieldset>
       <legend className="mb-3 text-gray-600">どの口座で登録しますか？</legend>
