@@ -12,11 +12,13 @@ import { cache } from "react";
 import { Database } from "@/libs/database.types";
 import { BadRequestError, InternalServerError } from "@/libs/error";
 
-export const prisma = new PrismaClient();
-if (process.env.NODE_ENV === "development") {
-  // MEMO: HMR 対応　https://www.prisma.io/docs/guides/performance-and-optimization/connection-management#prevent-hot-reloading-from-creating-new-instances-of-prismaclient
-  (global as any).prisma = prisma;
-}
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export const handlePrismaError = (err: unknown) => {
   if (err instanceof PrismaClientValidationError) {
