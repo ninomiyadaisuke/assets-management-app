@@ -39,6 +39,7 @@ export const JaStockAccordion: FC<Props> = ({ item, accordionInfo }) => {
       <CardWrapper>
         <Accordion.Item value={`item-${id}`} asChild>
           <StockBasicInfo
+            unit="円"
             id={item.stockId}
             stockCode={item.stockCode}
             stockName={item.stockName}
