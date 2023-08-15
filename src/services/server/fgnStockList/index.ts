@@ -37,7 +37,7 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
           profitLossAmount: profitLossAmount, // 損益額
           numberOfSharesHeld: holding.numberOfSharesHeld, // 保有株数
           evaluationProfitLossRate: evaluationProfitLossRate, // 評価損益率
-          acquisitionPrice: holding.acquisitionPrice, // 取得価格
+          acquisitionPrice: holding.acquisitionPriceJPY, // 取得価格
           stockCode: holding.stock.stockCode, // 株式コード
           stockName: holding.stock.stockName, // 会社名
         };
