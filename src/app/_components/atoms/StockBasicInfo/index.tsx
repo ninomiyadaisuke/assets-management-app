@@ -28,10 +28,13 @@ export const StockBasicInfo = forwardRef<HTMLDivElement, Props>(
     },
     ref
   ) {
+    const param = usePathname();
+    const path = param.includes("foreign-stocks") ? "fgn" : "ja";
+
     return (
       <div className="flex flex-col gap-2 p-3" {...props} ref={ref}>
         <span className="text-xs text-gray-400">{stockCode}</span>
-        <ToUpdateLink href={`/edit/ja/${id}`}>{stockName}</ToUpdateLink>
+        <ToUpdateLink href={`/edit/${path}/${id}`}>{stockName}</ToUpdateLink>
         <div className="flex justify-between">
           <p className="text-base">評価額</p>
           <ValueDisplay theme="default" unit={unit}>
