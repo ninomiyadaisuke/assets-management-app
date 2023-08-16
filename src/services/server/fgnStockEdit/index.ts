@@ -49,7 +49,7 @@ export const fetchFgnStocksServer = async (userId: string, stockId: string) => {
   );
   const acquisitionPrice = holdings.map((holding) => holding.acquisitionPrice);
   const acquisitionPriceJPY = holdings.map(
-    (holding) => holding.acquisitionPriceJPY
+    (holding) => holding.acquisitionPriceJPY!
   );
   return {
     stockName: holdings[0]?.stock.stockName,
