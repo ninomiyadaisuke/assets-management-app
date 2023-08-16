@@ -13,6 +13,10 @@ import {
 import { UpdateFgnStockType } from "@/libs/schema/createFgnStock";
 import { UpdateStockType } from "@/libs/schema/createStock";
 import {
+  createFgnStocksClient,
+  updateFgnStocksClient,
+} from "@/services/client/fgnStockEdit";
+import {
   createJaStocksClient,
   updateJaStocksClient,
 } from "@/services/client/JaStockEdit";
@@ -123,7 +127,8 @@ export const useHandleStockSubmission = (
 export const useHandleFgnStockSubmission = (
   accountTypeAndHoldingIds: AccountTypeAndHoldingIds,
   defaultValues: FgnValues,
-  id: string
+  id: string,
+  uid: string
 ) => {
   const router = useRouter();
   const { setIsChecked } = useCheck();
@@ -192,21 +197,21 @@ export const useHandleFgnStockSubmission = (
     });
     const isCreate = dataArray.some((data) => data.holdingId === "");
     const handleCreateStockSubmission = async () => {
-      // await createJaStocksClient(dataArray, id).then(() => {
-      //   router.refresh();
-      //   setIsChecked(false);
-      //   hideAlertDialog();
-      //   router.back();
-      // });
+      await createFgnStocksClient(dataArray, id, uid).then(() => {
+        router.refresh();
+        setIsChecked(false);
+        hideAlertDialog();
+        router.back();
+      });
     };
 
     const handleUpdateStockSubmission = async () => {
-      // await updateJaStocksClient(dataArray, id).then(() => {
-      //   router.refresh();
-      //   setIsChecked(false);
-      //   hideAlertDialog();
-      //   router.back();
-      // });
+      await updateFgnStocksClient(dataArray, id).then(() => {
+        router.refresh();
+        setIsChecked(false);
+        hideAlertDialog();
+        router.back();
+      });
     };
     return {
       dataArray,

@@ -31,7 +31,11 @@ export const FgnStockEdit: FC<Props> = async ({ id }) => {
         <Checkbox label={`${accountType(data)}を追加しますか？`} />
       )}
       <Suspense fallback={<Spinner />}>
-        <FgnStockEditForm fetchStock={fetchFgnStocksClient(uid, id)} id={id} />
+        <FgnStockEditForm
+          fetchStock={fetchFgnStocksClient(uid, id)}
+          id={id}
+          uid={uid}
+        />
       </Suspense>
     </div>
   );

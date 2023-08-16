@@ -15,3 +15,17 @@ export async function GET(
 
   return NextResponse.json(data);
 }
+
+export async function POST(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const { searchParams } = new URL(request.url);
+  const uid = searchParams.get("q");
+  if (!uid) throw new UnauthorizedError();
+  return NextResponse.json({});
+}
+
+export async function PATCH(request: Request) {
+  return NextResponse.json({});
+}

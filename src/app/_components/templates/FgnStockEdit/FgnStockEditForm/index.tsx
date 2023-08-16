@@ -19,6 +19,7 @@ import { FgnStockReturn } from "@/services/server/fgnStockEdit";
 type Props = {
   id: string;
   fetchStock: Promise<FgnStockReturn>;
+  uid: string;
 };
 
 export type UpdateFgnStockInput = {
@@ -35,7 +36,7 @@ export type FgnValues = {
   acquisitionPriceJPY: number[];
 };
 
-export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
+export const FgnStockEditForm: FC<Props> = ({ id, fetchStock, uid }) => {
   const data = use(fetchStock);
 
   const { stockCode, stockName, holdingIdAndAccountTypes, defaultValues } =
@@ -56,7 +57,12 @@ export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
     useManageFgnAccountTypes(holdingIdAndAccountTypes, reset, defaultValues);
 
   const { handleSubmission, setErrorMessage, errorMessage } =
-    useHandleFgnStockSubmission(accountTypeAndHoldingIds, defaultValues, id);
+    useHandleFgnStockSubmission(
+      accountTypeAndHoldingIds,
+      defaultValues,
+      id,
+      uid
+    );
   const fields = [
     {
       label: "保有株数",
