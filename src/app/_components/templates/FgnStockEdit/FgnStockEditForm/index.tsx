@@ -1,10 +1,14 @@
 "use client";
-import { FC } from "react";
+import { FC, use } from "react";
+
+import { FgnStockReturn } from "@/services/server/fgnStockEdit";
 
 type Props = {
   id: string;
+  fetchStock: Promise<FgnStockReturn>;
 };
 
-export const FgnStockEditForm: FC<Props> = ({ id }) => {
+export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
+  const data = use(fetchStock);
   return <div>FgnStockEditForm</div>;
 };
