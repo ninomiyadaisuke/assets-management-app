@@ -15,7 +15,7 @@ function isCurrent(flag: boolean): AnchorHTMLAttributes<HTMLAnchorElement> {
 const linkData = [
   { text: "日本株", link: "/" },
   { text: "外国株", link: "/foreign-stocks" },
-  { text: "¥＄グラフ", link: "/graph" },
+  { text: "¥＄グラフ", link: "/graph/ja-fgn" },
   { text: "¥グラフ", link: "/graph/ja" },
   { text: "＄グラフ", link: "/graph/fgn" },
 ];
