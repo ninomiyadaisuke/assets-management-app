@@ -13,7 +13,7 @@ import {
 import { UpdateFgnStockType } from "@/libs/schema/createFgnStock";
 import { UpdateStockType } from "@/libs/schema/createStock";
 import {
-  createFgnStocksClient,
+  createAndUpdateFgnStocksClient,
   updateFgnStocksClient,
 } from "@/services/client/fgnStockEdit";
 import {
@@ -197,7 +197,7 @@ export const useHandleFgnStockSubmission = (
     });
     const isCreate = dataArray.some((data) => data.holdingId === "");
     const handleCreateStockSubmission = async () => {
-      await createFgnStocksClient(dataArray, id, uid).then(() => {
+      await createAndUpdateFgnStocksClient(dataArray, id, uid).then(() => {
         router.refresh();
         setIsChecked(false);
         hideAlertDialog();

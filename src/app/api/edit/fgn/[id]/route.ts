@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 
+import { UpdateFgnStockInput } from "@/app/_components/templates/FgnStockEdit/FgnStockEditForm";
 import { UnauthorizedError } from "@/libs/error";
-import { fetchFgnStocksServer } from "@/services/server/fgnStockEdit";
+import {
+  createAndUpdateFgnStocksServer,
+  fetchFgnStocksServer,
+  updateFgnStocksServer,
+} from "@/services/server/fgnStockEdit";
 
 export async function GET(
   request: Request,
@@ -20,12 +25,17 @@ export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  const stockId = params.id;
   const { searchParams } = new URL(request.url);
   const uid = searchParams.get("q");
   if (!uid) throw new UnauthorizedError();
-  return NextResponse.json({});
+  const input: UpdateFgnStockInput[] = await request.json();
+  const data = await createAndUpdateFgnStocksServer(input, stockId, uid);
+  return NextResponse.json(data);
 }
 
 export async function PATCH(request: Request) {
-  return NextResponse.json({});
+  const input: UpdateFgnStockInput[] = await request.json();
+  const data = await updateFgnStocksServer(input);
+  return NextResponse.json(data);
 }

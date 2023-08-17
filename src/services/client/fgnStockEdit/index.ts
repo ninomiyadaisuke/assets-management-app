@@ -20,7 +20,7 @@ export const updateFgnStocksClient = async (
   return await typedPatch(`/api/edit/fgn/${id}`, input);
 };
 
-export const createFgnStocksClient = async (
+export const createAndUpdateFgnStocksClient = async (
   input: UpdateFgnStockInput[],
   id: string,
   uid: string
