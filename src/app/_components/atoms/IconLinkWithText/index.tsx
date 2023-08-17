@@ -8,7 +8,7 @@ import { forwardRef } from "react";
 
 type Props = React.ComponentPropsWithRef<"a"> & {
   href: string;
-  text: "日本株" | "外国株" | "¥グラフ" | "＄グラフ";
+  text: "日本株" | "外国株" | "¥グラフ" | "＄グラフ" | "¥＄グラフ";
 };
 
 export const IconLinkWithText = forwardRef<HTMLAnchorElement, Props>(
@@ -23,6 +23,8 @@ export const IconLinkWithText = forwardRef<HTMLAnchorElement, Props>(
         case "¥グラフ":
           return <ChartBarIcon className={className} />;
         case "＄グラフ":
+          return <ChartBarIcon className={className} />;
+        case "¥＄グラフ":
           return <ChartBarIcon className={className} />;
       }
     })();
