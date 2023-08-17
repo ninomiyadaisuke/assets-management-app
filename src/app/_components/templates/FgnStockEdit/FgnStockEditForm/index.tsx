@@ -3,10 +3,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, Fragment, use } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { ErrorMessage } from "@/app/_components/atoms/ErrorMessage";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
 import { ConfirmSubmitButton } from "@/app/_components/organisms/ConfirmSubmitButton";
 import { DeleteConfirmationButton } from "@/app/_components/organisms/DeleteConfirmationButton";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
+import { useHandleFgnStockSubmission } from "@/hooks/useHandleStockSubmission";
 import { useManageFgnAccountTypes } from "@/hooks/useManageJaAccountTypes";
 import {
   createFgnStockSchema,
@@ -17,21 +19,24 @@ import { FgnStockReturn } from "@/services/server/fgnStockEdit";
 type Props = {
   id: string;
   fetchStock: Promise<FgnStockReturn>;
+  uid: string;
 };
 
 export type UpdateFgnStockInput = {
+  numberOfSharesHeld?: number;
+  acquisitionPrice?: number;
+  acquisitionPriceJPY?: number;
+  holdingId: string;
+  accountType: string;
+};
+
+export type FgnValues = {
   numberOfSharesHeld: number[];
   acquisitionPrice: number[];
   acquisitionPriceJPY: number[];
 };
 
-export type Values = {
-  numberOfSharesHeld: number[];
-  acquisitionPrice: number[];
-  acquisitionPriceJPY: number[];
-};
-
-export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
+export const FgnStockEditForm: FC<Props> = ({ id, fetchStock, uid }) => {
   const data = use(fetchStock);
 
   const { stockCode, stockName, holdingIdAndAccountTypes, defaultValues } =
@@ -50,6 +55,14 @@ export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
 
   const { accountTypeAndHoldingIds, handleDeleteDb, handleDelete } =
     useManageFgnAccountTypes(holdingIdAndAccountTypes, reset, defaultValues);
+
+  const { handleSubmission, setErrorMessage, errorMessage } =
+    useHandleFgnStockSubmission(
+      accountTypeAndHoldingIds,
+      defaultValues,
+      id,
+      uid
+    );
   const fields = [
     {
       label: "保有株数",
@@ -67,11 +80,28 @@ export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
       error: errors.acquisitionPriceJPY,
     },
   ];
-  const onSubmit: SubmitHandler<UpdateFgnStockType> = (values) => {
-    const test = values;
+  const onSubmit: SubmitHandler<UpdateFgnStockType> = async (values) => {
+    const {
+      dataArray,
+      isCreate,
+      handleCreateStockSubmission,
+      handleUpdateStockSubmission,
+    } = handleSubmission(values);
+
+    if (dataArray.length === 0) {
+      hideAlertDialog();
+      setErrorMessage("変更箇所がないので更新できません。");
+      return;
+    }
+    if (isCreate) {
+      await handleCreateStockSubmission();
+    } else {
+      await handleUpdateStockSubmission();
+    }
   };
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <fieldset>
         <legend>{`${stockCode}:${stockName}`}</legend>
         <div className="flex flex-col gap-5">
@@ -99,7 +129,7 @@ export const FgnStockEditForm: FC<Props> = ({ id, fetchStock }) => {
                         valueAsNumber: true,
                       })}
                       error={field.error && field.error[i]?.message}
-                      // onChange={() => setErrorMessage(null)}
+                      onChange={() => setErrorMessage(null)}
                     />
                   </div>
                 ))}
