@@ -4,6 +4,7 @@ import { UseFormReset } from "react-hook-form";
 
 import { UpdateFgnStockType } from "@/libs/schema/createFgnStock";
 import { UpdateStockType } from "@/libs/schema/createStock";
+import { deleteFgnStockClient } from "@/services/client/fgnStockDelete";
 import { deleteJaStockClient } from "@/services/client/jaStockDelete";
 
 import { useAlertDialog } from "./useAlertDialog";
@@ -153,11 +154,11 @@ export const useManageFgnAccountTypes = (
 
   const handleDeleteDb = async (holdingId: string) => {
     // DB delete処理
-    // await deleteJaStockClient(holdingId).then(() => {
-    //   hideAlertDialog();
-    //   router.refresh();
-    //   router.back();
-    // });
+    await deleteFgnStockClient(holdingId).then(() => {
+      hideAlertDialog();
+      router.refresh();
+      router.back();
+    });
   };
 
   const handleDelete = async (holdingId: string, index: number) => {

@@ -111,13 +111,13 @@ export const FgnStockEditForm: FC<Props> = ({ id, fetchStock, uid }) => {
               <Fragment key={i}>
                 <div className="mt-2 flex gap-2">
                   <h3>{accountTypeAndHoldingIds[i].accountType}</h3>
-                  {/* <DeleteConfirmationButton
+                  <DeleteConfirmationButton
                     holdingId={holdingId}
                     index={i}
                     isSubmitting={isSubmitting}
                     handleDelete={handleDelete}
                     handleDeleteDb={handleDeleteDb}
-                  /> */}
+                  />
                 </div>
                 {fields.map((field, idx) => (
                   <div key={idx}>
