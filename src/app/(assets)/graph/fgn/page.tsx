@@ -1,8 +1,5 @@
-export default function FgnGraph() {
-  return (
-    <>
-      <div>Fgnpage</div>
-      <h1>Hello world</h1>
-    </>
-  );
+import { FgnGraph } from "@/app/_components/templates/FgnGraph";
+
+export default function FgnGraphPage() {
+  return <FgnGraph />;
 }

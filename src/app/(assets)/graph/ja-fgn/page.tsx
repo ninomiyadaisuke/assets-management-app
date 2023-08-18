@@ -1,8 +1,5 @@
-export default function JaAndFgnGraph() {
-  return (
-    <>
-      <div>JaAndFgnpage</div>
-      <h1>Hello world</h1>
-    </>
-  );
+import { JaAndFgnGraph } from "@/app/_components/templates/JaAndFgnGraph";
+
+export default function JaAndFgnGraphPage() {
+  return <JaAndFgnGraph />;
 }
