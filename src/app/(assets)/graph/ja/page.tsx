@@ -1,8 +1,9 @@
-export default function JaGraph() {
+import { JaGraph } from "@/app/_components/templates/JaGraph";
+
+export default function JaGraphPage() {
   return (
     <>
-      <div>Japage</div>
-      <h1>Hello world</h1>
+      <JaGraph />
     </>
   );
 }
