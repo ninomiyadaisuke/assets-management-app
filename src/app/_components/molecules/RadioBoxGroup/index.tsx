@@ -5,13 +5,15 @@ import { FC } from "react";
 
 import { RadioBox } from "@/app/_components/atoms/RadioBox";
 
-const data = ["評価額", "配当額", "景気敏感割合"];
+type Props = {
+  options: string[];
+};
 
-export const RadioBoxGroup: FC = () => {
+export const RadioBoxGroup: FC<Props> = ({ options }) => {
   const router = useRouter();
   return (
     <RadioGroup.Root className="flex gap-1">
-      {data.map((label, i) => (
+      {options.map((label, i) => (
         <RadioGroup.Item key={i} value={label} id={label}>
           <RadioBox
             label={label}
