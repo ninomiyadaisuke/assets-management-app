@@ -15,7 +15,7 @@ type Story = StoryObj<typeof TotalPriceByType>;
 export const Default: Story = {
   args: {
     title: "化学",
-    color: "bg-[#2774cc]",
+    color: "#507dbe",
     price: 1000,
   },
 };

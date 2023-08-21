@@ -13,133 +13,133 @@ export default meta;
 type Story = StoryObj<typeof Dot>;
 
 export const Default: Story = {
-  args: { color: "bg-[#2774cc]" },
+  args: { color: "#507dbe" },
 };
 
 export const Color1: Story = {
-  args: { color: "bg-[#ff7700]" },
+  args: { color: "#e68a5e" },
 };
 
 export const Color2: Story = {
-  args: { color: "bg-[#009944]" },
+  args: { color: "#53a88e" },
 };
 
 export const Color3: Story = {
-  args: { color: "bg-[#aa66cc]" },
+  args: { color: "#9b7ca7" },
 };
 
 export const Color4: Story = {
-  args: { color: "bg-[#ffcc00]" },
+  args: { color: "#e8c865" },
 };
 
 export const Color5: Story = {
-  args: { color: "bg-[#cc5500]" },
+  args: { color: "#c9845c" },
 };
 
 export const Color6: Story = {
-  args: { color: "bg-[#33bbee]" },
+  args: { color: "#6dbbd8" },
 };
 
 export const Color7: Story = {
-  args: { color: "bg-[#cc0077]" },
+  args: { color: "#d35e8e" },
 };
 
 export const Color8: Story = {
-  args: { color: "bg-[#55bb33]" },
+  args: { color: "#7dbf7c" },
 };
 
 export const Color9: Story = {
-  args: { color: "bg-[#ff3399]" },
+  args: { color: "#e381a6" },
 };
 
 export const Color10: Story = {
-  args: { color: "bg-[#bb9922]" },
+  args: { color: "#c5a166" },
 };
 
 export const Color11: Story = {
-  args: { color: "bg-[#66ccaa]" },
+  args: { color: "#86c9aa" },
 };
 
 export const Color12: Story = {
-  args: { color: "bg-[#ff66cc]" },
+  args: { color: "#e68cb6" },
 };
 
 export const Color13: Story = {
-  args: { color: "bg-[#cc4400]" },
+  args: { color: "#c56e3a" },
 };
 
 export const Color14: Story = {
-  args: { color: "bg-[#22aaff]" },
+  args: { color: "#7fb8eb" },
 };
 
 export const Color15: Story = {
-  args: { color: "bg-[#cc44aa]" },
+  args: { color: "#c775a4" },
 };
 
 export const Color16: Story = {
-  args: { color: "bg-[#ffcc33]" },
+  args: { color: "#e8d083" },
 };
 
 export const Color17: Story = {
-  args: { color: "bg-[#aa4422]" },
+  args: { color: "#aa7255" },
 };
 
 export const Color18: Story = {
-  args: { color: "bg-[#44aa77]" },
+  args: { color: "#66a380" },
 };
 
 export const Color19: Story = {
-  args: { color: "bg-[#ff55cc]" },
+  args: { color: "#e88ac8" },
 };
 
 export const Color20: Story = {
-  args: { color: "bg-[#ffdd00]" },
+  args: { color: "#edd477" },
 };
 
 export const Color21: Story = {
-  args: { color: "bg-[#994411]" },
+  args: { color: "#a8785a" },
 };
 
 export const Color22: Story = {
-  args: { color: "bg-[#33aa66]" },
+  args: { color: "#5ca883" },
 };
 
 export const Color23: Story = {
-  args: { color: "bg-[#cc44cc]" },
+  args: { color: "#c77ca1" },
 };
 
 export const Color24: Story = {
-  args: { color: "bg-[#ffbb33]" },
+  args: { color: "#e8c480" },
 };
 
 export const Color25: Story = {
-  args: { color: "bg-[#bb4400]" },
+  args: { color: "#b6603a" },
 };
 
 export const Color26: Story = {
-  args: { color: "bg-[#11bbcc]" },
+  args: { color: "#75b6cc" },
 };
 
 export const Color27: Story = {
-  args: { color: "bg-[#aa3399]" },
+  args: { color: "#aa7499" },
 };
 
 export const Color28: Story = {
-  args: { color: "bg-[#99bb33]" },
+  args: { color: "#8faa5e" },
 };
 
 export const Color29: Story = {
-  args: { color: "bg-[#ff44bb]" },
+  args: { color: "#e861a3" },
 };
 
 export const Color30: Story = {
-  args: { color: "bg-[#bb9900]" },
+  args: { color: "#c59c44" },
 };
 
 export const Color31: Story = {
-  args: { color: "bg-[#0066cc]" },
+  args: { color: "#4588c7" },
 };
 
 export const Color32: Story = {
-  args: { color: "bg-[#994488]" },
+  args: { color: "#a7858b" },
 };

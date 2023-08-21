@@ -15,7 +15,7 @@ export const Dot = forwardRef<HTMLSpanElement, Props>(function DotBase(
     <span
       ref={ref}
       {...props}
-      className={cx(className, `inline-block h-3 w-3 rounded-full ${color}`)}
+      className={cx(className, `inline-block h-3 w-3 rounded-full bg-${color}`)}
     />
   );
 });
