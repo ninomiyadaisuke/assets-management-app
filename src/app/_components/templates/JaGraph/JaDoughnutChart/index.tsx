@@ -1,5 +1,5 @@
 import { FC } from "react";
 
-export const DoughnutChart: FC = () => {
+export const JaDoughnutChart: FC = () => {
   return <div>DoughnutChart</div>;
 };
