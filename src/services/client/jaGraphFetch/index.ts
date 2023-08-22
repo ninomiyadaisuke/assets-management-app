@@ -1,5 +1,6 @@
 import { typedFetch } from "@/libs/fetchUtils";
 import { url } from "@/services/client/url";
+import { JaGraphTotalReturn } from "@/services/server/jaGraphFetch";
 
 export const fetchJaGraphTotalClient = async (
   uid: string,
@@ -7,5 +8,6 @@ export const fetchJaGraphTotalClient = async (
 ) => {
   const params = { q: uid, status };
   const query = new URLSearchParams(params);
-  return typedFetch<any>(`${url}/api/graph/ja?${query}`, {});
+
+  return typedFetch<JaGraphTotalReturn>(`${url}/api/graph/ja?${query}`, {});
 };
