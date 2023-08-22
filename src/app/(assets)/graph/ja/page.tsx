@@ -10,9 +10,5 @@ export default function JaGraphPage({
     | { status: "景気敏感割合" };
 }) {
   const { status } = searchParams;
-  return (
-    <>
-      <JaGraph status={status ? status : "評価額"} />
-    </>
-  );
+  return <JaGraph status={status ? status : "評価額"} />;
 }
