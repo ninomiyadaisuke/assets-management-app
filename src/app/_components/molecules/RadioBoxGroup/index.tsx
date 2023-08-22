@@ -7,9 +7,10 @@ import { RadioBox } from "@/app/_components/atoms/RadioBox";
 
 type Props = {
   options: string[];
+  status: "評価額" | "配当額" | "景気敏感割合";
 };
 
-export const RadioBoxGroup: FC<Props> = ({ options }) => {
+export const RadioBoxGroup: FC<Props> = ({ options, status }) => {
   const router = useRouter();
   return (
     <RadioGroup.Root className="flex gap-1">
@@ -18,8 +19,11 @@ export const RadioBoxGroup: FC<Props> = ({ options }) => {
           <RadioBox
             label={label}
             name="radio"
-            onChange={(e) => router.push(`?status=${e.target.value}`)}
-            defaultChecked={label === "評価額"}
+            onChange={(e) => {
+              router.push(`?status=${e.target.value}`);
+              router.refresh();
+            }}
+            defaultChecked={label === status}
           />
         </RadioGroup.Item>
       ))}

@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic";
 import { FC } from "react";
 
-import { colors } from "@/libs/colors";
+import { UnauthorizedError } from "@/libs/error";
+import { fetchJaGraphTotalClient } from "@/services/client/jaGraphFetch";
+import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 const DoughnutChart = dynamic(async () => {
   const { DoughnutChart: DoughnutChart } = await import(
@@ -28,7 +30,14 @@ export const data = [
   { id: "stock15", value: 1.1 },
 ];
 
-export const JaDoughnutChart: FC = async () => {
+type Props = {
+  status: "評価額" | "配当額" | "景気敏感割合";
+};
+
+export const JaDoughnutChart: FC<Props> = async ({ status }) => {
+  const uid = await serverComponentAuthValidateAndReturnUid();
+  if (!uid) throw new UnauthorizedError();
+  const test = await fetchJaGraphTotalClient(uid, status);
   return (
     <div>
       <DoughnutChart data={data} total={1000000} title={"評価額"} />
