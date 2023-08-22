@@ -20,7 +20,11 @@ export const JaDoughnutChart: FC<Props> = async ({ status }) => {
   const data = await fetchJaGraphClient(uid, status);
   return (
     <div>
-      <DoughnutChart data={data.result} total={data.total} title={"評価額"} />
+      <DoughnutChart
+        data={data.result}
+        total={data.total}
+        title={status === "評価額" ? "評価額" : "配当額"}
+      />
     </div>
   );
 };
