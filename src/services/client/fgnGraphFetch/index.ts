@@ -11,3 +11,16 @@ export const fetchFgnGraphClient = async (
 
   return typedFetch<JaGraphTotalReturn>(`${url}/api/graph/fgn?${query}`, {});
 };
+
+export const fetchYenFgnGraphClient = async (
+  uid: string,
+  status: "評価額" | "配当額" | "景気敏感割合"
+) => {
+  const params = { q: uid, status };
+  const query = new URLSearchParams(params);
+
+  return typedFetch<JaGraphTotalReturn>(
+    `${url}/api/graph/fgn/yen?${query}`,
+    {}
+  );
+};
