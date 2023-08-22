@@ -18,7 +18,9 @@ export const FgnGraph: FC<Props> = ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <FgnDoughnutChart status={status} />
       </Suspense>
-      <RadioBoxGroup options={data} status={status} />
+      <div className="flex justify-center">
+        <RadioBoxGroup options={data} status={status} />
+      </div>
       <ListWrapper />
     </div>
   );
