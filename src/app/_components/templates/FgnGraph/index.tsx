@@ -7,11 +7,15 @@ import { ListWrapper } from "./ListWrapper";
 
 const data = ["評価額", "配当額", "景気敏感割合"];
 
-export const FgnGraph: FC = () => {
+type Props = {
+  status: "評価額" | "配当額" | "景気敏感割合";
+};
+
+export const FgnGraph: FC<Props> = ({ status }) => {
   return (
     <div>
       <FgnDoughnutChart />
-      <RadioBoxGroup options={data} />
+      <RadioBoxGroup options={data} status={status} />
       <ListWrapper />
     </div>
   );
