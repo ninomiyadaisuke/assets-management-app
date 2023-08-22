@@ -155,16 +155,16 @@ export const fetchJaGraphCalculateIndustryRatiosServer = async (
     (acc, holding) => {
       const value = holding.numberOfSharesHeld * holding.stock.dividend;
       if (sensitiveStocks.includes(holding.stock.industry!)) {
-        acc.sensitive += value;
+        acc.Sensitive += value;
       } else {
-        acc.defensive += value;
+        acc.Defensive += value;
       }
       return acc;
     },
-    { sensitive: 0, defensive: 0 }
+    { Sensitive: 0, Defensive: 0 }
   );
 
-  const grandTotal = industryTotals.sensitive + industryTotals.defensive;
+  const grandTotal = industryTotals.Sensitive + industryTotals.Defensive;
 
   const result = Object.entries(industryTotals).map(([industry, total]) => {
     return {
