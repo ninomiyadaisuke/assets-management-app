@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 import { FC } from "react";
 
-import { UnauthorizedError } from "@/libs/error";
-import { fetchJaGraphTotalClient } from "@/services/client/jaGraphFetch";
+import { fetchJaGraphClient } from "@/services/client/jaGraphFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 const DoughnutChart = dynamic(async () => {
@@ -18,8 +17,7 @@ type Props = {
 
 export const JaDoughnutChart: FC<Props> = async ({ status }) => {
   const uid = await serverComponentAuthValidateAndReturnUid();
-  if (!uid) throw new UnauthorizedError();
-  const data = await fetchJaGraphTotalClient(uid, status);
+  const data = await fetchJaGraphClient(uid, status);
   return (
     <div>
       <DoughnutChart data={data.result} total={data.total} title={"評価額"} />

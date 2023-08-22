@@ -2,7 +2,7 @@ import { typedFetch } from "@/libs/fetchUtils";
 import { url } from "@/services/client/url";
 import { JaGraphTotalReturn } from "@/services/server/jaGraphFetch";
 
-export const fetchJaGraphTotalClient = async (
+export const fetchJaGraphClient = async (
   uid: string,
   status: "評価額" | "配当額" | "景気敏感割合"
 ) => {
