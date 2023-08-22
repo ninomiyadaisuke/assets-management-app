@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 
 import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
 
+import { Spinner } from "../../atoms/Spinner";
 import { FgnDoughnutChart } from "./FgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -14,7 +15,9 @@ type Props = {
 export const FgnGraph: FC<Props> = ({ status }) => {
   return (
     <div>
-      <FgnDoughnutChart />
+      <Suspense fallback={<Spinner />}>
+        <FgnDoughnutChart status={status} />
+      </Suspense>
       <RadioBoxGroup options={data} status={status} />
       <ListWrapper />
     </div>
