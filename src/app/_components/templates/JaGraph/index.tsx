@@ -16,7 +16,9 @@ export const JaGraph: FC<Props> = ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <JaDoughnutChart status={status} />
       </Suspense>
-      <RadioBoxGroup options={data} status={status} />
+      <div className="flex justify-center">
+        <RadioBoxGroup options={data} status={status} />
+      </div>
       <ListWrapper />
     </div>
   );

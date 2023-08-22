@@ -3,7 +3,6 @@ import { FC, Suspense } from "react";
 import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
 
 import { Spinner } from "../../atoms/Spinner";
-import { ExchangeRateWithSwitch } from "../../molecules/ExchangeRateWithSwitch";
 import { FgnDoughnutChart } from "./FgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -19,10 +18,9 @@ export const FgnGraph: FC<Props> = ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <FgnDoughnutChart status={status} />
       </Suspense>
-      <RadioBoxGroup options={data} status={status} />
-      <Suspense fallback={<Spinner />}>
-        <ExchangeRateWithSwitch />
-      </Suspense>
+      <div className="flex justify-center">
+        <RadioBoxGroup options={data} status={status} />
+      </div>
       <ListWrapper />
     </div>
   );
