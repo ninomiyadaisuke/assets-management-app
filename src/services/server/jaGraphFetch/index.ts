@@ -1,3 +1,5 @@
+import { sensitiveStocks } from "@/libs/data";
+
 import { handlePrismaError, prisma } from "../index";
 
 export const fetchJaGraphTotalServer = async (userId: string) => {
@@ -122,4 +124,53 @@ export const fetchJaGraphDividendServer = async (userId: string) => {
   } catch (error) {
     return handlePrismaError(error);
   }
+};
+
+export const fetchJaGraphCalculateIndustryRatiosServer = async (
+  userId: string
+) => {
+  const holdings = await prisma.holding.findMany({
+    where: {
+      userId,
+      stock: {
+        marketType: "日本株",
+      },
+    },
+    select: {
+      numberOfSharesHeld: true,
+      stock: {
+        select: {
+          dividend: true,
+          industry: true,
+        },
+      },
+    },
+  });
+
+  const totalDividend = holdings.reduce(
+    (sum, holding) => sum + holding.stock.dividend * holding.numberOfSharesHeld,
+    0
+  );
+  const industryTotals = holdings.reduce(
+    (acc, holding) => {
+      const value = holding.numberOfSharesHeld * holding.stock.dividend;
+      if (sensitiveStocks.includes(holding.stock.industry!)) {
+        acc.sensitive += value;
+      } else {
+        acc.defensive += value;
+      }
+      return acc;
+    },
+    { sensitive: 0, defensive: 0 }
+  );
+
+  const grandTotal = industryTotals.sensitive + industryTotals.defensive;
+
+  const result = Object.entries(industryTotals).map(([industry, total]) => {
+    return {
+      id: industry,
+      value: (total / grandTotal) * 100,
+    };
+  });
+  return { result, total: totalDividend };
 };

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { UnauthorizedError } from "@/libs/error";
 import {
+  fetchJaGraphCalculateIndustryRatiosServer,
   fetchJaGraphDividendServer,
   fetchJaGraphTotalServer,
 } from "@/services/server/jaGraphFetch";
@@ -20,7 +21,7 @@ export async function GET(request: Request) {
       case "配当額":
         return fetchJaGraphDividendServer(uid);
       case "景気敏感割合":
-        return;
+        return fetchJaGraphCalculateIndustryRatiosServer(uid);
     }
   })();
   const data = await promiseData;
