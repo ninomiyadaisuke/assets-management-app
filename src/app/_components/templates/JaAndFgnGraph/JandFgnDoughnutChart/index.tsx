@@ -1,6 +1,8 @@
 import { FC } from "react";
 
 import { DoughnutChart } from "@/app/_components/organisms/DoughnutChart";
+import { fetchJaAndFgnGraphClient } from "@/services/client/jaAndFgnFetch";
+import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 export const data = [
   { id: "stock1", value: 11.1 },
@@ -20,6 +22,12 @@ export const data = [
   { id: "stock15", value: 1.1 },
 ];
 
-export const JaAndFgnDoughnutChart: FC = () => {
+type Props = {
+  status: "評価額" | "配当額" | "景気敏感割合";
+};
+
+export const JaAndFgnDoughnutChart: FC<Props> = async ({ status }) => {
+  const uid = await serverComponentAuthValidateAndReturnUid();
+  const test = await fetchJaAndFgnGraphClient(uid, status);
   return <DoughnutChart data={data} title="評価額" total={1000000} />;
 };
