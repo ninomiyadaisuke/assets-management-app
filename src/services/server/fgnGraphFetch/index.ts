@@ -1,9 +1,13 @@
 import { sensitiveStocks } from "@/libs/data";
+import { fetchLatestUsdToJpyRateClient } from "@/services/client/exchangeRate";
 
 import { handlePrismaError, prisma } from "../index";
 
 export const fetchFgnGraphTotalServer = async (userId: string) => {
   try {
+    const {
+      conversion_rates: { JPY },
+    } = await fetchLatestUsdToJpyRateClient();
     const holdings = await prisma.holding.findMany({
       where: {
         userId,
@@ -25,7 +29,8 @@ export const fetchFgnGraphTotalServer = async (userId: string) => {
 
     const totalPrice = holdings.reduce(
       (sum, holding) =>
-        sum + holding.stock.currentStockPrice * holding.numberOfSharesHeld,
+        sum +
+        holding.stock.currentStockPrice * holding.numberOfSharesHeld * JPY,
       0
     );
 
@@ -54,10 +59,10 @@ export const fetchFgnGraphTotalServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, total]) => {
       return {
         id: industry,
-        value: (total / grandTotal) * 100,
+        value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
-    return { result, total: totalPrice };
+    return { result, total: Number(totalPrice.toFixed(1)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -69,6 +74,9 @@ export type JaGraphTotalReturn = Awaited<
 
 export const fetchFgnGraphDividendServer = async (userId: string) => {
   try {
+    const {
+      conversion_rates: { JPY },
+    } = await fetchLatestUsdToJpyRateClient();
     const holdings = await prisma.holding.findMany({
       where: {
         userId,
@@ -97,7 +105,7 @@ export const fetchFgnGraphDividendServer = async (userId: string) => {
     const industryTotals = holdings.reduce<{ [key: string]: number }>(
       (acc, holding) => {
         const industryKey: string = holding.stock.industry || "Unknown";
-        const value = holding.numberOfSharesHeld * holding.stock.dividend;
+        const value = holding.numberOfSharesHeld * holding.stock.dividend * JPY;
         if (!acc[industryKey]) {
           acc[industryKey] = value;
         } else {
@@ -116,11 +124,11 @@ export const fetchFgnGraphDividendServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, total]) => {
       return {
         id: industry,
-        value: (total / grandTotal) * 100,
+        value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
 
-    return { result, total: totalDividend };
+    return { result, total: Number(totalDividend.toFixed(1)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -129,48 +137,56 @@ export const fetchFgnGraphDividendServer = async (userId: string) => {
 export const fetchFgnGraphCalculateIndustryRatiosServer = async (
   userId: string
 ) => {
-  const holdings = await prisma.holding.findMany({
-    where: {
-      userId,
-      stock: {
-        marketType: "外国株",
-      },
-    },
-    select: {
-      numberOfSharesHeld: true,
-      stock: {
-        select: {
-          dividend: true,
-          industry: true,
+  try {
+    const {
+      conversion_rates: { JPY },
+    } = await fetchLatestUsdToJpyRateClient();
+    const holdings = await prisma.holding.findMany({
+      where: {
+        userId,
+        stock: {
+          marketType: "外国株",
         },
       },
-    },
-  });
+      select: {
+        numberOfSharesHeld: true,
+        stock: {
+          select: {
+            dividend: true,
+            industry: true,
+          },
+        },
+      },
+    });
 
-  const totalDividend = holdings.reduce(
-    (sum, holding) => sum + holding.stock.dividend * holding.numberOfSharesHeld,
-    0
-  );
-  const industryTotals = holdings.reduce(
-    (acc, holding) => {
-      const value = holding.numberOfSharesHeld * holding.stock.dividend;
-      if (sensitiveStocks.includes(holding.stock.industry!)) {
-        acc.Sensitive += value;
-      } else {
-        acc.Defensive += value;
-      }
-      return acc;
-    },
-    { Sensitive: 0, Defensive: 0 }
-  );
+    const totalDividend = holdings.reduce(
+      (sum, holding) =>
+        sum + holding.stock.dividend * holding.numberOfSharesHeld,
+      0
+    );
+    const industryTotals = holdings.reduce(
+      (acc, holding) => {
+        const value = holding.numberOfSharesHeld * holding.stock.dividend * JPY;
+        if (sensitiveStocks.includes(holding.stock.industry!)) {
+          acc.Sensitive += value;
+        } else {
+          acc.Defensive += value;
+        }
+        return acc;
+      },
+      { Sensitive: 0, Defensive: 0 }
+    );
 
-  const grandTotal = industryTotals.Sensitive + industryTotals.Defensive;
+    const grandTotal = industryTotals.Sensitive + industryTotals.Defensive;
 
-  const result = Object.entries(industryTotals).map(([industry, total]) => {
-    return {
-      id: industry,
-      value: (total / grandTotal) * 100,
-    };
-  });
-  return { result, total: totalDividend };
+    const result = Object.entries(industryTotals).map(([industry, total]) => {
+      return {
+        id: industry,
+        value: Number(((total / grandTotal) * 100).toFixed(1)),
+      };
+    });
+    return { result, total: Number(totalDividend.toFixed(1)) };
+  } catch (error) {
+    return handlePrismaError(error);
+  }
 };
