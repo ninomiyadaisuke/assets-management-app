@@ -3,6 +3,7 @@ import { FC, Suspense } from "react";
 import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
 
 import { Spinner } from "../../atoms/Spinner";
+import { TotalPriceByType } from "../../molecules/TotalPriceByType";
 import { JaDoughnutChart } from "./JaDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -19,7 +20,15 @@ export const JaGraph: FC<Props> = ({ status }) => {
       <div className="flex justify-center">
         <RadioBoxGroup options={data} status={status} />
       </div>
-      <ListWrapper />
+      <ListWrapper
+        children={(item) => (
+          <TotalPriceByType
+            title={item.title}
+            price={item.price}
+            color={item.color}
+          />
+        )}
+      />
     </div>
   );
 };

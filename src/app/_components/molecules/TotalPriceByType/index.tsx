@@ -13,7 +13,7 @@ export const TotalPriceByType: FC<Props> = ({ title, color, price }) => {
   return (
     <li className="flex w-full items-center justify-between">
       <div className="flex gap-3">
-        <Dot className="self-center" color={color} />
+        <Dot className="self-center" style={{ backgroundColor: `${color}` }} />
         <p className="text-num-def">{title}</p>
       </div>
       <p className="text-num-def">{price.toLocaleString()}</p>
