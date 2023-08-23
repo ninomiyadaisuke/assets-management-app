@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { UnauthorizedError } from "@/libs/error";
-import { fetchJaGraphListServer } from "@/services/server/jaGraphList";
+import {
+  fetchJaGraphListCalculateIndustryRatiosServer,
+  fetchJaGraphListDividentServer,
+  fetchJaGraphListServer,
+} from "@/services/server/jaGraphList";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -13,9 +17,9 @@ export async function GET(request: Request) {
       case "評価額":
         return fetchJaGraphListServer(uid);
       case "配当額":
-        return;
+        return fetchJaGraphListDividentServer(uid);
       case "景気敏感割合":
-        return;
+        return fetchJaGraphListCalculateIndustryRatiosServer(uid);
     }
   })();
   const data = await promiseData;
