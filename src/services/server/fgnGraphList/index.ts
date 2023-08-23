@@ -1,14 +1,18 @@
 import { sensitiveStocks } from "@/libs/data";
+import { fetchLatestUsdToJpyRateClient } from "@/services/client/exchangeRate";
 
 import { handlePrismaError, prisma } from "../index";
 
 export const fetchFgnGraphListServer = async (userId: string) => {
   try {
+    const {
+      conversion_rates: { JPY },
+    } = await fetchLatestUsdToJpyRateClient();
     const holdings = await prisma.holding.findMany({
       where: {
         userId,
         stock: {
-          marketType: "日本株",
+          marketType: "外国株",
         },
       },
       select: {
@@ -25,7 +29,7 @@ export const fetchFgnGraphListServer = async (userId: string) => {
       (acc, holding) => {
         const industryKey: string = holding.stock.industry || "Unknown";
         const value =
-          holding.numberOfSharesHeld * holding.stock.currentStockPrice;
+          holding.numberOfSharesHeld * holding.stock.currentStockPrice * JPY;
         if (!acc[industryKey]) {
           acc[industryKey] = value;
         } else {
@@ -38,7 +42,7 @@ export const fetchFgnGraphListServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, price]) => {
       return {
         title: industry,
-        price,
+        price: Number(price.toFixed(0)),
       };
     });
     const sortResult = result.sort((a, b) => b.price - a.price);
@@ -55,11 +59,14 @@ export type FgnGraphListReturn = Awaited<
 
 export const fetchFgnGraphListDividentServer = async (userId: string) => {
   try {
+    const {
+      conversion_rates: { JPY },
+    } = await fetchLatestUsdToJpyRateClient();
     const holdings = await prisma.holding.findMany({
       where: {
         userId,
         stock: {
-          marketType: "日本株",
+          marketType: "外国株",
         },
       },
       select: {
@@ -75,7 +82,7 @@ export const fetchFgnGraphListDividentServer = async (userId: string) => {
     const industryTotals = holdings.reduce<{ [key: string]: number }>(
       (acc, holding) => {
         const industryKey: string = holding.stock.industry || "Unknown";
-        const value = holding.numberOfSharesHeld * holding.stock.dividend;
+        const value = holding.numberOfSharesHeld * holding.stock.dividend * JPY;
         if (!acc[industryKey]) {
           acc[industryKey] = value;
         } else {
@@ -88,7 +95,7 @@ export const fetchFgnGraphListDividentServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, price]) => {
       return {
         title: industry,
-        price,
+        price: Number(price.toFixed(0)),
       };
     });
     const sortResult = result.sort((a, b) => b.price - a.price);
@@ -103,11 +110,14 @@ export const fetchFgnGraphListCalculateIndustryRatiosServer = async (
   userId: string
 ) => {
   try {
+    const {
+      conversion_rates: { JPY },
+    } = await fetchLatestUsdToJpyRateClient();
     const holdings = await prisma.holding.findMany({
       where: {
         userId,
         stock: {
-          marketType: "日本株",
+          marketType: "外国株",
         },
       },
       select: {
@@ -122,7 +132,7 @@ export const fetchFgnGraphListCalculateIndustryRatiosServer = async (
     });
     const industryTotals = holdings.reduce<{ [key: string]: number }>(
       (acc, holding) => {
-        const value = holding.numberOfSharesHeld * holding.stock.dividend;
+        const value = holding.numberOfSharesHeld * holding.stock.dividend * JPY;
         if (sensitiveStocks.includes(holding.stock.industry!)) {
           acc.Sensitive += value;
         } else {
@@ -135,7 +145,7 @@ export const fetchFgnGraphListCalculateIndustryRatiosServer = async (
     const result = Object.entries(industryTotals).map(([industry, price]) => {
       return {
         title: industry,
-        price,
+        price: Number(price.toFixed(0)),
       };
     });
     const sortResult = result.sort((a, b) => b.price - a.price);

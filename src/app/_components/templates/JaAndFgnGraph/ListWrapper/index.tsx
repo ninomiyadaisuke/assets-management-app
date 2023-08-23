@@ -20,7 +20,7 @@ const data = [
 
 export const ListWrapper: FC<Props> = ({ children }) => {
   return (
-    <div className="m-auto mt-8 flex w-5/6 flex-col gap-2">
+    <div className="m-auto mt-8 flex w-5/6 flex-col gap-6">
       {data.map((item, i) => {
         const test = { ...item, color: colors[i] };
         return children(test);

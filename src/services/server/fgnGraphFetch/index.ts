@@ -62,7 +62,8 @@ export const fetchFgnGraphTotalServer = async (userId: string) => {
         value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
-    return { result, total: Number(totalPrice.toFixed(1)) };
+    const sortResult = result.sort((a, b) => b.value - a.value);
+    return { result: sortResult, total: Number(totalPrice.toFixed(1)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -127,8 +128,9 @@ export const fetchFgnGraphDividendServer = async (userId: string) => {
         value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
+    const sortResult = result.sort((a, b) => b.value - a.value);
 
-    return { result, total: Number(totalDividend.toFixed(1)) };
+    return { result: sortResult, total: Number(totalDividend.toFixed(1)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -185,7 +187,8 @@ export const fetchFgnGraphCalculateIndustryRatiosServer = async (
         value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
-    return { result, total: Number(totalDividend.toFixed(1)) };
+    const sortResult = result.sort((a, b) => b.value - a.value);
+    return { result: sortResult, total: Number(totalDividend.toFixed(1)) };
   } catch (error) {
     return handlePrismaError(error);
   }
