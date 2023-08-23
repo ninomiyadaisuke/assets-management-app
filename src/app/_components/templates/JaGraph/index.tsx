@@ -21,6 +21,7 @@ export const JaGraph: FC<Props> = ({ status }) => {
         <RadioBoxGroup options={data} status={status} />
       </div>
       <ListWrapper
+        status={status}
         children={(item) => (
           <TotalPriceByType
             title={item.title}
