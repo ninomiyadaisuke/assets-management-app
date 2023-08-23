@@ -54,7 +54,7 @@ export const fetchJaGraphTotalServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, total]) => {
       return {
         id: industry,
-        value: (total / grandTotal) * 100,
+        value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
     return { result, total: totalPrice };
@@ -116,7 +116,7 @@ export const fetchJaGraphDividendServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, total]) => {
       return {
         id: industry,
-        value: (total / grandTotal) * 100,
+        value: Number(((total / grandTotal) * 100).toFixed(1)),
       };
     });
 
@@ -169,7 +169,7 @@ export const fetchJaGraphCalculateIndustryRatiosServer = async (
   const result = Object.entries(industryTotals).map(([industry, total]) => {
     return {
       id: industry,
-      value: (total / grandTotal) * 100,
+      value: Number(((total / grandTotal) * 100).toFixed(1)),
     };
   });
   return { result, total: totalDividend };
