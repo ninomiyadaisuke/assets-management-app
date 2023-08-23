@@ -23,5 +23,5 @@ export async function GET(request: Request) {
   })();
   const data = await promiseData;
 
-  return NextResponse.json({});
+  return NextResponse.json(data);
 }

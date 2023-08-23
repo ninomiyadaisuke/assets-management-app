@@ -97,7 +97,7 @@ export const fetchFgnGraphDividendServer = async (userId: string) => {
 
     const totalDividend = holdings.reduce(
       (sum, holding) =>
-        sum + holding.stock.dividend * holding.numberOfSharesHeld,
+        sum + holding.stock.dividend * holding.numberOfSharesHeld * JPY,
       0
     );
 

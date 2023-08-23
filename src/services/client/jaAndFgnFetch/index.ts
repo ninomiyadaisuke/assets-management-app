@@ -1,4 +1,5 @@
 import { typedFetch } from "@/libs/fetchUtils";
+import { JaAndFgbGraphTotalReturn } from "@/services/server/jaAndFgnFetch";
 
 import { url } from "../url";
 
@@ -9,5 +10,8 @@ export const fetchJaAndFgnGraphClient = async (
   const params = { q: uid, status };
   const query = new URLSearchParams(params);
 
-  return typedFetch<any>(`${url}/api/graph/ja-fgn?${query}`, {});
+  return typedFetch<JaAndFgbGraphTotalReturn>(
+    `${url}/api/graph/ja-fgn?${query}`,
+    {}
+  );
 };
