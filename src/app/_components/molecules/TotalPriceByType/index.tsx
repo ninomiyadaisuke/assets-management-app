@@ -16,7 +16,7 @@ export const TotalPriceByType: FC<Props> = ({ title, color, price }) => {
         <Dot className="self-center" style={{ backgroundColor: `${color}` }} />
         <p className="text-num-def">{title}</p>
       </div>
-      <p className="text-num-def">{price.toLocaleString()}</p>
+      <p className="text-num-def">{`${price.toLocaleString()} 円`}</p>
     </li>
   );
 };

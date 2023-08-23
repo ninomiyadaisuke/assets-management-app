@@ -1,6 +1,8 @@
 import { FC, ReactElement } from "react";
 
 import { Color, colors } from "@/libs/colors";
+import { fetchJaGraphListClient } from "@/services/client/jaGraphList";
+import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 type Props = {
   children: (item: {
@@ -8,22 +10,17 @@ type Props = {
     color: Color;
     price: number;
   }) => ReactElement;
+  status: "評価額" | "配当額" | "景気敏感割合";
 };
 
-const data = [
-  { title: "食料品", price: 300000 },
-  { title: "建築業", price: 300000 },
-  { title: "化学", price: 300000 },
-  { title: "水産・農林業", price: 300000 },
-  { title: "食料品", price: 300000 },
-];
-
-export const ListWrapper: FC<Props> = ({ children }) => {
+export const ListWrapper: FC<Props> = async ({ children, status }) => {
+  const uid = await serverComponentAuthValidateAndReturnUid();
+  const data = await fetchJaGraphListClient(uid, status);
   return (
     <div className="m-auto mt-8 flex w-5/6 flex-col gap-2">
-      {data.map((item, i) => {
-        const test = { ...item, color: colors[i] };
-        return children(test);
+      {data.result.map((item, i) => {
+        const itemAddColor = { ...item, color: colors[i] };
+        return children(itemAddColor);
       })}
     </div>
   );
