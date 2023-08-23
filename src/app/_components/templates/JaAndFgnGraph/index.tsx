@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, Suspense } from "react";
 
 import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
 
+import { Spinner } from "../../atoms/Spinner";
 import { JaAndFgnDoughnutChart } from "./JandFgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -14,7 +15,9 @@ type Props = {
 export const JaAndFgnGraph: FC<Props> = ({ status }) => {
   return (
     <div>
-      <JaAndFgnDoughnutChart />
+      <Suspense fallback={<Spinner />}>
+        <JaAndFgnDoughnutChart status={status} />
+      </Suspense>
       <RadioBoxGroup options={data} status={status ? status : "評価額"} />
       <ListWrapper />
     </div>
