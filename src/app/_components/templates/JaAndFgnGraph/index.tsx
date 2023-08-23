@@ -3,7 +3,7 @@ import { FC, Suspense } from "react";
 import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
 
 import { Spinner } from "../../atoms/Spinner";
-import { JaAndFgnDoughnutChart } from "./JandFgnDoughnutChart";
+import { JaAndFgnDoughnutChart } from "./JaAndFgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
 const data = ["評価額", "配当額"];
