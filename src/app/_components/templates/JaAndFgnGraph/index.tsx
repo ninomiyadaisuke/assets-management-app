@@ -3,6 +3,7 @@ import { FC, Suspense } from "react";
 import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
 
 import { Spinner } from "../../atoms/Spinner";
+import { TotalPriceByType } from "../../molecules/TotalPriceByType";
 import { JaAndFgnDoughnutChart } from "./JaAndFgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -14,12 +15,22 @@ type Props = {
 
 export const JaAndFgnGraph: FC<Props> = ({ status }) => {
   return (
-    <div>
+    <>
       <Suspense fallback={<Spinner />}>
         <JaAndFgnDoughnutChart status={status} />
       </Suspense>
-      <RadioBoxGroup options={data} status={status ? status : "評価額"} />
-      <ListWrapper />
-    </div>
+      <div className="flex justify-center">
+        <RadioBoxGroup options={data} status={status ? status : "評価額"} />
+      </div>
+      <ListWrapper
+        children={(item) => (
+          <TotalPriceByType
+            title={item.title}
+            price={item.price}
+            color={item.color}
+          />
+        )}
+      />
+    </>
   );
 };
