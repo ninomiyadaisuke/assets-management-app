@@ -16,9 +16,11 @@ type Props = {
 export const ListWrapper: FC<Props> = async ({ children, status }) => {
   const uid = await serverComponentAuthValidateAndReturnUid();
   const data = await fetchJaGraphListClient(uid, status);
+  const { result } = data;
+  const filteredResult = result.filter((item) => item.price !== 0);
   return (
     <div className="m-auto mt-8 flex w-5/6 flex-col gap-6">
-      {data.result.map((item, i) => {
+      {filteredResult.map((item, i) => {
         const itemAddColor = { ...item, color: colors[i] };
         return children(itemAddColor);
       })}
