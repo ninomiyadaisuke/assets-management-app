@@ -23,6 +23,7 @@ export const JaAndFgnGraph: FC<Props> = ({ status }) => {
         <RadioBoxGroup options={data} status={status ? status : "評価額"} />
       </div>
       <ListWrapper
+        status={status}
         children={(item) => (
           <TotalPriceByType
             title={item.title}
