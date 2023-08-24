@@ -19,19 +19,21 @@ export const FgnGraph: FC<Props> = ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <FgnDoughnutChart status={status} />
       </Suspense>
-      <div className="flex justify-center">
-        <RadioBoxGroup options={data} status={status} />
-      </div>
-      <ListWrapper
-        status={status}
-        children={(item) => (
-          <TotalPriceByType
-            title={item.title}
-            price={item.price}
-            color={item.color}
-          />
-        )}
-      />
+      <Suspense fallback={<Spinner />}>
+        <div className="flex justify-center">
+          <RadioBoxGroup options={data} status={status} />
+        </div>
+        <ListWrapper
+          status={status}
+          children={(item) => (
+            <TotalPriceByType
+              title={item.title}
+              price={item.price}
+              color={item.color}
+            />
+          )}
+        />
+      </Suspense>
     </>
   );
 };

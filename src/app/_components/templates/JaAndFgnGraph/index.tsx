@@ -19,19 +19,21 @@ export const JaAndFgnGraph: FC<Props> = ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <JaAndFgnDoughnutChart status={status} />
       </Suspense>
-      <div className="flex justify-center">
-        <RadioBoxGroup options={data} status={status ? status : "評価額"} />
-      </div>
-      <ListWrapper
-        status={status}
-        children={(item) => (
-          <TotalPriceByType
-            title={item.title}
-            price={item.price}
-            color={item.color}
-          />
-        )}
-      />
+      <Suspense fallback={<Spinner />}>
+        <div className="flex justify-center">
+          <RadioBoxGroup options={data} status={status ? status : "評価額"} />
+        </div>
+        <ListWrapper
+          status={status}
+          children={(item) => (
+            <TotalPriceByType
+              title={item.title}
+              price={item.price}
+              color={item.color}
+            />
+          )}
+        />
+      </Suspense>
     </>
   );
 };
