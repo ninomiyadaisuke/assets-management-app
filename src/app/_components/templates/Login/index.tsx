@@ -10,6 +10,7 @@ import { z } from "zod";
 import { Button } from "@/app/_components/atoms/Button";
 import { ErrorMessage } from "@/app/_components/atoms/ErrorMessage";
 import { TextboxWithError } from "@/app/_components/molecules/TextboxWithError";
+import { useLoading } from "@/hooks/useLoading";
 import type { Database } from "@/libs/database.types";
 
 import { Spinner } from "../../atoms/Spinner";
@@ -25,6 +26,7 @@ export const Login: FC = () => {
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
   const [message, setMessage] = useState("");
+  const { setIsLoading, isLoading } = useLoading();
 
   const {
     register,
@@ -54,6 +56,29 @@ export const Login: FC = () => {
       setMessage("ログインに失敗しました。");
       return;
     } finally {
+      router.refresh();
+    }
+  };
+
+  const handleClick = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: process.env.NEXT_PUBLIC_DEMO_USER_EMAIL!,
+        password: process.env.NEXT_PUBLIC_DEMO_USER_PASSWORD!,
+      });
+      // エラーチェック
+      if (error) {
+        setMessage("ログインに失敗しました");
+        return;
+      }
+      // トップページに遷移
+      router.push("/");
+    } catch (error) {
+      setMessage("ログインに失敗しました。");
+      return;
+    } finally {
+      setIsLoading(false);
       router.refresh();
     }
   };
@@ -99,8 +124,26 @@ export const Login: FC = () => {
           />
         </div>
         <div className="m-auto flex w-[90%]">
-          <Button disabled={isSubmitting}>
-            {isSubmitting ? <Spinner variant="default" /> : "ログイン"}
+          <Button disabled={isSubmitting || isLoading}>
+            {isSubmitting || isLoading ? (
+              <Spinner variant="default" />
+            ) : (
+              "ログイン"
+            )}
+          </Button>
+        </div>
+        <div className="m-auto flex w-[90%]">
+          <Button
+            onClick={handleClick}
+            theme="outline"
+            type="button"
+            disabled={isSubmitting || isLoading}
+          >
+            {isSubmitting || isLoading ? (
+              <Spinner variant="default" />
+            ) : (
+              "Demo ログイン"
+            )}
           </Button>
         </div>
         {message && (
