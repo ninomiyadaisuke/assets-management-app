@@ -8,7 +8,7 @@ module.exports = {
     "next.config.js",
     "typed-scss-modules.config.js",
   ],
-  // https://zenn.dev/warugaki/scraps/f71614869a38a5
+  /// https://zenn.dev/warugaki/scraps/f71614869a38a5
   plugins: [
     "import",
     "simple-import-sort",
