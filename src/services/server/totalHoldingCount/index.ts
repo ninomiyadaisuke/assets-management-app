@@ -8,16 +8,20 @@ export const fetchJaTotalHoldingCountServer = async (
 ) => {
   try {
     if (!userId) throw new NotFoundError();
-    const count = await prisma.holding.count({
+
+    const result = await prisma.holding.groupBy({
+      by: ["stockId"],
       where: {
         userId,
         stock: {
           marketType,
         },
       },
+      _count: {
+        stockId: true,
+      },
     });
-
-    return count;
+    return result.length;
   } catch (error) {
     return handlePrismaError(error);
   }

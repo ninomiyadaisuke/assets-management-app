@@ -17,7 +17,7 @@ export const JaStocks: FC = async () => {
       </Suspense>
       <Suspense fallback={<Spinner />}>
         <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
-          <TotalHoldingCount country="ja" />
+          <TotalHoldingCount marketType="日本株" />
         </section>
       </Suspense>
       <Suspense fallback={<Spinner />}>

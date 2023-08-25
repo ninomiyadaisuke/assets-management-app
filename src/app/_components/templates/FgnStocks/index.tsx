@@ -23,7 +23,7 @@ export const FgnStocks: FC<Props> = async ({ status }) => {
       </Suspense>
       <Suspense fallback={<Spinner />}>
         <section className="flex h-20 items-center justify-between bg-gray-300 px-[5%]">
-          <TotalHoldingCount country="ja" />
+          <TotalHoldingCount marketType="外国株" />
           <ExchangeRateWithSwitch />
         </section>
       </Suspense>
