@@ -1,5 +1,6 @@
 import { FC, ReactElement } from "react";
 
+import { NotItems } from "@/app/_components/atoms/NotItems";
 import { UnauthorizedError } from "@/libs/error";
 import { fetchFgnStockListClient } from "@/services/client/fgnStockList";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
@@ -17,7 +18,7 @@ export const FgnStockListWrapper: FC<Props> = async ({ children, status }) => {
 
   return (
     <>
-      {fgnStocks &&
+      {fgnStocks.length > 0 ? (
         fgnStocks.map((item) => {
           const {
             numberOfSharesHeld,
@@ -41,7 +42,10 @@ export const FgnStockListWrapper: FC<Props> = async ({ children, status }) => {
             array.acquisitionPrice,
             array.dividend,
           ]);
-        })}
+        })
+      ) : (
+        <NotItems />
+      )}
     </>
   );
 };

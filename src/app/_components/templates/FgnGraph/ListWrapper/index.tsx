@@ -1,5 +1,6 @@
 import { FC, ReactElement } from "react";
 
+import { NotItems } from "@/app/_components/atoms/NotItems";
 import { Color, colors } from "@/libs/colors";
 import { fetchFgnGraphListClient } from "@/services/client/fgnGraphList";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
@@ -20,10 +21,14 @@ export const ListWrapper: FC<Props> = async ({ children, status }) => {
   const filteredResult = result.filter((item) => item.price !== 0);
   return (
     <div className="m-auto mt-8 flex w-5/6 flex-col gap-6">
-      {filteredResult.map((item, i) => {
-        const test = { ...item, color: colors[i] };
-        return children(test);
-      })}
+      {filteredResult.length > 0 ? (
+        filteredResult.map((item, i) => {
+          const addColorItems = { ...item, color: colors[i] };
+          return children(addColorItems);
+        })
+      ) : (
+        <NotItems />
+      )}
     </div>
   );
 };
