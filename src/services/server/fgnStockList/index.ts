@@ -49,7 +49,7 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
         );
         const totalAcquisitionPrice = holdings.reduce(
           (sum, holding) =>
-            sum + holding.numberOfSharesHeld * holding.acquisitionPrice,
+            sum + holding.numberOfSharesHeld * holding.acquisitionPriceJPY!,
           0
         );
 
