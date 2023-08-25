@@ -1,5 +1,6 @@
 import { FC, ReactElement } from "react";
 
+import { NotItems } from "@/app/_components/atoms/NotItems";
 import { fetchStockList } from "@/services/client/jaStockList";
 import { BasicInfo } from "@/services/server/jaStockList";
 
@@ -12,7 +13,7 @@ export const JaStockListWrapper: FC<Props> = async ({ children }) => {
 
   return (
     <>
-      {japaneseStocks &&
+      {japaneseStocks.length > 0 ? (
         japaneseStocks.map((item) => {
           const {
             numberOfSharesHeld,
@@ -36,7 +37,10 @@ export const JaStockListWrapper: FC<Props> = async ({ children }) => {
             array.acquisitionPrice,
             array.dividend,
           ]);
-        })}
+        })
+      ) : (
+        <NotItems />
+      )}
     </>
   );
 };

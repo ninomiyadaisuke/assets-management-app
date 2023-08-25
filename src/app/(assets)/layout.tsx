@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 
 import { Layout } from "@/app/_components/layouts";
 
+import { NotItems } from "../_components/atoms/NotItems";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
