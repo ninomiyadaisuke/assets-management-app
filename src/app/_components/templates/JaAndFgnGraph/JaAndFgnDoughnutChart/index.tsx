@@ -11,5 +11,11 @@ type Props = {
 export const JaAndFgnDoughnutChart: FC<Props> = async ({ status }) => {
   const uid = await serverComponentAuthValidateAndReturnUid();
   const data = await fetchJaAndFgnGraphClient(uid, status);
-  return <DoughnutChart data={data.result} title="評価額" total={data.total} />;
+  return (
+    <DoughnutChart
+      data={data.result}
+      title={status === "評価額" ? "評価額" : "配当額"}
+      total={data.total}
+    />
+  );
 };
