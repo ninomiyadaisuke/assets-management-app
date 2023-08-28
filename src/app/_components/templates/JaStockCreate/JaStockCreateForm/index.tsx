@@ -21,13 +21,13 @@ const defaultValues = {
 
 type Props<T extends FieldValues = CreateStockType> = {
   title: string;
-  onClickSave: () => void;
+  message: string;
   onValid: SubmitHandler<T>;
   onInvalid?: SubmitErrorHandler<T>;
 };
 
 export const JaStockCreateForm: FC<Props> = (props) => {
-  const { title, onValid, onInvalid, onClickSave } = props;
+  const { title, onValid, onInvalid, message } = props;
   const { getAccountTypes } = useAssetType();
 
   const {
@@ -101,7 +101,7 @@ export const JaStockCreateForm: FC<Props> = (props) => {
       </div>
       <ConfirmSubmitButton
         isSubmitting={isSubmitting}
-        alertDialogState={{ message: "登録内容を更新しますか？" }}
+        alertDialogState={{ message }}
       />
     </form>
   );
