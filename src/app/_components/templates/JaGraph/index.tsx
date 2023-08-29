@@ -19,7 +19,7 @@ export const JaGraph: FC<Props> = async ({ status }) => {
   return (
     <div>
       <Suspense fallback={<Spinner />}>
-        <Tabs options={["評価額", "配当額", "景気敏感割合"]} />
+        <Tabs options={["評価額", "配当額", "景気敏感割合"]} status={status} />
         <JaDoughnutChart status={status} />
       </Suspense>
       <Suspense fallback={<Spinner />}>
