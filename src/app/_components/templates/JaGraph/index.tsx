@@ -1,13 +1,12 @@
 import { FC, Suspense } from "react";
 
-import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
+import { Spinner } from "@/app/_components/atoms/Spinner";
+import { Tabs } from "@/app/_components/molecules/Tabs";
+import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 
-import { Spinner } from "../../atoms/Spinner";
-import { TotalPriceByType } from "../../molecules/TotalPriceByType";
 import { JaDoughnutChart } from "./JaDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
-const data = ["評価額", "配当額", "景気敏感割合"];
 type Props = {
   status: "評価額" | "配当額" | "景気敏感割合";
 };
@@ -15,12 +14,10 @@ export const JaGraph: FC<Props> = ({ status }) => {
   return (
     <div>
       <Suspense fallback={<Spinner />}>
+        <Tabs options={["評価額", "配当額", "景気敏感割合"]} />
         <JaDoughnutChart status={status} />
       </Suspense>
       <Suspense fallback={<Spinner />}>
-        <div className="flex justify-center">
-          <RadioBoxGroup options={data} status={status} />
-        </div>
         <ListWrapper
           status={status}
           children={(item) => (
