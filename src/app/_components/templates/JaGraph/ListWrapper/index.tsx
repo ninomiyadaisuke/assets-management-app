@@ -23,8 +23,8 @@ export const ListWrapper: FC<Props> = async ({ children, status }) => {
     <div className="m-auto mt-8 flex w-5/6 flex-col gap-6">
       {filteredResult.length > 0 ? (
         filteredResult.map((item, i) => {
-          const itemAddColor = { ...item, color: colors[i] };
-          return children(itemAddColor);
+          const addColorItems = { ...item, color: colors[i] };
+          return children(addColorItems);
         })
       ) : (
         <NotItems />
