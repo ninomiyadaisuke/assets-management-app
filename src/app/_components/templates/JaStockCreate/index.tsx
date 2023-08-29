@@ -8,11 +8,8 @@ import { JaStockCreateForm } from "@/app/_components/templates/JaStockCreate/JaS
 import { SearchForm } from "@/app/_components/templates/JaStockCreate/SearchForm";
 import { useAlertDialog } from "@/hooks/useAlertDialog";
 import { useAssetType } from "@/hooks/useAssetType";
-import { useLoading } from "@/hooks/useLoading";
 import { useStockStatus } from "@/hooks/useStockStatus";
 import { createStockData } from "@/services/client/jaStockCreate";
-
-import { Spinner } from "../../atoms/Spinner";
 
 export const JaStockCreate: FC = () => {
   const {
@@ -25,22 +22,20 @@ export const JaStockCreate: FC = () => {
     resetStockStatus,
   } = useStockStatus();
   const { assetType } = useAssetType();
-  const { showAlertDialog, hideAlertDialog } = useAlertDialog();
-  const { isLoading } = useLoading();
+  const { hideAlertDialog } = useAlertDialog();
   const router = useRouter();
 
   return (
     <div className="flex grow flex-col gap-9">
       <SearchForm />
-      {stockName ? (
+
+      <SearchedInfoTable unit="円" />
+      {stockCode && (
         <>
-          <SearchedInfoTable unit="円" />
           <RadioGroup />
           <JaStockCreateForm
             title="新規株式登録"
-            onClickSave={() =>
-              showAlertDialog({ message: `新しく${stockName}を登録しますか？` })
-            }
+            message={`新しく${stockName}を登録しますか？`}
             onValid={async (values) => {
               hideAlertDialog();
               const data = {
@@ -65,8 +60,6 @@ export const JaStockCreate: FC = () => {
             onInvalid={() => hideAlertDialog()}
           />
         </>
-      ) : (
-        isLoading && <Spinner />
       )}
     </div>
   );
