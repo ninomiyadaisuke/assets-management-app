@@ -3,7 +3,7 @@ import { FC, Suspense } from "react";
 import { Spinner } from "@/app/_components/atoms/Spinner";
 import { Tabs } from "@/app/_components/molecules/Tabs";
 import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
-import { fetchDividendYieldClient } from "@/services/client/jaDividendYieldFetch";
+import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 import { JaDoughnutChart } from "./JaDoughnutChart";

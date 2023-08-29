@@ -1,6 +1,6 @@
 import { typedFetch } from "@/libs/fetchUtils";
 import { url } from "@/services/client/url";
-import { DividendYieldReturn } from "@/services/server/jaDividendYieldFetch";
+import { DividendYieldReturn } from "@/services/server/dividendYieldFetch";
 export const fetchDividendYieldClient = async (
   uid: string,
   status: "評価額" | "配当額" | "景気敏感割合",

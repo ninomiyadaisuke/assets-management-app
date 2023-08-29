@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { UnauthorizedError } from "@/libs/error";
-import { fetchYenDividendYieldServer } from "@/services/server/jaDividendYieldFetch";
+import { fetchYenDividendYieldServer } from "@/services/server/dividendYieldFetch";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
