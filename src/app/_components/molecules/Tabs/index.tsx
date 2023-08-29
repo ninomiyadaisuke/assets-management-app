@@ -12,7 +12,7 @@ export const Tabs: FC<Props> = ({ options }) => {
   return (
     <RadixTabs.Root
       className="flex w-full flex-col shadow-[0_2px_10px] shadow-blackA4"
-      defaultValue="評価額"
+      defaultValue={options[0]}
     >
       <RadixTabs.List className="flex shrink-0 border-b border-mauve6">
         {options.map((value) => (
