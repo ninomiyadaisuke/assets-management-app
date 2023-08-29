@@ -1,9 +1,9 @@
 import { FC, Suspense } from "react";
 
-import { RadioBoxGroup } from "@/app/_components/molecules/RadioBoxGroup";
+import { Spinner } from "@/app/_components/atoms/Spinner";
+import { Tabs } from "@/app/_components/molecules/Tabs";
+import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 
-import { Spinner } from "../../atoms/Spinner";
-import { TotalPriceByType } from "../../molecules/TotalPriceByType";
 import { JaAndFgnDoughnutChart } from "./JaAndFgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -17,12 +17,10 @@ export const JaAndFgnGraph: FC<Props> = ({ status }) => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
+        <Tabs options={["評価額", "配当額"]} />
         <JaAndFgnDoughnutChart status={status} />
       </Suspense>
       <Suspense fallback={<Spinner />}>
-        <div className="flex justify-center">
-          <RadioBoxGroup options={data} status={status ? status : "評価額"} />
-        </div>
         <ListWrapper
           status={status}
           children={(item) => (
