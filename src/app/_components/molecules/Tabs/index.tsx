@@ -5,14 +5,15 @@ import { FC } from "react";
 
 type Props = {
   options: string[];
+  status: "評価額" | "配当額" | "景気敏感割合";
 };
 
-export const Tabs: FC<Props> = ({ options }) => {
+export const Tabs: FC<Props> = ({ options, status }) => {
   const router = useRouter();
   return (
     <RadixTabs.Root
       className="flex w-full flex-col shadow-[0_2px_10px] shadow-blackA4"
-      defaultValue={options[0]}
+      defaultValue={status}
       onValueChange={(value) => {
         router.push(`?status=${value}`);
         router.refresh();

@@ -19,7 +19,7 @@ export const JaAndFgnGraph: FC<Props> = async ({ status }) => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <Tabs options={["評価額", "配当額"]} />
+        <Tabs options={["評価額", "配当額"]} status={status} />
         <JaAndFgnDoughnutChart status={status} />
       </Suspense>
       <Suspense fallback={<Spinner />}>
