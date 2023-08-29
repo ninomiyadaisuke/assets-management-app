@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { UnauthorizedError } from "@/libs/error";
-import { fetchYenDividendYieldServer } from "@/services/server/dividendYieldFetch";
+import {
+  fetchDollarDividendYieldServer,
+  fetchJaAndDollarDividendYieldServer,
+  fetchYenDividendYieldServer,
+} from "@/services/server/dividendYieldFetch";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -14,11 +18,11 @@ export async function GET(request: Request) {
       case "yen":
         return fetchYenDividendYieldServer(uid);
       case "dollar":
-        return;
+        return fetchDollarDividendYieldServer(uid);
       case "yenAndDollar":
-        return;
+        return fetchJaAndDollarDividendYieldServer(uid);
     }
   })();
   const data = await promiseData;
-  return NextResponse.json({});
+  return NextResponse.json(data);
 }
