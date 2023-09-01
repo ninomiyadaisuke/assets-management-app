@@ -1,12 +1,12 @@
 import { FC, Suspense } from "react";
 
 import { Spinner } from "@/app/_components/atoms/Spinner";
+import { DisplayDividendYield } from "@/app/_components/molecules/DisplayDividendYield";
 import { Tabs } from "@/app/_components/molecules/Tabs";
 import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
-import { DisplayDividendYield } from "../../molecules/DisplayDividentYield";
 import { FgnDoughnutChart } from "./FgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -22,7 +22,7 @@ export const FgnGraph: FC<Props> = async ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <Tabs options={["評価額", "配当額", "景気敏感割合"]} status={status} />
         <FgnDoughnutChart status={status} />
-        <DisplayDividendYield status={status} currency="dollar" />
+        {data && <DisplayDividendYield dividendData={data} />}
       </Suspense>
       <Suspense fallback={<Spinner />}>
         <ListWrapper

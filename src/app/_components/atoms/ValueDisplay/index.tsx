@@ -1,3 +1,4 @@
+import cx from "classnames";
 import { forwardRef } from "react";
 
 type Props = React.ComponentPropsWithRef<"span"> & {
@@ -5,6 +6,7 @@ type Props = React.ComponentPropsWithRef<"span"> & {
   variant?: "small" | "medium" | "large" | "extraLarge";
   vold?: "light" | "medium";
   unit?: "円" | "%" | "株" | "＄";
+  className?: string;
 };
 
 export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
@@ -15,16 +17,18 @@ export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
       vold = "light",
       children,
       unit = "円",
+      className,
       ...props
     },
     ref
   ) {
     return (
-      <div className="flex">
+      <div className={cx(className, "flex")}>
         <span
           ref={ref}
           {...props}
-          className={`
+          className={cx(
+            `
           data-[variant=extraLarge]:text-2xl
           data-[variant=large]:text-xl
           data-[variant=medium]:text-base
@@ -35,7 +39,8 @@ export const ValueDisplay = forwardRef<HTMLSpanElement, Props>(
           data-[theme=minus]:text-num-minus
           data-[theme=plus]:text-num-plus
           data-[theme=plus]:before:content-['+']
-        `}
+        `
+          )}
           data-theme={theme}
           data-variant={variant}
           data-vold={vold}
