@@ -4,7 +4,6 @@ import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 import { ValueDisplay } from "../../atoms/ValueDisplay";
-
 type Props = {
   status: "評価額" | "配当額" | "景気敏感割合";
   currency: "yen" | "dollar" | "yenAndDollar";
