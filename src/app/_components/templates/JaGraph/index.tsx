@@ -6,6 +6,7 @@ import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
+import { DisplayDividendYield } from "../../molecules/DisplayDividentYield";
 import { JaDoughnutChart } from "./JaDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -21,6 +22,7 @@ export const JaGraph: FC<Props> = async ({ status }) => {
       <Suspense fallback={<Spinner />}>
         <Tabs options={["評価額", "配当額", "景気敏感割合"]} status={status} />
         <JaDoughnutChart status={status} />
+        <DisplayDividendYield status={status} currency="yen" />
       </Suspense>
       <Suspense fallback={<Spinner />}>
         <ListWrapper
