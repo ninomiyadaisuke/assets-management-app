@@ -6,7 +6,7 @@ import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
-import { DisplayDividendYield } from "../../molecules/DisplayDividentYield";
+import { DisplayDividendYield } from "../../molecules/DisplayDividendYield";
 import { FgnDoughnutChart } from "./FgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
