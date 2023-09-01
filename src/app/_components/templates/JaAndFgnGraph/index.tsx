@@ -6,6 +6,7 @@ import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
+import { DisplayDividendYield } from "../../molecules/DisplayDividentYield";
 import { JaAndFgnDoughnutChart } from "./JaAndFgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -14,13 +15,12 @@ type Props = {
 };
 
 export const JaAndFgnGraph: FC<Props> = async ({ status }) => {
-  const uid = await serverComponentAuthValidateAndReturnUid();
-  const data = await fetchDividendYieldClient(uid, status, "yenAndDollar");
   return (
     <>
       <Suspense fallback={<Spinner />}>
         <Tabs options={["評価額", "配当額"]} status={status} />
         <JaAndFgnDoughnutChart status={status} />
+        <DisplayDividendYield status={status} currency="yenAndDollar" />
       </Suspense>
       <Suspense fallback={<Spinner />}>
         <ListWrapper

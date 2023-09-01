@@ -36,7 +36,8 @@ export const fetchYenDividendYieldServer = async (userId: string) => {
     );
 
     const totalCurrentStockPrice = holdings.reduce(
-      (sum, holding) => sum + holding.stock.currentStockPrice,
+      (sum, holding) =>
+        sum + holding.stock.currentStockPrice * holding.numberOfSharesHeld,
       0
     );
 
@@ -53,7 +54,9 @@ export const fetchYenDividendYieldServer = async (userId: string) => {
   }
 };
 
-export type DividendYieldReturn = Awaited<typeof fetchYenDividendYieldServer>;
+export type DividendYieldReturn = Awaited<
+  ReturnType<typeof fetchYenDividendYieldServer>
+>;
 
 export const fetchDollarDividendYieldServer = async (userId: string) => {
   try {
