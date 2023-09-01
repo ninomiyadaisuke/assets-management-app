@@ -1,12 +1,12 @@
 import { FC, Suspense } from "react";
 
 import { Spinner } from "@/app/_components/atoms/Spinner";
+import { DisplayDividendYield } from "@/app/_components/molecules/DisplayDividendYield";
 import { Tabs } from "@/app/_components/molecules/Tabs";
 import { TotalPriceByType } from "@/app/_components/molecules/TotalPriceByType";
 import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
-import { DisplayDividendYield } from "../../molecules/DisplayDividendYield";
 import { JaAndFgnDoughnutChart } from "./JaAndFgnDoughnutChart";
 import { ListWrapper } from "./ListWrapper";
 
@@ -15,12 +15,14 @@ type Props = {
 };
 
 export const JaAndFgnGraph: FC<Props> = async ({ status }) => {
+  const uid = await serverComponentAuthValidateAndReturnUid();
+  const data = await fetchDividendYieldClient(uid, status, "dollar");
   return (
     <>
       <Suspense fallback={<Spinner />}>
         <Tabs options={["評価額", "配当額"]} status={status} />
         <JaAndFgnDoughnutChart status={status} />
-        <DisplayDividendYield status={status} currency="yenAndDollar" />
+        {data && <DisplayDividendYield dividendData={data} />}
       </Suspense>
       <Suspense fallback={<Spinner />}>
         <ListWrapper

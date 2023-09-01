@@ -1,49 +1,36 @@
-import { FC } from "react";
+"use client";
 
-import { fetchDividendYieldClient } from "@/services/client/dividendYieldFetch";
-import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
+import { FC, useState } from "react";
 
-import { ValueDisplay } from "../../atoms/ValueDisplay";
+import { ToggleButton } from "@/app/_components/atoms/ToggleButton";
+import { ValueDisplay } from "@/app/_components/atoms/ValueDisplay";
+
 type Props = {
-  status: "評価額" | "配当額" | "景気敏感割合";
-  currency: "yen" | "dollar" | "yenAndDollar";
+  dividendData: {
+    marketYield: number;
+    acquisitionPriceYield: number;
+  };
 };
 
-export const DisplayDividendYield: FC<Props> = async ({ status, currency }) => {
-  const uid = await serverComponentAuthValidateAndReturnUid();
-  const data = await fetchDividendYieldClient(uid, status, currency);
-  if (!data) return;
+export const DisplayDividendYield: FC<Props> = ({
+  dividendData: { marketYield, acquisitionPriceYield },
+}) => {
+  const [checked, setChecked] = useState(false);
   return (
     <div className="m-auto flex w-5/6 justify-between">
-      <h3 className="font-semibold text-gray-600">配当利回り</h3>
-      <div>
-        <div className="flex gap-2">
-          <span className="flex items-center text-xs text-gray-600">
-            評価額
-          </span>
-          <ValueDisplay
-            theme="default"
-            variant="medium"
-            vold="medium"
-            unit={"%"}
-          >
-            {data.marketYield}
-          </ValueDisplay>
-        </div>
-        <div className="flex gap-2">
-          <span className="flex items-center text-xs text-gray-600">
-            取得額
-          </span>
-          <ValueDisplay
-            theme="default"
-            variant="medium"
-            vold="medium"
-            unit={"%"}
-          >
-            {data.acquisitionPriceYield}
-          </ValueDisplay>
-        </div>
+      <div className="flex flex-col gap-2">
+        <h3 className="font-semibold text-gray-600">配当利回り</h3>
+        <ToggleButton onChange={() => setChecked((prev) => !prev)} />
       </div>
+      <ValueDisplay
+        className="block self-end"
+        theme="default"
+        variant="medium"
+        vold="medium"
+        unit={"%"}
+      >
+        {`年利 ${checked ? acquisitionPriceYield : marketYield}`}
+      </ValueDisplay>
     </div>
   );
 };
