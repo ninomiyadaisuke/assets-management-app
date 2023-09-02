@@ -47,7 +47,7 @@ export const fetchYenFgnStocksTotalServer = async (userId: string | null) => {
     const profitLossAmount = currentStockPriceSum - acquisitionPriceSumJPY;
 
     const evaluationProfitLossRate =
-      (profitLossAmount / currentStockPriceSum) * 100;
+      (profitLossAmount / acquisitionPriceSumJPY) * 100;
     return {
       currentStockPriceSum,
       profitLossAmount,
