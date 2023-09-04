@@ -9,5 +9,7 @@ export const fetchJaGraphClient = async (
   const params = { q: uid, status };
   const query = new URLSearchParams(params);
 
-  return typedFetch<JaGraphTotalReturn>(`${url}/api/graph/ja?${query}`, {});
+  return typedFetch<JaGraphTotalReturn>(`${url}/api/graph/ja?${query}`, {
+    cache: "force-cache",
+  });
 };

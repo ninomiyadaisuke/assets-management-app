@@ -12,6 +12,6 @@ export const fetchJaAndFgnGraphClient = async (
 
   return typedFetch<JaAndFgbGraphTotalReturn>(
     `${url}/api/graph/ja-fgn?${query}`,
-    {}
+    { cache: "force-cache" }
   );
 };
