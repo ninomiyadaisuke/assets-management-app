@@ -16,4 +16,7 @@ export const sensitiveStocks = [
   "その他金融業",
   "金融・公共事業・不動産",
   "金融",
+  "SPYD",
+  "HYBOND",
+  "BDC",
 ];
