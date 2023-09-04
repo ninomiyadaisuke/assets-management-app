@@ -52,8 +52,8 @@ export const JaStockCreate: FC = () => {
 
               try {
                 await createStockData(data);
-                router.back();
                 router.refresh();
+                router.back();
                 resetStockStatus();
               } catch (error) {}
             }}

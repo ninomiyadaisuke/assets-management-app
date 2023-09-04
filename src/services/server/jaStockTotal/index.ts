@@ -2,8 +2,9 @@ import { NotFoundError } from "@/libs/error";
 
 import { handlePrismaError, prisma } from "../index";
 
-export const jaStockTotal = async (userId: string) => {
+export const jaStockTotal = async (userId: string | null) => {
   try {
+    if (!userId) throw new NotFoundError();
     const holdings = await prisma.holding.findMany({
       select: {
         stockId: true,

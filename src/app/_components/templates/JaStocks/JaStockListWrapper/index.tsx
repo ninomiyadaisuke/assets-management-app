@@ -2,6 +2,7 @@ import { FC, ReactElement } from "react";
 
 import { NotItems } from "@/app/_components/atoms/NotItems";
 import { fetchStockList } from "@/services/client/jaStockList";
+import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 import { BasicInfo } from "@/services/server/jaStockList";
 
 type Props = {
@@ -9,7 +10,8 @@ type Props = {
 };
 
 export const JaStockListWrapper: FC<Props> = async ({ children }) => {
-  const japaneseStocks = await fetchStockList();
+  const uid = await serverComponentAuthValidateAndReturnUid();
+  const japaneseStocks = await fetchStockList(uid);
 
   return (
     <>

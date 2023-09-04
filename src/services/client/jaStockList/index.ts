@@ -1,14 +1,11 @@
-import { headers } from "next/headers";
-
 import { typedFetch } from "@/libs/fetchUtils";
 import { url } from "@/services/client/url";
 import type { JaStockListReturn } from "@/services/server/jaStockList";
 
-export const fetchStockList = async () => {
-  return typedFetch<JaStockListReturn>(`${url}/api/stocks/ja/list`, {
-    headers: {
-      cookie: headers().get("cookie") as string,
-    },
-    cache: "no-store",
+export const fetchStockList = async (uid: string) => {
+  const params = { q: uid };
+  const query = new URLSearchParams(params);
+  return typedFetch<JaStockListReturn>(`${url}/api/stocks/ja/list?${query}`, {
+    cache: "force-cache",
   });
 };
