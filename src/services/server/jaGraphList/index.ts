@@ -38,7 +38,7 @@ export const fetchJaGraphListServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, price]) => {
       return {
         title: industry,
-        price,
+        price: Number(price.toFixed(0)),
       };
     });
     const sortResult = result.sort((a, b) => b.price - a.price);
@@ -88,7 +88,7 @@ export const fetchJaGraphListDividentServer = async (userId: string) => {
     const result = Object.entries(industryTotals).map(([industry, price]) => {
       return {
         title: industry,
-        price,
+        price: Number(price.toFixed(0)),
       };
     });
     const sortResult = result.sort((a, b) => b.price - a.price);
@@ -135,7 +135,7 @@ export const fetchJaGraphListCalculateIndustryRatiosServer = async (
     const result = Object.entries(industryTotals).map(([industry, price]) => {
       return {
         title: industry,
-        price,
+        price: Number(price.toFixed(0)),
       };
     });
     const sortResult = result.sort((a, b) => b.price - a.price);
