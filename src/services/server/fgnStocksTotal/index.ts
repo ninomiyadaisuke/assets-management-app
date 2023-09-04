@@ -49,9 +49,9 @@ export const fetchYenFgnStocksTotalServer = async (userId: string | null) => {
     const evaluationProfitLossRate =
       (profitLossAmount / acquisitionPriceSumJPY) * 100;
     return {
-      currentStockPriceSum,
-      profitLossAmount,
-      evaluationProfitLossRate,
+      currentStockPriceSum: Number(currentStockPriceSum.toFixed(0)),
+      profitLossAmount: Number(profitLossAmount.toFixed(0)),
+      evaluationProfitLossRate: Number(evaluationProfitLossRate.toFixed(2)),
     };
   } catch (error) {
     return handlePrismaError(error);
@@ -105,9 +105,9 @@ export const fetchDollarFgnStocksTotalServer = async (
     const evaluationProfitLossRate =
       (profitLossAmount / currentStockPriceSum) * 100;
     return {
-      currentStockPriceSum,
-      profitLossAmount,
-      evaluationProfitLossRate,
+      currentStockPriceSum: Number(currentStockPriceSum.toFixed(0)),
+      profitLossAmountprofitLossAmount: Number(profitLossAmount.toFixed(0)),
+      evaluationProfitLossRate: Number(evaluationProfitLossRate.toFixed(2)),
     };
   } catch (error) {
     return handlePrismaError(error);
