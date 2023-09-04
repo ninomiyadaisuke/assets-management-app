@@ -105,9 +105,9 @@ export const fetchDollarFgnStocksTotalServer = async (
     const evaluationProfitLossRate =
       (profitLossAmount / currentStockPriceSum) * 100;
     return {
-      currentStockPriceSum: Number(currentStockPriceSum.toFixed(0)),
-      profitLossAmountprofitLossAmount: Number(profitLossAmount.toFixed(0)),
-      evaluationProfitLossRate: Number(evaluationProfitLossRate.toFixed(2)),
+      currentStockPriceSum,
+      profitLossAmount,
+      evaluationProfitLossRate,
     };
   } catch (error) {
     return handlePrismaError(error);
