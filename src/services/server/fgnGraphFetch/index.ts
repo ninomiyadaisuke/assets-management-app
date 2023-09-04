@@ -63,7 +63,7 @@ export const fetchFgnGraphTotalServer = async (userId: string) => {
       };
     });
     const sortResult = result.sort((a, b) => b.value - a.value);
-    return { result: sortResult, total: Number(totalPrice.toFixed(1)) };
+    return { result: sortResult, total: Number(totalPrice.toFixed(0)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -130,7 +130,7 @@ export const fetchFgnGraphDividendServer = async (userId: string) => {
     });
     const sortResult = result.sort((a, b) => b.value - a.value);
 
-    return { result: sortResult, total: Number(totalDividend.toFixed(1)) };
+    return { result: sortResult, total: Number(totalDividend.toFixed(0)) };
   } catch (error) {
     return handlePrismaError(error);
   }

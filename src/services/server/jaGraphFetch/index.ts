@@ -58,7 +58,7 @@ export const fetchJaGraphTotalServer = async (userId: string) => {
       };
     });
     const sortResult = result.sort((a, b) => b.value - a.value);
-    return { result: sortResult, total: totalPrice };
+    return { result: sortResult, total: Number(totalPrice.toFixed(0)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -121,7 +121,7 @@ export const fetchJaGraphDividendServer = async (userId: string) => {
       };
     });
     const sortResult = result.sort((a, b) => b.value - a.value);
-    return { result: sortResult, total: totalDividend };
+    return { result: sortResult, total: Number(totalDividend.toFixed(0)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -174,5 +174,5 @@ export const fetchJaGraphCalculateIndustryRatiosServer = async (
     };
   });
   const sortResult = result.sort((a, b) => b.value - a.value);
-  return { result: sortResult, total: totalDividend };
+  return { result: sortResult, total: Number(totalDividend.toFixed(0)) };
 };
