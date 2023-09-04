@@ -90,7 +90,7 @@ export const fetchJaAndFgnGraphTotalServer = async (userId: string) => {
       },
     ];
 
-    return { result, total: Number(totalPrice.toFixed(1)) };
+    return { result, total: Number(totalPrice.toFixed(0)) };
   } catch (error) {
     return handlePrismaError(error);
   }
@@ -149,7 +149,7 @@ export const fetchJaAndFgnGraphDividendServer = async (userId: string) => {
       },
     ];
 
-    return { result, total: totalDividend };
+    return { result, total: Number(totalDividend.toFixed(0)) };
   } catch (error) {
     return handlePrismaError(error);
   }
