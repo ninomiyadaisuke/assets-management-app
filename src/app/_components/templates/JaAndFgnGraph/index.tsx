@@ -16,7 +16,7 @@ type Props = {
 
 export const JaAndFgnGraph: FC<Props> = async ({ status }) => {
   const uid = await serverComponentAuthValidateAndReturnUid();
-  const data = await fetchDividendYieldClient(uid, status, "dollar");
+  const data = await fetchDividendYieldClient(uid, status, "yenAndDollar");
   return (
     <>
       <Suspense fallback={<Spinner />}>
