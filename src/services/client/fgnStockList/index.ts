@@ -10,6 +10,6 @@ export const fetchFgnStockListClient = async (
   const query = new URLSearchParams(params);
   return typedFetch<FgnStockListReturn>(
     `${url}/api/stocks/fgn/list/${status}?${query}`,
-    {}
+    { cache: "force-cache" }
   );
 };
