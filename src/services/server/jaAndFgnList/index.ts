@@ -77,7 +77,7 @@ export const fetchJaAndFgnGraphListServer = async (userId: string) => {
       },
       {
         title: "外国株",
-        price: Number(fgnTotalPrice.toFixed(1)),
+        price: Number(fgnTotalPrice.toFixed(0)),
       },
     ];
 
@@ -121,11 +121,11 @@ export const fetchJaFgnGraphListDividentServer = async (userId: string) => {
     const result = [
       {
         title: "日本株",
-        price: jaTotalDividend,
+        price: Number(jaTotalDividend.toFixed(0)),
       },
       {
         title: "外国株",
-        price: Number(fgnTotalDividend.toFixed(1)),
+        price: Number(fgnTotalDividend.toFixed(0)),
       },
     ];
 
