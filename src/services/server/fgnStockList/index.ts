@@ -65,7 +65,7 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
         return {
           stockId: holdings[0].stockId,
           holdingId: holdingIds, //id
-          dividend: Number(holdings[0].stock.dividend * JPY).toFixed(0), //配当金
+          dividend: Number((holdings[0].stock.dividend * JPY).toFixed(0)), //配当金
           evaluationAmount: Number(totalEvaluationAmount.toFixed(0)), // 評価額
           profitLossAmount: Number(totalProfitLossAmount.toFixed(0)), // 損益額
           numberOfSharesHeld: totalShares, // 保有株数
