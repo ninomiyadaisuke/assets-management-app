@@ -65,12 +65,12 @@ export const fetchYenFgnListServer = async (userId: string | null) => {
         return {
           stockId: holdings[0].stockId,
           holdingId: holdingIds, //id
-          dividend: holdings[0].stock.dividend * JPY, //配当金
-          evaluationAmount: totalEvaluationAmount, // 評価額
-          profitLossAmount: totalProfitLossAmount, // 損益額
+          dividend: Number(holdings[0].stock.dividend * JPY).toFixed(0), //配当金
+          evaluationAmount: Number(totalEvaluationAmount.toFixed(0)), // 評価額
+          profitLossAmount: Number(totalProfitLossAmount.toFixed(0)), // 損益額
           numberOfSharesHeld: totalShares, // 保有株数
-          evaluationProfitLossRate: evaluationProfitLossRate, // 評価損益率
-          acquisitionPrice: averageAcquisitionPrice, // 取得価格
+          evaluationProfitLossRate: Number(evaluationProfitLossRate.toFixed(2)), // 評価損益率
+          acquisitionPrice: Number(averageAcquisitionPrice.toFixed(0)), // 取得価格
           stockCode: holdings[0].stock.stockCode, // 株式コード
           stockName: holdings[0].stock.stockName, // 会社名
         };
