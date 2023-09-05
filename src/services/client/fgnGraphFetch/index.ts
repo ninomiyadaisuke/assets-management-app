@@ -9,7 +9,5 @@ export const fetchFgnGraphClient = async (
   const params = { q: uid, status };
   const query = new URLSearchParams(params);
 
-  return typedFetch<JaGraphTotalReturn>(`${url}/api/graph/fgn?${query}`, {
-    cache: "force-cache",
-  });
+  return typedFetch<JaGraphTotalReturn>(`${url}/api/graph/fgn?${query}`, {});
 };

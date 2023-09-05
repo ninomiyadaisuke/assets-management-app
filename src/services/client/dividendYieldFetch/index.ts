@@ -10,7 +10,8 @@ export const fetchDividendYieldClient = async (
   const params = { q: uid, currency };
   const query = new URLSearchParams(params);
 
-  return typedFetch<DividendYieldReturn>(`${url}/api/dividend-yield?${query}`, {
-    cache: "force-cache",
-  });
+  return typedFetch<DividendYieldReturn>(
+    `${url}/api/dividend-yield?${query}`,
+    {}
+  );
 };

@@ -9,7 +9,8 @@ export const fetchFgnGraphListClient = async (
   const params = { q: uid, status };
   const query = new URLSearchParams(params);
 
-  return typedFetch<FgnGraphListReturn>(`${url}/api/graph/fgn/list?${query}`, {
-    cache: "force-cache",
-  });
+  return typedFetch<FgnGraphListReturn>(
+    `${url}/api/graph/fgn/list?${query}`,
+    {}
+  );
 };

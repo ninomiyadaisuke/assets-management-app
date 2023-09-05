@@ -10,6 +10,6 @@ export const fetchFgnStocksTotalClient = async (
   const query = new URLSearchParams(params);
   return typedFetch<FgnStockTotalReturn>(
     `${url}/api/stocks/fgn/total/${status}?${query}`,
-    { cache: "force-cache" }
+    {}
   );
 };
