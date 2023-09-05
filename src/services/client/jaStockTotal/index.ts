@@ -5,7 +5,8 @@ import type { JaStockTotalReturn } from "@/services/server/jaStockTotal";
 export const fetchJaStocksTotal = async (uid: string) => {
   const params = { q: uid };
   const query = new URLSearchParams(params);
-  return typedFetch<JaStockTotalReturn>(`${url}/api/stocks/ja/total?${query}`, {
-    cache: "force-cache",
-  });
+  return typedFetch<JaStockTotalReturn>(
+    `${url}/api/stocks/ja/total?${query}`,
+    {}
+  );
 };
