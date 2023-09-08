@@ -1,0 +1,34 @@
+{
+  "name": "typescript-function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "run-p start:*",
+    "start:ja": "functions-framework --target=JaStocksFunction --port=8080",
+    "start:fgn": "functions-framework --target=FgnStocksFunction --port=8081",
+    "prestart": "npm run build",
+    "gcp-build": "npm run build",
+    "deploy": "run-p deploy:*",
+    "deploy:ja": "dotenv -- bash -c '$JASTOCK_DEPLOY'",
+    "deploy:fgn": "dotenv -- bash -c '$FGNSTOCK_DEPLOY'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.3.0",
+    "@prisma/client": "^5.2.0",
+    "dotenv": "^16.3.1",
+    "googleapis": "^126.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.9",
+    "dotenv-cli": "^7.3.0",
+    "npm-run-all": "^4.1.5",
+    "prisma": "^5.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
