@@ -13,7 +13,8 @@
     "gcp-build": "npm run build",
     "deploy": "run-p deploy:*",
     "deploy:ja": "dotenv -- bash -c '$JASTOCK_DEPLOY'",
-    "deploy:fgn": "dotenv -- bash -c '$FGNSTOCK_DEPLOY'"
+    "deploy:fgn": "dotenv -- bash -c '$FGNSTOCK_DEPLOY'",
+    "deploy:dividend": "dotenv -- bash -c '$DIVIDEND_DEPLOY'"
   },
   "keywords": [],
   "author": "",
