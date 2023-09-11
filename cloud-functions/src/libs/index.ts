@@ -20,6 +20,20 @@ export const getSheetValues = async (sheetName: string) => {
   return res.data.values;
 };
 
+export const getDividends = async (marketType: "日本株" | "外国株") => {
+  const stocks = await prisma.stock.findMany({
+    where: {
+      marketType,
+    },
+    select: {
+      stockId: true,
+      stockName: true,
+      dividend: true,
+    },
+  });
+  return stocks;
+};
+
 export const getStocks = async (marketType: "日本株" | "外国株") => {
   const stocks = await prisma.stock.findMany({
     where: {
@@ -34,7 +48,7 @@ export const getStocks = async (marketType: "日本株" | "外国株") => {
   return stocks;
 };
 
-export const updateStockPrices = (results: Result[] = []) => {
+export const updateStockPrices = (results: Omit<Result, "dividend">[] = []) => {
   return results.map((result) =>
     prisma.stock.update({
       where: {
@@ -47,9 +61,24 @@ export const updateStockPrices = (results: Result[] = []) => {
   );
 };
 
+export const updateDividendPrices = (
+  results: Omit<Result, "currentStockPrice">[] = []
+) => {
+  return results.map((result) =>
+    prisma.stock.update({
+      where: {
+        stockId: result.stockId,
+      },
+      data: {
+        dividend: result.dividend,
+      },
+    })
+  );
+};
+
 export const addStockDataToResults = (
-  stock: Stock,
-  results: Result[] = [],
+  stock: Omit<Stock, "dividend">,
+  results: Omit<Result, "dividend">[] = [],
   targetRow: any[] | undefined
 ) => {
   if (targetRow) {
@@ -58,6 +87,22 @@ export const addStockDataToResults = (
     const data = {
       stockId: stock.stockId,
       currentStockPrice: convertToNumber(currentStockPrice),
+    };
+    results.push(data);
+  }
+  return;
+};
+
+export const addDividendDataToResult = (
+  stock: Omit<Stock, "currentStockPrice">,
+  results: Omit<Result, "currentStockPrice">[] = [],
+  targetRow: any[] | undefined
+) => {
+  if (targetRow) {
+    const [_, __, ___, dividend] = targetRow;
+    const data = {
+      stockId: stock.stockId,
+      dividend: convertToNumber(dividend),
     };
     results.push(data);
   }

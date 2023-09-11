@@ -8,6 +8,7 @@
     "start": "run-p start:*",
     "start:ja": "functions-framework --target=JaStocksFunction --port=8080",
     "start:fgn": "functions-framework --target=FgnStocksFunction --port=8081",
+    "start:dividend": "functions-framework --target=DividendFunction --port=8082",
     "prestart": "npm run build",
     "gcp-build": "npm run build",
     "deploy": "run-p deploy:*",
