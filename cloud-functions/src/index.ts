@@ -1,4 +1,5 @@
 import * as ff from "@google-cloud/functions-framework";
+import { PubSub } from "@google-cloud/pubsub";
 
 import {
   addDividendDataToResult,
@@ -11,6 +12,10 @@ import {
   updateStockPrices,
 } from "./libs";
 import { Result } from "./libs/types";
+
+const pubSubClient = new PubSub();
+const topicName = "updated-jastocks";
+const message = "日本株を更新したよ";
 
 ff.http("JaStocksFunction", async (req: ff.Request, res: ff.Response) => {
   try {
@@ -25,6 +30,11 @@ ff.http("JaStocksFunction", async (req: ff.Request, res: ff.Response) => {
     }
     const query = updateStockPrices(results);
     const result = await prisma.$transaction([...query]);
+    const dataBuffer = Buffer.from(message);
+    try {
+      await pubSubClient.topic(topicName).publishMessage({ data: dataBuffer });
+    } catch (error) {}
+
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);

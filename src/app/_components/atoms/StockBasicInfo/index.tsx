@@ -28,7 +28,7 @@ export const StockBasicInfo = forwardRef<HTMLDivElement, Props>(
     },
     ref
   ) {
-    const param = usePathname();
+    const param = usePathname()!;
     const path = param.includes("foreign-stocks") ? "fgn" : "ja";
 
     return (
