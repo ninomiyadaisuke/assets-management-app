@@ -108,3 +108,35 @@ export const addDividendDataToResult = (
   }
   return;
 };
+
+export const createNewMessageQueries = async (content: string) => {
+  // 新しいメッセージのデータ
+  const newMessageData = {
+    content: content,
+  };
+
+  // すべてのユーザーのIDを取得
+  const userIds = await prisma.user.findMany({
+    select: {
+      userId: true,
+    },
+  });
+
+  // 新しいメッセージを作成するクエリを定義
+  const newMessage = await prisma.message.create({
+    data: newMessageData,
+  });
+
+  // 各ユーザーに対してメッセージを関連付けるデータを作成
+  const userMessageQueries = userIds.map((user) =>
+    prisma.userMessage.create({
+      data: {
+        userId: user.userId,
+        messageId: newMessage.messageId, // ここを修正
+        isRead: false,
+      },
+    })
+  );
+
+  return [...userMessageQueries];
+};
