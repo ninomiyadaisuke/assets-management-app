@@ -12,12 +12,13 @@ datasource db {
 }
 
 model User {
-  userId    String    @id
-  email     String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  accounts  Account[]
-  holdings  Holding[]
+  userId      String        @id
+  email       String        @unique
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  accounts    Account[]
+  holdings    Holding[]
+  UserMessage UserMessage[]
 }
 
 model Account {
@@ -58,4 +59,21 @@ model Holding {
   account             Account  @relation(fields: [accountId], references: [accountId])
   stockId             String
   stock               Stock    @relation(fields: [stockId], references: [stockId])
+}
+
+model Message {
+  messageId    String        @id @default(uuid())
+  content      String // メッセージ内容
+  createdAt    DateTime      @default(now())
+  userMessages UserMessage[]
+}
+
+model UserMessage {
+  userMessageId String    @id @default(uuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [userId])
+  messageId     String
+  message       Message   @relation(fields: [messageId], references: [messageId])
+  isRead        Boolean   @default(false)
+  readAt        DateTime? // メッセージを読んだ日時。未読の場合はnull。
 }
