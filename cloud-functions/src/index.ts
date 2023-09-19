@@ -4,6 +4,7 @@ import { PubSub } from "@google-cloud/pubsub";
 import {
   addDividendDataToResult,
   addStockDataToResults,
+  createNewMessageQueries,
   getDividends,
   getSheetValues,
   getStocks,
@@ -14,10 +15,11 @@ import {
 import { Result } from "./libs/types";
 
 const pubSubClient = new PubSub();
-const topicName = "updated-jastocks";
-const message = "日本株を更新したよ";
 
 ff.http("JaStocksFunction", async (req: ff.Request, res: ff.Response) => {
+  const topicName = "updated-jastocks";
+  const message = "日本株を更新しました";
+  const errorMessage = "日本株の更新に失敗しました。";
   try {
     const rows = await getSheetValues("閲覧専用!C:D");
     const stocks = await getStocks("日本株");
@@ -29,14 +31,16 @@ ff.http("JaStocksFunction", async (req: ff.Request, res: ff.Response) => {
       }
     }
     const query = updateStockPrices(results);
-    const result = await prisma.$transaction([...query]);
+    const messageQueries = await createNewMessageQueries(message);
+    const result = await prisma.$transaction([...query, ...messageQueries]);
     const dataBuffer = Buffer.from(message);
-    try {
-      await pubSubClient.topic(topicName).publishMessage({ data: dataBuffer });
-    } catch (error) {}
-
+    await pubSubClient.topic(topicName).publishMessage({ data: dataBuffer });
     res.status(200).send(result);
   } catch (error) {
+    const dataBuffer = Buffer.from(errorMessage);
+    await pubSubClient.topic(topicName).publishMessage({ data: dataBuffer });
+    const messageQueries = await createNewMessageQueries(errorMessage);
+    await prisma.$transaction([...messageQueries]);
     res.status(500).send(error);
   }
 });
