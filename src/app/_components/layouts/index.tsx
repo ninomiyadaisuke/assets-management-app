@@ -1,5 +1,4 @@
 "use client";
-import { Prisma } from "@prisma/client";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 

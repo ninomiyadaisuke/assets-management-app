@@ -5,6 +5,7 @@ import { FC, use } from "react";
 
 import { IconButton } from "@/app/_components/atoms/IconButton";
 import { NotificationBadge } from "@/app/_components/atoms/NotificationBadge";
+import { useSocket } from "@/hooks/useSocket";
 import type { Database } from "@/libs/database.types";
 import { NotificationPromise } from "@/services/server/notificationFetch";
 
@@ -14,10 +15,12 @@ type Props = {
 
 export const Nav: FC<Props> = ({ userMessagePromise }) => {
   const router = useRouter();
+  const { value } = useSocket();
   const userMessages = use(userMessagePromise);
+  const filterUserMessages = userMessages.filter((um) => um.isRead === false);
 
   const supabase = createClientComponentClient<Database>();
-
+  const plusOne = value ? 1 : 0;
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.refresh();
@@ -27,7 +30,7 @@ export const Nav: FC<Props> = ({ userMessagePromise }) => {
     <nav>
       <ul className="flex gap-5">
         <li className="flex">
-          <NotificationBadge count={userMessages.length} />
+          <NotificationBadge count={filterUserMessages.length + plusOne} />
         </li>
         <li className="flex">
           <IconButton onClick={handleSignOut} theme={"logout"} />
