@@ -5,23 +5,13 @@ import { FC } from "react";
 
 import { Footer } from "@/app/_components/layouts/Footer";
 import { Header } from "@/app/_components/layouts/Header";
+import { NotificationPromise } from "@/services/server/notificationFetch";
 
 import { FloatingButton } from "../atoms/FloatingButton";
 
 type Props = {
   children: React.ReactNode;
-  userMessagePromise: Prisma.PrismaPromise<
-    {
-      message: {
-        content: string;
-        messageId: string;
-      };
-      isRead: boolean;
-      readAt: Date | null;
-      messageId: string;
-      userMessageId: string;
-    }[]
-  >;
+  userMessagePromise: NotificationPromise;
 };
 
 export const Layout: FC<Props> = ({ children, userMessagePromise }) => {

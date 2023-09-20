@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 
 import { Layout } from "@/app/_components/layouts";
 import { UnauthorizedError } from "@/libs/error";
-import { prisma } from "@/services/server";
+import { fetchNotificationClient } from "@/services/client/notificationFetch";
 import { serverComponentAuthValidateAndReturnUid } from "@/services/server/auth";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,23 +25,7 @@ export default async function RootLayout({
 }) {
   const userId = await serverComponentAuthValidateAndReturnUid();
   if (!userId) throw new UnauthorizedError();
-  const userMessagePromise = prisma.userMessage.findMany({
-    where: {
-      userId,
-    },
-    select: {
-      message: {
-        select: {
-          content: true,
-          messageId: true,
-        },
-      },
-      isRead: true,
-      readAt: true,
-      messageId: true,
-      userMessageId: true,
-    },
-  });
+  const userMessagePromise = fetchNotificationClient(userId);
 
   return (
     <html lang="en">

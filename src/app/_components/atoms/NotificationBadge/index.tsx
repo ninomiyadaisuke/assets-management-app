@@ -13,7 +13,7 @@ export const NotificationBadge = forwardRef<HTMLButtonElement, Props>(
       <button className="relative" ref={ref} {...props}>
         <BellIcon className="h-7 text-white" />
         {count && (
-          <span className="absolute right-[-6px] top-[-5px] flex  items-center justify-center rounded-full bg-red-600 px-1 py-[2px] text-[10px] text-white">
+          <span className="absolute right-[-6px] top-[-5px] min-w-[20px]  items-center justify-center rounded-full bg-red-600 px-1 py-[2px] text-[10px] text-white">
             {count}
           </span>
         )}
