@@ -41,7 +41,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
     io.on("connection", (clientSocket) => {
       // console.log("A client has connected to ServerIO!");
       if (io) {
-        io.emit("update", "test");
+        io.emit("update", "");
       }
       clientSocket.on("disconnect", (reason) => {
         // console.log("A client has disconnected:", reason);
