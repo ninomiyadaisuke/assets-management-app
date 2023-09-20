@@ -1,22 +1,12 @@
-import { Prisma } from "@prisma/client";
 import { FC } from "react";
+
+import { NotificationPromise } from "@/services/server/notificationFetch";
 
 import { Heading } from "./Heading";
 import { Nav } from "./Nav";
 
 type Props = {
-  userMessagePromise: Prisma.PrismaPromise<
-    {
-      message: {
-        content: string;
-        messageId: string;
-      };
-      isRead: boolean;
-      readAt: Date | null;
-      messageId: string;
-      userMessageId: string;
-    }[]
-  >;
+  userMessagePromise: NotificationPromise;
 };
 
 export const Header: FC<Props> = ({ userMessagePromise }) => {
