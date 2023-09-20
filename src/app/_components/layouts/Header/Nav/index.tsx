@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 import { IconButton } from "@/app/_components/atoms/IconButton";
+import { NotificationBadge } from "@/app/_components/atoms/NotificationBadge";
 import type { Database } from "@/libs/database.types";
 
 type Props = {
@@ -35,7 +36,7 @@ export const Nav: FC<Props> = ({ userMessagePromise }) => {
     <nav>
       <ul className="flex gap-5">
         <li className="flex">
-          <IconButton theme={"update"} />
+          <NotificationBadge count={10} />
         </li>
         <li className="flex">
           <IconButton onClick={handleSignOut} theme={"logout"} />
