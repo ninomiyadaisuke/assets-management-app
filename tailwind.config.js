@@ -15,8 +15,8 @@ module.exports = {
     extend: {
       colors: {
         "input-error": "rgba(255,93,84,0.07)",
-        "card":'rgba(255,255,255,0.9)',
-        "card-link":"#37679c",
+        card: "rgba(255,255,255,0.9)",
+        "card-link": "#37679c",
         "num-def": "#585858",
         "num-plus": "#ff5d54",
         "num-minus": "#267dd4",
@@ -37,18 +37,41 @@ module.exports = {
         },
         slideDown: {
           from: { height: 0 },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         slideUp: {
-          from: { height: 'var(--radix-accordion-content-height)' },
+          from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
+        },
+        slideDownAndFade: {
+          from: { opacity: 0, transform: "translateY(-2px)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        },
+        slideLeftAndFade: {
+          from: { opacity: 0, transform: "translateX(2px)" },
+          to: { opacity: 1, transform: "translateX(0)" },
+        },
+        slideUpAndFade: {
+          from: { opacity: 0, transform: "translateY(2px)" },
+          to: { opacity: 1, transform: "translateY(0)" },
+        },
+        slideRightAndFade: {
+          from: { opacity: 0, transform: "translateX(-2px)" },
+          to: { opacity: 1, transform: "translateX(0)" },
         },
       },
       animation: {
         overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
-        slideDown: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)',
-        slideUp: 'slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+        slideDown: "slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        slideUp: "slideUp 300ms cubic-bezier(0.87, 0, 0.13, 1)",
+        slideDownAndFade:
+          "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideLeftAndFade:
+          "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideRightAndFade:
+          "slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       aria: {
         invalid: 'invalid="true"',

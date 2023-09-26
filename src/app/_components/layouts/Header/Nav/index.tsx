@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { FC, use } from "react";
 
 import { IconButton } from "@/app/_components/atoms/IconButton";
-import { NotificationBadge } from "@/app/_components/atoms/NotificationBadge";
+import { NotificationDropMenu } from "@/app/_components/molecules/NotificationDropMenu";
 import { useSocket } from "@/hooks/useSocket";
 import type { Database } from "@/libs/database.types";
 import { NotificationPromise } from "@/services/server/notificationFetch";
@@ -30,7 +30,10 @@ export const Nav: FC<Props> = ({ userMessagePromise }) => {
     <nav>
       <ul className="flex gap-5">
         <li className="flex">
-          <NotificationBadge count={filterUserMessages.length + plusOne} />
+          <NotificationDropMenu
+            count={filterUserMessages.length + plusOne}
+            messages={userMessages}
+          />
         </li>
         <li className="flex">
           <IconButton onClick={handleSignOut} theme={"logout"} />
