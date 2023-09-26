@@ -1,8 +1,9 @@
 "use client";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { forwardRef } from "react";
+import { forwardRef, Fragment } from "react";
 
 import { NotificationBadge } from "@/app/_components/atoms/NotificationBadge";
+import { formatDate } from "@/libs/utils";
 import { NotificationReturn } from "@/services/server/notificationFetch";
 
 type Props = React.ComponentPropsWithRef<"button"> & {
@@ -19,15 +20,30 @@ export const NotificationDropMenu = forwardRef<HTMLButtonElement, Props>(
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Portal>
-          <DropdownMenu.Content
-            className="z-[100] min-w-[320px] rounded-md bg-white p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade"
-            sideOffset={5}
-          >
-            {messages.map(({ message, messageId }) => (
-              <DropdownMenu.Item key={messageId}>
-                {message.content}
-              </DropdownMenu.Item>
-            ))}
+          <DropdownMenu.Content className="z-[100] flex min-w-[280px] flex-col gap-2 rounded-md bg-white p-2 shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade">
+            {messages.length !== 0 ? (
+              messages.map(({ message: { content, createdAt }, messageId }) => {
+                return (
+                  <ul key={messageId}>
+                    <li>
+                      <DropdownMenu.Item className="flex flex-col gap-1">
+                        <p className="text-sm font-semibold text-gray-700">
+                          {content}
+                        </p>
+                        <p className="self-end text-xs text-gray-500">
+                          {formatDate(createdAt)}
+                        </p>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Separator className="mt-1 h-[1px] bg-gray-400" />
+                    </li>
+                  </ul>
+                );
+              })
+            ) : (
+              <p className="text-center text-sm font-semibold text-gray-700">
+                通知情報はありません
+              </p>
+            )}
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
