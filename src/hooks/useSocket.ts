@@ -5,7 +5,6 @@ import { url } from "@/services/client/url";
 export const useSocket = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [value, setValue] = useState("");
-  const [test, setTest] = useState("");
 
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(`${url}`, {
@@ -14,7 +13,6 @@ export const useSocket = () => {
     });
 
     socketInstance.on("connect", () => {
-      setTest("test");
       setIsConnected(true);
     });
 
@@ -37,7 +35,6 @@ export const useSocket = () => {
 
   return {
     value,
-    test,
     isConnected,
   };
 };

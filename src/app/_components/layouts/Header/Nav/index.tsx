@@ -15,7 +15,7 @@ type Props = {
 
 export const Nav: FC<Props> = ({ userMessagePromise }) => {
   const router = useRouter();
-  const { value, test } = useSocket();
+  const { value, isConnected } = useSocket();
   const userMessages = use(userMessagePromise);
   const filterUserMessages = userMessages.filter((um) => um.isRead === false);
 
@@ -35,7 +35,7 @@ export const Nav: FC<Props> = ({ userMessagePromise }) => {
             messages={userMessages}
           />
         </li>
-        <li>{test}</li>
+        {isConnected && <p>connected</p>}
         <li className="flex">
           <IconButton onClick={handleSignOut} theme={"logout"} />
         </li>
