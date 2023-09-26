@@ -27,7 +27,7 @@ export const useSocket = () => {
 
     socketInstance.on("update", (msg: any) => {
       // eslint-disable-next-line no-console
-      console.log(msg);
+      console.log("message====>>>>", msg);
       setValue(msg);
     });
 
