@@ -5,7 +5,8 @@ import { url } from "@/services/client/url";
 export const useSocket = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [value, setValue] = useState("");
-
+  // eslint-disable-next-line no-console
+  console.log("test");
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(`${url}`, {
       path: "/api/io",
@@ -25,6 +26,8 @@ export const useSocket = () => {
     });
 
     socketInstance.on("update", (msg: any) => {
+      // eslint-disable-next-line no-console
+      console.log(msg);
       setValue(msg);
     });
 

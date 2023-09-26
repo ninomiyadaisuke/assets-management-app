@@ -24,7 +24,8 @@ let io: ServerIO | null = null;
 
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (!io) {
-    // console.log("Initializing ServerIO...");
+    // eslint-disable-next-line no-console
+    console.log("Initializing ServerIO...");
 
     const httpServer: HttpServer = res.socket.server as any;
     io = new ServerIO(httpServer, {
@@ -36,27 +37,33 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       },
     });
     res.socket.server.io = io;
-    // console.log("ServerIO initialized!");
+    // eslint-disable-next-line no-console
+    console.log("ServerIO initialized!");
 
     io.on("connection", (clientSocket) => {
-      // console.log("A client has connected to ServerIO!");
+      // eslint-disable-next-line no-console
+      console.log("A client has connected to ServerIO!");
       if (io) {
         io.emit("update", "");
       }
       clientSocket.on("disconnect", (reason) => {
-        // console.log("A client has disconnected:", reason);
+        // eslint-disable-next-line no-console
+        console.log("A client has disconnected:", reason);
       });
     });
     io.on("error", (error) => {
-      // console.error("Socket.IO error:", error);
+      // eslint-disable-next-line no-console
+      console.error("Socket.IO error:", error);
     });
   }
   io.on("error", (error) => {
-    // console.error("Socket.IO error:", error);
+    // eslint-disable-next-line no-console
+    console.error("Socket.IO error:", error);
   });
   const messageHandler = (message: any) => {
-    const messageData = `Data: ${message.data.toString()}`;
-    // console.log("Emitting update event with message:", messageData);
+    const messageData = `${message.data.toString()}`;
+    // eslint-disable-next-line no-console
+    console.log("Emitting update event with message:", messageData);
     if (io) {
       io.emit("update", messageData);
     }
