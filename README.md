@@ -30,6 +30,17 @@
 | Message（メッセージ）  | messageId, content                                       |
 | UserMessage（ユーザーメッセージ）| userMessageId, userId, messageId, isRead        |
 
+### データベースのリレーションシップ
+
+| テーブルペア                                       | リレーションシップ          |
+|--------------------------------------------------|---------------------------|
+| UserテーブルとAccountテーブル                      | One-to-Many関係           |
+| UserテーブルとHoldingテーブル                      | One-to-Many関係           |
+| AccountテーブルとHoldingテーブル                   | One-to-Many関係           |
+| StockテーブルとHoldingテーブル                     | One-to-Many関係           |
+| MessageテーブルとUserMessageテーブル               | One-to-Many関係           |
+| UserテーブルとUserMessageテーブル                  | One-to-Many関係           |
+
 
 ## その他の情報
 - 最新の株価、株式コード、配当金などの情報はGoogleスプレッドシートに保存され、Next.jsのAPIルートを通じて取得されます。
