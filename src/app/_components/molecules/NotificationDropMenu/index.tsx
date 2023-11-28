@@ -1,9 +1,10 @@
 "use client";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { forwardRef, Fragment } from "react";
+import { forwardRef, useState } from "react";
 
 import { NotificationBadge } from "@/app/_components/atoms/NotificationBadge";
 import { formatDate } from "@/libs/utils";
+import { readMessagesClient } from "@/services/client/readMessages";
 import { NotificationReturn } from "@/services/server/notificationFetch";
 
 type Props = React.ComponentPropsWithRef<"button"> & {
@@ -11,12 +12,32 @@ type Props = React.ComponentPropsWithRef<"button"> & {
   messages: NotificationReturn;
 };
 
+export type MessageReadStatus = {
+  userMessageId: string;
+  readAt: Date | null;
+};
+
 export const NotificationDropMenu = forwardRef<HTMLButtonElement, Props>(
   function NotificationDropMenuBase({ count, messages, ...props }, ref) {
+    const [isRead, setIsRead] = useState(false);
+
+    const unreadMessagesInfo = messages.map(({ userMessageId, readAt }) => ({
+      userMessageId,
+      readAt,
+    }));
+
+    const setMessagesToRead = async () => {
+      await readMessagesClient(unreadMessagesInfo);
+    };
     return (
-      <DropdownMenu.Root>
+      <DropdownMenu.Root
+        onOpenChange={async () => {
+          setIsRead(true);
+          await setMessagesToRead();
+        }}
+      >
         <DropdownMenu.Trigger asChild>
-          <NotificationBadge ref={ref} count={count} {...props} />
+          <NotificationBadge ref={ref} count={isRead ? 0 : count} {...props} />
         </DropdownMenu.Trigger>
 
         <DropdownMenu.Portal>
