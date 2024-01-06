@@ -13,7 +13,17 @@ import type { SearchInputSchema } from "@/libs/schema/searchStock";
 import { searchInputSchema } from "@/libs/schema/searchStock";
 import { searchFgnStockClient } from "@/services/client/serchStock";
 
-const options = ["VIG", "VYM", "HDV", "SPYD", "AGG", "BND", "HYG", "ARCC"];
+const options = [
+  "VIG",
+  "VYM",
+  "HDV",
+  "SPYD",
+  "AGG",
+  "BND",
+  "LQD",
+  "HYG",
+  "ARCC",
+];
 
 type Props = {
   title: string;
